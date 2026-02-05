@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 658373688}
   - component: {fileID: 658373687}
   - component: {fileID: 658373686}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +574,8 @@ GameObject:
   - component: {fileID: 902578743}
   - component: {fileID: 902578742}
   - component: {fileID: 902578747}
-  m_Layer: 0
+  - component: {fileID: 902578748}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,6 +719,20 @@ MonoBehaviour:
   extraGroundCheckDistance: 0.1
   fallMultiplier: 2
   jumpState: 0
+--- !u!114 &902578748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902578741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9202a74b9371976b4825822c80e84dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
+  projectilePrefab: {fileID: 5774805946932156845, guid: f7c3b448562786e26bce186f0e0a2015, type: 3}
+  shootPoint: {fileID: 902578746}
 --- !u!1 &1612298235
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +745,7 @@ GameObject:
   - component: {fileID: 1612298238}
   - component: {fileID: 1612298237}
   - component: {fileID: 1612298236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +857,7 @@ GameObject:
   - component: {fileID: 1784385175}
   - component: {fileID: 1784385174}
   - component: {fileID: 1784385173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
