@@ -7,8 +7,9 @@ public class PlayerShoot : MonoBehaviour
     public Transform shootPoint;
 
     private InputAction shootAction;
+    private InputAction lookAction;
 
-    private Vector3 lastShootPosition;
+    private Vector3 lastShootPosition = new Vector3(1, 1, 0);
     private InputTracker shootInputTracker = new InputTracker();
     private RepeatingAction shootRepeatingAction = new RepeatingAction(0.5f);
 
@@ -16,16 +17,21 @@ public class PlayerShoot : MonoBehaviour
     {
         shootAction = InputSystem.actions.FindAction("Attack");
         shootAction.Enable();
+
+        lookAction = InputSystem.actions.FindAction("Look");
+        lookAction.Enable();
     }
 
     public void Update()
     {
         RequestShootIfPressed();
+        /* as fast as the computer is, get vector for shoot direction */
     }
 
     public void FixedUpdate()
     {
         MaybeShoot();
+        /* if pressing the button, shoot at given vector */
     }
 
     void OnDrawGizmos()
@@ -37,14 +43,27 @@ public class PlayerShoot : MonoBehaviour
             Gizmos.DrawSphere(mousePos, 0.5f);
             Gizmos.DrawLine(transform.position, mousePos);
         }
+        /* visual debugging to show where the player is aiming */
     }
 
     public void RequestShootIfPressed()
     {
         if (shootInputTracker.SetPressed(shootAction.IsPressed()))
         {
-            lastShootPosition = GetMouseWorldPosition(Camera.main, transform.position.y);
+            // lastShootPosition = GetMouseWorldPosition(Camera.main, transform.position.y);
+            Vector2 dummy = lookAction.ReadValue<Vector2>();
+            Vector2 test = new Vector2(0,0);
+           
+            Debug.Log(dummy);
+            Debug.Log(test);
+            
+            if (dummy != test)
+            {
+                lastShootPosition = new Vector3(dummy.x + shootPoint.position.x, shootPoint.position.y, dummy.y + shootPoint.position.z);
+                Debug.Log("bruh");
+            }
         }
+        /* get direction  */
     }
 
     public Vector3 GetMouseWorldPosition(Camera camera, float planeY)

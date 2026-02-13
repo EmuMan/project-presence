@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
         Jumping,
         Rising,
         Falling
-    }
+    } 
 
     public float speed = 5.0f;
     public float jumpStrength = 5.0f;
@@ -40,12 +40,15 @@ public class PlayerMovement : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
 
         jumpAction = InputSystem.actions.FindAction("Jump");
-        jumpBufferedAction = new BufferedAction(jumpBufferTime, 0.3f);
+        jumpBufferedAction = new BufferedAction(jumpBufferTime);
+        /* this is a custom function where you give it a buffer time of how early
+        you can press jump, and then give it a duration time for how long you can hold it */
     }
 
     void Update()
     {
         GetInput();
+        /* get the general update as fast as you */
     }
 
     // Update is called once per frame
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovementInput();
         MoveCharacter();
         JumpCharacter();
+        /* on fixed update, use the stored input and act */
     }
 
     void GetInput()
