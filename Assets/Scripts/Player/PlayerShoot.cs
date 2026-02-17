@@ -71,7 +71,7 @@ public class PlayerShoot : MonoBehaviour
 
     public void MaybeShoot()
     {
-        if (shootRepeatingAction.IsActing(shootInputTracker.GetPressed(), true, Time.fixedDeltaTime))
+        if (shootRepeatingAction.IsActing(shootInputTracker.IsPressed(), true, Time.fixedDeltaTime))
         {
             ShootAtPosition(lastShootPosition);
         }

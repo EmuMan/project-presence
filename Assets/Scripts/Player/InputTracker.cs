@@ -22,7 +22,7 @@ public class InputTracker
         return pressedState;
     }
 
-    public bool GetPressed()
+    public bool IsPressed()
     {
         valueRead = true;
         return pressedState;

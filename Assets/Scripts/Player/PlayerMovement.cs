@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
 
         jumpAction = InputSystem.actions.FindAction("Jump");
-        jumpBufferedAction = new BufferedAction(jumpBufferTime, 0.3f);
+        jumpBufferedAction = new BufferedAction(jumpBufferTime);
     }
 
     void Update()
@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             canJump = false;
         }
 
-        if (jumpBufferedAction.IsActing(jumpInputTracker.GetPressed(), canJump))
+        if (jumpBufferedAction.IsActing(jumpInputTracker.IsPressed(), canJump))
         {
             // These lines of code will run during the full time the player is jumping.
             velocity.y = jumpStrength;

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
+  m_Name: Nail Gun
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleData
+  moduleName: Nail Gun
+  moduleIcon: {fileID: 21300000, guid: c3e8767f79b5409e187fa1d76a58fe26, type: 3}
+  instancePrefab: {fileID: 3956499695581270597, guid: 1f86bea9fcf7c2996a74de4d5642c91e, type: 3}
+  isRepeating: 1
+  bufferDuration: 0.2
+  holdDuration: 0
+  cooldownDuration: 1
