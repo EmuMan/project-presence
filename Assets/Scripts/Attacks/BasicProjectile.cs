@@ -36,4 +36,13 @@ public class BasicProjectile : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // disable game object if tag is "Enemy"
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
 }
