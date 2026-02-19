@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 3179378398443607746}
   - component: {fileID: 7082882182427445531}
   - component: {fileID: 5946367356975470419}
+  - component: {fileID: 910431902890869238}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -330,6 +331,23 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+--- !u!114 &910431902890869238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031992384780835471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e2dec62bdc1bb7e9550d543304a78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  deathEffect: {fileID: 0}
 --- !u!1 &5260988284999347283
 GameObject:
   m_ObjectHideFlags: 0
