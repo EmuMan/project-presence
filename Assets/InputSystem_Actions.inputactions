@@ -511,7 +511,7 @@
                 {
                     "name": "",
                     "id": "e7b13dd6-7fd3-4e76-9762-305f1557b68b",
-                    "path": "",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -522,7 +522,7 @@
                 {
                     "name": "",
                     "id": "25c9236e-2d5e-438e-a069-0077979ad42b",
-                    "path": "",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -577,7 +577,7 @@
                 {
                     "name": "",
                     "id": "988ae656-14a2-45d0-ac7d-d7c13221a73d",
-                    "path": "",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
