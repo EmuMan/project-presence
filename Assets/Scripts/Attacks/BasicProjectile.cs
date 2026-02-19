@@ -37,18 +37,24 @@ public class BasicProjectile : MonoBehaviour
         if (_collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Debug.Log("Hit Enemy!");
-            EnemyMovement.Instance.hit();
             /* placeholder to show functionality */
+            Destroy(_collision.gameObject);
         }
-        Destroy(gameObject);
+
+        if (_collision.gameObject.layer != LayerMask.NameToLayer("PlayerAttacks") || _collision.gameObject.layer != LayerMask.NameToLayer("EnemyAttacks"))
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // disable game object if tag is "Enemy"
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            other.gameObject.SetActive(false);
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     // disable game object if tag is "Enemy"
+    //     if (other.gameObject.CompareTag("Enemy"))
+    //     {
+    //         other.gameObject.SetActive(false);
+    //     }
+    //     Destroy(gameObject);
+    // }
 }

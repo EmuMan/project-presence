@@ -14,6 +14,8 @@ public class HammerModule : Module
     public float damage = 50.0f;
     public float range = 2.0f;
 
+    private bool down = false;
+
     protected override void PerformAction(Vector3 direction)
     {
         StartCoroutine(SwingHammer(direction));
@@ -22,6 +24,7 @@ public class HammerModule : Module
     private IEnumerator SwingHammer(Vector3 direction)
     {
         // Wind up the hammer
+        down = true;
         float elapsed = 0.0f;
         while (elapsed < windUpTime)
         {
@@ -51,6 +54,19 @@ public class HammerModule : Module
             transform.localRotation = Quaternion.Euler(angle, 0, 0);
             elapsed += Time.deltaTime;
             yield return null;
+        }
+        down = false;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // disable game object if tag is "Enemy"
+        if (other.gameObject.CompareTag("Enemy") && down == true)
+        {
+            other.gameObject.SetActive(false);
+            // EnemyMovement.Instance.hit();
+            // Destroy(gameObject);
         }
     }
 }

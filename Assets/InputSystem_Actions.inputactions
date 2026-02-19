@@ -55,7 +55,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -532,6 +532,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5a6ae3ee-fe2d-4006-85cd-deb65d440013",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CoreAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5f19e20b-02cf-4d63-9b9d-e2166e5657c3",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -544,7 +555,7 @@
                 {
                     "name": "",
                     "id": "8b0a0968-7801-40fd-945b-c4d6fcecae00",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -566,7 +577,7 @@
                 {
                     "name": "",
                     "id": "1a446fea-5db3-41ca-b9bf-f9bcb4a0c835",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

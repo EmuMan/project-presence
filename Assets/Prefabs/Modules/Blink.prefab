@@ -106,3 +106,6 @@ MonoBehaviour:
   moduleData: {fileID: 11400000, guid: 21d9d8ca1244269509ecc6e3f7d74b5e, type: 2}
   playerObject: {fileID: 0}
   maxBlinkDistance: 7
+  data: {fileID: 11400000, guid: 21d9d8ca1244269509ecc6e3f7d74b5e, type: 2}
+  onColor: {fileID: 2100000, guid: be462510dc783ed3c96c5c58e75c8e54, type: 2}
+  offColor: {fileID: 2100000, guid: ce4ae3da61437b1e1a155b8ab5795950, type: 2}
