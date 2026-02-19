@@ -20,12 +20,14 @@ public class HealthBar2 : MonoBehaviour
     }
 
     public void hit(int damage)
+    // a singleton to show the damage that a player has taken
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             Time.timeScale = 0f;
         }
+        // checks the health and if it took too much damage, it stops the game
 
         SetHealth(currentHealth, maxHealth);
     }
@@ -41,21 +43,5 @@ public class HealthBar2 : MonoBehaviour
         fill.color = gradient.Evaluate(percentFilled);
     }
 
-    // IEnumerator GradualSetHealth(float toFill)
-    // {
-    //     var fromFill = fill.fillAmount;
-    //     var elapsedTime = 0f;
 
-    //     while( elapsedTime < healthBarChangeDelay )
-    //     {
-    //         var currentPercentFill = elapsedTime / healthBarChangeDelay;
-    //         var currentFill = Mathf.Lerp(fromFill, toFill, currentPercentFill);
-    //         fill.fillAmount = currentFill;
-    //         fill.color = gradient.Evaluate(currentFill);
-
-    //         elapsedTime += Time.deltaTime;
-
-    //         yield return null;
-    //     }
-    // }
 }
