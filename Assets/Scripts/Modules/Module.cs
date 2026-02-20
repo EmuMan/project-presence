@@ -13,6 +13,8 @@ public class Module : MonoBehaviour
     // This is only used with BufferedAction, as RepeatingAction manages its own cooldowns internally
     private float cooldown;
 
+    private bool wasPerformingAction;
+
     public void Initialize(GameObject playerObject)
     {
         this.playerObject = playerObject;
@@ -38,11 +40,13 @@ public class Module : MonoBehaviour
     /// cooldowns and action repeats.</param>
     public void PerformActionIfAvailable(bool input, float deltaTime, Vector3 direction)
     {
+        bool shouldPerformAction = false;
+
         if (moduleData.isRepeating)
         {
             if (repeatingAction.IsActing(input, true, deltaTime))
             {
-                PerformAction(direction);
+                shouldPerformAction = true;
             }
         }
         else
@@ -54,14 +58,33 @@ public class Module : MonoBehaviour
 
             if (bufferedAction.IsActing(input, cooldown <= 0.0f))
             {
-                PerformAction(direction);
+                shouldPerformAction = true;
                 cooldown = moduleData.cooldownDuration;
             }
         }
+
+        if (shouldPerformAction)
+        {
+            if (!wasPerformingAction)
+            {
+                StartPerformingAction(direction);
+            }
+            PerformAction(direction);
+        }
+        else
+        {
+            if (wasPerformingAction)
+            {
+                StopPerformingAction(direction);
+            }
+        }
+
+        wasPerformingAction = shouldPerformAction;
     }
 
-    protected virtual void PerformAction(Vector3 direction)
-    {
-        Debug.Log($"Performing action for module: {moduleData.moduleName}");
-    }
+    protected virtual void StartPerformingAction(Vector3 direction) { }
+
+    protected virtual void PerformAction(Vector3 direction) { }
+
+    protected virtual void StopPerformingAction(Vector3 direction) { }
 }

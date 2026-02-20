@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
-    public float speed;
+    public float speed = 20.0f;
     public float lifetime = 5.0f;
+    public float damage = 5.0f;
 
     private Rigidbody projRigidbody;
 
@@ -32,23 +33,12 @@ public class BasicProjectile : MonoBehaviour
         projRigidbody.linearVelocity = direction.normalized * speed;
     }
 
-    private void OnCollisionEnter(Collision _collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (_collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.TryGetComponent(out Health health))
         {
-            Debug.Log("Hit Enemy!");
-            EnemyMovement.Instance.hit();
-            /* placeholder to show functionality */
+            health.TakeDamage(damage); // Example damage value
         }
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // disable game object if tag is "Enemy"
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            other.gameObject.SetActive(false);
-        }
     }
 }
