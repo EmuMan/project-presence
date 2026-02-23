@@ -616,6 +616,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1888534965938164459, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1312041450}
+    - target: {fileID: 1888534965938164459, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888534965938164459, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: gradient.ctime0
       value: 14572
       objectReference: {fileID: 0}
@@ -671,6 +679,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5260988284999347283, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: coreModuleData
       value: 
@@ -692,6 +704,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+--- !u!114 &1312041450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 910431902890869238, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+  m_PrefabInstance: {fileID: 897269390}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e2dec62bdc1bb7e9550d543304a78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!1 &1612298235
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8291639328992482785}
   - component: {fileID: 7598026450133341787}
   - component: {fileID: 2253015392497361371}
-  - component: {fileID: 8635673191825137315}
+  - component: {fileID: 2231855871663695152}
   m_Layer: 9
   m_Name: EnemyBullet
   m_TagString: Untagged
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8635673191825137315
+--- !u!114 &2231855871663695152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,8 +150,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4732050411383927166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05cceb07949291543a1ef4680ea04deb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5343577b5546df77c99ba801dea78c9a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  speed: 15
+  m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
+  speed: 20
   lifetime: 5
+  damage: 5

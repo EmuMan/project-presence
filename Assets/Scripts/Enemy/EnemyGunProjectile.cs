@@ -26,6 +26,7 @@ public class RandomShooter : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        GameObject projectile = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        projectile.GetComponent<BasicProjectile>().Initialize(shootingPoint.forward);
     }
 }
