@@ -12,6 +12,9 @@ public class HammerModule : Module
     public float recoveryTime = 0.2f;
 
     public DamagingHitbox hitbox;
+    public Transform groundDetectionOrigin;
+    public float groundDetectionDistance = 1.0f;
+    public GameObject groundEffectPrefab;
 
     protected override void PerformAction(Vector3 direction)
     {
@@ -42,6 +45,8 @@ public class HammerModule : Module
         }
         hitbox.DisableHitbox();
 
+        OnFullyDown();
+
         // Recovery
         elapsed = 0.0f;
         while (elapsed < recoveryTime)
@@ -50,6 +55,18 @@ public class HammerModule : Module
             transform.localRotation = Quaternion.Euler(angle, 0, 0);
             elapsed += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    private void OnFullyDown()
+    {
+        int layerMask = LayerMask.GetMask("Terrain");
+        if (Physics.Raycast(groundDetectionOrigin.position, Vector3.down, out RaycastHit hit, groundDetectionDistance, layerMask))
+        {
+            if (groundEffectPrefab != null)
+            {
+                Instantiate(groundEffectPrefab, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+            }
         }
     }
 }

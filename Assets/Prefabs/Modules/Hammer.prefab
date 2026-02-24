@@ -68,6 +68,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamagingHitbox
   damage: 10
   singleHit: 1
+  damageInterval: 0.5
+--- !u!1 &8655360381743285540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6591046302855962688}
+  m_Layer: 6
+  m_Name: GroundDetectionOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6591046302855962688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655360381743285540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.418, z: 0.284}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4963726143774472195}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4857145244204031976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,6 +206,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90a7e7518f3451dd4ad47d38d0937e75, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1106227555774321732}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90a7e7518f3451dd4ad47d38d0937e75, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6591046302855962688}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 90a7e7518f3451dd4ad47d38d0937e75, type: 3}
       insertIndex: -1
@@ -210,3 +245,6 @@ MonoBehaviour:
   swingTime: 0.1
   recoveryTime: 0.2
   hitbox: {fileID: 7544683505589331812}
+  groundDetectionOrigin: {fileID: 6591046302855962688}
+  groundDetectionDistance: 1
+  groundEffectPrefab: {fileID: 1269568631021167840, guid: be9fbc6c0b626f9bbac85cc086eabc62, type: 3}
