@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public JumpState jumpState = JumpState.Grounded;
 
     private CharacterController controller;
+    private PlayerModules playerModules;
 
     public Vector3 velocity;
 
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        playerModules = GetComponent<PlayerModules>();
 
         moveAction = InputSystem.actions.FindAction("Move");
 
@@ -66,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         ApplyMovementInput();
         MoveCharacter();
-        JumpCharacter();
+        // JumpCharacter();
         /* on fixed update, use the stored input and act */
     }
 
@@ -160,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyMovementInput()
     {
-        Vector3 horizontalVelocity = movementInput * speed;
+        Vector3 horizontalVelocity = movementInput * speed * playerModules.GetTotalSpeedModifier();
         velocity.x = horizontalVelocity.x;
         velocity.z = horizontalVelocity.z;
     }

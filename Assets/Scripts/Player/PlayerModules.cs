@@ -116,4 +116,15 @@ public class PlayerModules : MonoBehaviour
 
         return null;
     }
+
+    public float GetTotalSpeedModifier()
+    {
+        float totalModifier = 1.0f;
+        if (headModule != null) totalModifier *= headModule.speedModifier;
+        if (coreModule != null) totalModifier *= coreModule.speedModifier;
+        if (leftArmModule != null) totalModifier *= leftArmModule.speedModifier;
+        if (rightArmModule != null) totalModifier *= rightArmModule.speedModifier;
+        if (movementModule != null) totalModifier *= movementModule.speedModifier;
+        return totalModifier;
+    }
 }

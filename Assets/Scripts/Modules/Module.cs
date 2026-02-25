@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Module : MonoBehaviour
 {
+    [Header("Module Data")]
     public ModuleData moduleData;
 
-    public GameObject playerObject;
+    [Header("Modifiers")]
+    public float speedModifier = 1.0f;
+
+    protected GameObject playerObject;
 
     // Depending on the type of action, only one of these will be non-null
     private BufferedAction bufferedAction;
