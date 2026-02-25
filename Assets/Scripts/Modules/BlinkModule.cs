@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BlinkModule : Module
 {
+    [Header("Blink Settings")]
     [SerializeField] private float maxBlinkDistance = 7.0f; // Maximum distance the player can blink
 
     public ModuleData data;

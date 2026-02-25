@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class NailGunModule : Module
 {
+    [Header("Projectile Settings")]
     public GameObject nailPrefab;
     public Transform shootPoint;
 

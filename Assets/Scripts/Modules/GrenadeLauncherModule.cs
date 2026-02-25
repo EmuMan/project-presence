@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GrenadeLauncherModule : Module
 {
+    [Header("Grenade Launcher Settings")]
     public float shootForce = 20f;
     public GameObject grenadePrefab;
     public Transform shootPoint;

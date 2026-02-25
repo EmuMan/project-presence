@@ -3,14 +3,17 @@ using System.Collections;
 
 public class HammerModule : Module
 {
+    [Header("Hammer Angles")]
     public float hammerDownAngle = 90.0f;
     public float hammerUpAngle = 0.0f;
     public float hammerWindUpAngle = -45.0f;
 
+    [Header("Hammer Timing")]
     public float windUpTime = 0.2f;
     public float swingTime = 0.05f;
     public float recoveryTime = 0.2f;
 
+    [Header("Hitbox and Effects")]
     public DamagingHitbox hitbox;
     public Transform groundDetectionOrigin;
     public float groundDetectionDistance = 1.0f;
