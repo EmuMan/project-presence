@@ -48,7 +48,7 @@ public class Module : MonoBehaviour
 
         if (moduleData.isRepeating)
         {
-            if (repeatingAction.IsActing(input, true, deltaTime))
+            if (repeatingAction.IsActing(input, CanPerformAction(), deltaTime))
             {
                 shouldPerformAction = true;
             }
@@ -60,7 +60,8 @@ public class Module : MonoBehaviour
                 cooldown -= deltaTime;
             }
 
-            if (bufferedAction.IsActing(input, cooldown <= 0.0f))
+            bool allowed = CanPerformAction();
+            if (bufferedAction.IsActing(input, cooldown <= 0.0f && allowed, allowed, deltaTime))
             {
                 shouldPerformAction = true;
                 cooldown = moduleData.cooldownDuration;
@@ -91,4 +92,10 @@ public class Module : MonoBehaviour
     protected virtual void PerformAction(Vector3 direction) { }
 
     protected virtual void StopPerformingAction(Vector3 direction) { }
+
+    protected virtual bool CanPerformAction()
+    {
+        // This can be overridden by specific modules to add additional conditions for whether the action can be performed
+        return true;
+    }
 }

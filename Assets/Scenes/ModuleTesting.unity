@@ -698,7 +698,7 @@ PrefabInstance:
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: movementModuleData
       value: 
-      objectReference: {fileID: 11400000, guid: 9458970dda6f81c42ab7202e4c7f482d, type: 2}
+      objectReference: {fileID: 11400000, guid: 843f9d030f580164e98894232f53c1b2, type: 2}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: rightArmModuleData
       value: 

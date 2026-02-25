@@ -57,9 +57,15 @@ public class TankTreadsModule : Module
         }
     }
 
+    protected override bool CanPerformAction()
+    {
+        // Can perform action if we have resource to boost
+        Debug.Log($"Checking if can perform speed boost: current resource = {speedBoostResourceCurrent}");
+        return speedBoostResourceCurrent > 0.0f;
+    }
+
     protected override void StartPerformingAction(Vector3 direction)
     {
-        Debug.Log($"Starting speed boost with ${speedBoostResourceCurrent} resource");
         TryStartSpeedBoost();
     }
 
