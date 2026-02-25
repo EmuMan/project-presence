@@ -5,6 +5,7 @@ public class BasicProjectile : MonoBehaviour
     public float speed = 20.0f;
     public float lifetime = 5.0f;
     public float damage = 5.0f;
+    public int pierceCount = 0; // Number of enemies the projectile can pierce through (0 for no piercing)
 
     private Rigidbody projRigidbody;
 

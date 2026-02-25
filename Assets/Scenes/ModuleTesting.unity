@@ -694,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: leftArmModuleData
       value: 
-      objectReference: {fileID: 11400000, guid: 568bf804ded4aff97aff31c48369734f, type: 2}
+      objectReference: {fileID: 11400000, guid: 47735a3f2cd8c15209accb5beaa7fa9d, type: 2}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: rightArmModuleData
       value: 
