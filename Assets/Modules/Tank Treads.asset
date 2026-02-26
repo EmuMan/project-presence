@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
+  m_Name: Tank Treads
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleData
+  moduleName: Tank Treads
+  moduleIcon: {fileID: 0}
+  instancePrefab: {fileID: 6510836736763439250, guid: 5627fb1e2183e2a5a90144fe06ea2f41, type: 3}
+  slotType: 4
+  isRepeating: 0
+  bufferDuration: 0.2
+  holdDuration: 5
+  cooldownDuration: 1

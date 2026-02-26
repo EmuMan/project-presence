@@ -30,14 +30,14 @@ using UnityEngine;
 public class BufferedAction
 {
     private float bufferTime;
-    private float lastInputTime;
+    private float timeSinceLastInput;
     private bool inputPressed;
 
     // How long the input can be held, even after it becomes invalid
     // A value of 0.0 will act as a single use action
     private float holdableFor;
     // The last time an action was successfully started
-    private float lastActionStart;
+    private float timeSinceLastActionStart;
     // Whether the action is currently being activated
     // Used so that you can't release and retrigger the action within this window
     private bool isBeingActivated;
@@ -46,26 +46,28 @@ public class BufferedAction
     /// Initializes a new instance of the BufferedAction class with the specified repeat interval
     /// and hold duration.
     /// </summary>
-    /// <param name="bufferDuration">The time in seconds that an input can be pressed and held
+    /// <param name="bufferTime">The time in seconds that an input can be pressed and held
     /// before the action is allowed and still activate the action.</param>
-    /// <param name="holdDuration">The time in seconds that the action can continue to
+    /// <param name="holdableFor">The time in seconds that the action can continue to
     /// be considered active after the action first activates, as long as the input is still
     /// held. A value of 0.0 means the action will be active instantaneously.</param>
-    public BufferedAction(float bufferDuration, float holdDuration = 0.0f)
+    public BufferedAction(float bufferTime, float holdableFor = 0.0f)
     {
-        bufferTime = bufferDuration;
-        lastInputTime = -bufferDuration; // Initialize to allow immediate input
+        this.bufferTime = bufferTime;
+        timeSinceLastInput = 0.0f; // Initialize to allow immediate input
         inputPressed = false;
 
-        holdableFor = holdDuration;
-        lastActionStart = -holdDuration;
+        this.holdableFor = holdableFor;
+        timeSinceLastActionStart = 0.0f;
+
+        isBeingActivated = false;
     }
 
     private void ProcessInput(bool input)
     {
         if (!inputPressed && input)
         {
-            lastInputTime = Time.time;
+            timeSinceLastInput = 0.0f;
         }
         inputPressed = input;
     }
@@ -76,31 +78,34 @@ public class BufferedAction
     /// every update to properly manage the internal state of the action.
     /// </summary>
     /// <param name="input">Whether the input for this action is currently active (e.g. button held).</param>
-    /// <param name="allowed">Whether the action is currently allowed to be performed (e.g. not on cooldown).</param>
+    /// <param name="startAllowed">Whether the action is currently allowed to be started (e.g. not on cooldown).</param>
+    /// <param name="holdAllowed">Whether the action is currently allowed to be held (e.g. enough resource).</param>
     /// <param name="deltaTime">The time in seconds since the last update, used to manage timing for repeats and holds.</param>
-    /// <returns>True if the action should be performed during this update, false otherwise.</returns>
-    public bool IsActing(bool input, bool allowed)
+    public bool IsActing(bool input, bool startAllowed, bool holdAllowed, float deltaTime)
     {
         ProcessInput(input);
+
+        timeSinceLastInput += deltaTime;
+        timeSinceLastActionStart += deltaTime;
 
         // The initial input is valid if:
         // 1. The input is still being pressed
         // 2. The action activation is not currently in progress
         // 3. The input was just pressed within the buffer time
-        bool initialInputValid = inputPressed && !isBeingActivated && (Time.time - lastInputTime) <= bufferTime;
+        bool initialInputValid = inputPressed && !isBeingActivated && timeSinceLastInput <= bufferTime;
         // The held input is valid if:
         // 1. The input is currently being pressed
         // 2. The action activation is ongoing, i.e. it was not interrupted
         // 3. The action has not been held for longer than the holdable duration
-        bool heldInputValid = inputPressed && isBeingActivated && (Time.time - lastActionStart) <= holdableFor;
+        bool heldInputValid = inputPressed && isBeingActivated && timeSinceLastInput <= holdableFor;
 
-        if (initialInputValid && allowed)
+        if (initialInputValid && startAllowed)
         {
-            lastActionStart = Time.time;
+            timeSinceLastActionStart = 0.0f;
             isBeingActivated = true;
             return true;
         }
-        else if (heldInputValid)
+        else if (heldInputValid && holdAllowed)
         {
             return true;
         }
