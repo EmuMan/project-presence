@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class NailGunModule : Module
 {
+    [Header("Projectile Settings")]
     public GameObject nailPrefab;
+    public Transform shootPoint;
 
     protected override void PerformAction(Vector3 direction)
     {
-        GameObject projectile = Instantiate(nailPrefab, transform.position, Quaternion.LookRotation(direction));
+        GameObject projectile = Instantiate(nailPrefab, shootPoint.position, Quaternion.LookRotation(direction));
         projectile.GetComponent<BasicProjectile>().Initialize(direction);
     }
 }

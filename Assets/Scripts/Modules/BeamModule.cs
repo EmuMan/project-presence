@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BeamModule : Module
 {
+    [Header("Beam Settings")]
     [SerializeField] private DamagingHitbox beamMeshAndHitbox;
 
     protected override void StartPerformingAction(Vector3 _direction)
