@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class AbilityAttachments : MonoBehaviour
+public class AbilityScreen : MonoBehaviour
 {
     [Header("Data")]
     [Tooltip("The persistent loadout data that carries over to the game scene.")]

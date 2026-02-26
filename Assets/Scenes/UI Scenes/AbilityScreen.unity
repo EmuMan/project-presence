@@ -789,7 +789,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 220292986}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798333541}
+        m_TargetAssemblyTypeName: AbilityScreen, Assembly-CSharp
+        m_MethodName: OnBodyPartSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &220292986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +840,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220292983}
   m_CullTransparentMesh: 1
+--- !u!1 &221275944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 221275945}
+  - component: {fileID: 221275946}
+  m_Layer: 0
+  m_Name: LoadoutManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &221275945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221275944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1206221388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &221275946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221275944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35a73ff55325454ca3edc27222e0bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLoadout
+  equippedSlots: []
 --- !u!1 &234393833
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +1030,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 302522581}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798333541}
+        m_TargetAssemblyTypeName: AbilityScreen, Assembly-CSharp
+        m_MethodName: OnBodyPartSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &302522581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2061,7 +2130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098002478}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: ENVIRONMENT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,7 +2437,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1198023085}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798333541}
+        m_TargetAssemblyTypeName: AbilityScreen, Assembly-CSharp
+        m_MethodName: OnBodyPartSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1198023085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2488,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198023082}
   m_CullTransparentMesh: 1
+--- !u!1 &1206221387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1206221388}
+  m_Layer: 0
+  m_Name: MANAGERS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1206221388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206221387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 127.30709, y: 0, z: -82.55431}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 221275945}
+  - {fileID: 1798333540}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1240027362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,7 +2836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1440623930}
   m_Layer: 0
-  m_Name: AttachmentPoints
+  m_Name: ATTACHMENTPOINTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3024,7 +3138,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1595270508}
   - component: {fileID: 1595270507}
-  - component: {fileID: 1595270509}
   m_Layer: 0
   m_Name: AbilityDummy
   m_TagString: Untagged
@@ -3071,27 +3184,6 @@ Transform:
   - {fileID: 634798491}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 315, z: 0}
---- !u!114 &1595270509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595270506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0548d7435e2ba4ca43ddab67250658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AbilityAttachments
-  playerLoadout: {fileID: 0}
-  playerObject: {fileID: 0}
-  leftArmAttachmentPoint: {fileID: 0}
-  rightArmAttachmentPoint: {fileID: 0}
-  coreAttachmentPoint: {fileID: 0}
-  moduleSelectionPanel: {fileID: 399844775}
-  moduleButtonContainer: {fileID: 2106310757}
-  moduleButtonPrefab: {fileID: 6596604455073148642, guid: 90f7303bbe7ee0b4d81742749d5c0082, type: 3}
-  allAvailableModules: []
 --- !u!1 &1603689981
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,7 +3392,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1727100486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798333541}
+        m_TargetAssemblyTypeName: AbilityScreen, Assembly-CSharp
+        m_MethodName: OnBodyPartSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1727100486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3435,6 +3539,59 @@ Transform:
   - {fileID: 1688269791}
   m_Father: {fileID: 1618424374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1798333539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1798333540}
+  - component: {fileID: 1798333541}
+  m_Layer: 0
+  m_Name: AbilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1798333540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798333539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1206221388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1798333541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798333539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0548d7435e2ba4ca43ddab67250658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityScreen
+  playerLoadout: {fileID: 0}
+  playerObject: {fileID: 0}
+  leftArmAttachmentPoint: {fileID: 0}
+  rightArmAttachmentPoint: {fileID: 0}
+  coreAttachmentPoint: {fileID: 0}
+  moduleSelectionPanel: {fileID: 0}
+  moduleButtonContainer: {fileID: 0}
+  moduleButtonPrefab: {fileID: 0}
+  allAvailableModules: []
 --- !u!1 &1830760646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,7 +3805,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1922609466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798333541}
+        m_TargetAssemblyTypeName: AbilityScreen, Assembly-CSharp
+        m_MethodName: OnBodyPartSelected
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1922609466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4473,3 +4642,4 @@ SceneRoots:
   - {fileID: 1440623930}
   - {fileID: 1582999194}
   - {fileID: 174856661}
+  - {fileID: 1206221388}
