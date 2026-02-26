@@ -73,4 +73,9 @@ public class TankTreadsModule : Module
     {
         TryStopSpeedBoost();
     }
+
+    protected override float GetResourceRemaining()
+    {
+        return speedBoostResourceCurrent / speedBoostResourceMax;
+    }
 }
