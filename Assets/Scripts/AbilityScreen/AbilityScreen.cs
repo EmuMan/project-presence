@@ -12,14 +12,14 @@ public class AbilityScreen : MonoBehaviour
     [Header("Character Setup")]
     [Tooltip("The main player object that modules will be initialized with.")]
     public GameObject playerObject;
-    
+
     [Header("Explicit Attachment Points")]
     [Tooltip("Drag the Left Arm bone/transform here.")]
     public Transform leftArmAttachmentPoint;
-    
+
     [Tooltip("Drag the Right Arm bone/transform here.")]
     public Transform rightArmAttachmentPoint;
-    
+
     [Tooltip("Drag the Core/Chest bone/transform here.")]
     public Transform coreAttachmentPoint;
 
@@ -30,11 +30,11 @@ public class AbilityScreen : MonoBehaviour
 
     [Header("UI Setup (World Space)")]
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
-    public GameObject moduleSelectionPanel; 
-    
+    public GameObject moduleSelectionPanel;
+
     [Tooltip("The parent transform (e.g., a Vertical Layout Group) where module buttons will be spawned.")]
     public Transform moduleButtonContainer;
-    
+
     [Tooltip("The UI Button prefab used for each module option.")]
     public GameObject moduleButtonPrefab;
 
@@ -77,7 +77,7 @@ public class AbilityScreen : MonoBehaviour
     {
         currentlySelectedSlot = (ModuleData.ModuleSlot)slotIndex;
         Debug.Log($"Selected body part: {currentlySelectedSlot} for modification.");
-        
+
         // Show the UI panel to select a module
         if (moduleSelectionPanel != null)
         {
@@ -155,7 +155,7 @@ public class AbilityScreen : MonoBehaviour
                 Button btn = buttonObj.GetComponent<Button>();
                 if (btn != null)
                 {
-                    ModuleData capturedModule = module; 
+                    ModuleData capturedModule = module;
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
                 }
                 else
@@ -203,7 +203,7 @@ public class AbilityScreen : MonoBehaviour
             moduleSelectionPanel.SetActive(false);
         }
     }
-    
+
     /// <summary>
     /// Handles the logic of removing the old module and instantiating the new one based on explicit slots.
     /// </summary>
@@ -250,13 +250,13 @@ public class AbilityScreen : MonoBehaviour
         if (newModuleData.instancePrefab != null)
         {
             GameObject moduleObj = Instantiate(newModuleData.instancePrefab, targetAttachmentPoint);
-            
+
             // 4. Initialize the module using your existing Module.cs logic
             Module moduleComponent = moduleObj.GetComponent<Module>();
             if (moduleComponent != null)
             {
                 moduleComponent.moduleData = newModuleData;
-                moduleComponent.Initialize(playerObject);
+                moduleComponent.Initialize(playerObject, null);
 
                 // 5. Save the reference so we can destroy it later if we swap again
                 switch (slotType)
