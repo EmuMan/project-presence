@@ -15,7 +15,7 @@ MonoBehaviour:
   moduleName: Grenade Launcher
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 3563872833158975680, guid: a910eb1850b56cc1b84896075cb0797e, type: 3}
-  slotType: 2
+  compatibleSlots: 0200000003000000
   isRepeating: 1
   bufferDuration: 0.2
   holdDuration: 0

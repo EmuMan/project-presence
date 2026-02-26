@@ -17,8 +17,8 @@ public class ModuleData : ScriptableObject
     public Sprite moduleIcon;
     public GameObject instancePrefab;
 
-    [Tooltip("Which body part this module can be attached to.")]
-    public ModuleSlot slotType;
+    [Tooltip("Which body part(s) this module can be attached to. Can select multiple slots.")]
+    public ModuleSlot[] compatibleSlots;
 
     [Header("Action Settings")]
     public bool isRepeating = false;

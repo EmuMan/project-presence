@@ -15,7 +15,7 @@ MonoBehaviour:
   moduleName: Bouncy Module
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 8263396641466557956, guid: 85686d2c7fa7a041d871632881e01cf0, type: 3}
-  slotType: 0
+  compatibleSlots: 04000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0

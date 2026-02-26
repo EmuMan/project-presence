@@ -15,7 +15,7 @@ MonoBehaviour:
   moduleName: Tank Treads
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 6510836736763439250, guid: 5627fb1e2183e2a5a90144fe06ea2f41, type: 3}
-  slotType: 4
+  compatibleSlots: 04000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 5

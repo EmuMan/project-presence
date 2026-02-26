@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class AbilityScreen : MonoBehaviour
 {
@@ -61,6 +62,12 @@ public class AbilityScreen : MonoBehaviour
         }
     }
 
+    // Close the module selection panel when clicking on a close button
+    public void CloseMSP()
+    {
+        moduleSelectionPanel.SetActive(false);
+    }
+
     /// <summary>
     /// Called by a World Space UI Button representing a specific body part on the character.
     /// Opens the selection menu for that part.
@@ -90,18 +97,58 @@ public class AbilityScreen : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        Debug.Log($"UpdateUIForSlot called for: {slot}");
+        Debug.Log($"Total modules in allAvailableModules: {allAvailableModules.Count}");
+
+        int matchingModules = 0;
+
         // 2. Find and instantiate buttons for matching modules
         foreach (ModuleData module in allAvailableModules)
         {
-            if (module.slotType == slot)
+            if (module == null)
             {
+                Debug.LogWarning("Found null module in allAvailableModules!");
+                continue;
+            }
+
+            string slotsDebug = module.compatibleSlots != null ? string.Join(", ", module.compatibleSlots) : "none";
+            Debug.Log($"Checking module: {module.moduleName} with compatible slots: {slotsDebug}");
+
+            if (module.compatibleSlots != null && System.Array.IndexOf(module.compatibleSlots, slot) >= 0)
+            {
+                matchingModules++;
                 GameObject buttonObj = Instantiate(moduleButtonPrefab, moduleButtonContainer);
-                
-                // 3. Setup button visuals
+
+                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
+                Debug.Log($"Attempting to set button text for module: '{module.moduleName}'");
+
+                bool textSet = false;
+
+                // Try legacy Text component first
                 Text buttonText = buttonObj.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
                     buttonText.text = module.moduleName;
+                    Debug.Log($"Set Text component to: '{module.moduleName}'");
+                    textSet = true;
+                }
+
+                // Try TextMeshPro if Text wasn't found
+                if (!textSet)
+                {
+                    TextMeshProUGUI tmpText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+                    if (tmpText != null)
+                    {
+                        tmpText.text = module.moduleName;
+                        Debug.Log($"Set TextMeshPro component to: '{module.moduleName}'");
+                        textSet = true;
+                    }
+                }
+
+                if (!textSet)
+                {
+                    Debug.LogWarning($"Button prefab is missing both Text and TextMeshProUGUI components! Module: {module.moduleName}");
+                    Debug.LogWarning($"Button hierarchy: {GetHierarchyPath(buttonObj.transform)}");
                 }
 
                 // 4. Setup button click event dynamically
@@ -111,8 +158,25 @@ public class AbilityScreen : MonoBehaviour
                     ModuleData capturedModule = module; 
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
                 }
+                else
+                {
+                    Debug.LogWarning("Button prefab is missing Button component!");
+                }
             }
         }
+
+        Debug.Log($"Created {matchingModules} buttons for slot: {slot}");
+    }
+
+    private string GetHierarchyPath(Transform t)
+    {
+        string path = t.name;
+        while (t.parent != null)
+        {
+            t = t.parent;
+            path = t.name + "/" + path;
+        }
+        return path;
     }
 
     /// <summary>
@@ -121,7 +185,8 @@ public class AbilityScreen : MonoBehaviour
     /// </summary>
     public void OnModuleSelectedFromUI(ModuleData newModuleData)
     {
-        if (newModuleData.slotType != currentlySelectedSlot) return;
+        // Sanity check to ensure the module is compatible with the currently selected slot, and checks if the selected slot is in the compatibleSlots array
+        if (newModuleData.compatibleSlots == null || System.Array.IndexOf(newModuleData.compatibleSlots, currentlySelectedSlot) < 0) return;
 
         // 1. Save the choice to the persistent loadout
         if (playerLoadout != null)
