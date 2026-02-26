@@ -9,6 +9,7 @@ public class Module : MonoBehaviour
     public float speedModifier = 1.0f;
 
     protected GameObject playerObject;
+    protected ModuleStatus moduleStatusUI;
 
     // Depending on the type of action, only one of these will be non-null
     private BufferedAction bufferedAction;
@@ -19,9 +20,24 @@ public class Module : MonoBehaviour
 
     private bool wasPerformingAction;
 
-    public void Initialize(GameObject playerObject)
+    private void Update()
+    {
+        if (moduleStatusUI != null)
+        {
+            Debug.Log("Updating module status UI");
+            float cooldownFraction = moduleData.isRepeating ? repeatingAction.GetFractionUntilNextRepeat() : (cooldown / moduleData.cooldownDuration);
+            moduleStatusUI.UpdateStatus(
+                GetResourceRemaining(),
+                cooldownFraction,
+                CanPerformAction()
+            );
+        }
+    }
+
+    public void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
     {
         this.playerObject = playerObject;
+        this.moduleStatusUI = moduleStatusUI;
 
         if (moduleData.isRepeating)
         {
@@ -97,5 +113,11 @@ public class Module : MonoBehaviour
     {
         // This can be overridden by specific modules to add additional conditions for whether the action can be performed
         return true;
+    }
+
+    protected virtual float GetResourceRemaining()
+    {
+        // This can be overridden by specific modules that have a resource to track, like ammo or energy
+        return 1.0f; // Default to full resource
     }
 }

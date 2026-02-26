@@ -33,18 +33,18 @@ public class PlayerModuleEquipper : MonoBehaviour
 
             // Find the matching physical attachment point on the player
             AttachmentPoint attachPoint = attachmentPoints.Find(p => p.slotType == loadoutSlot.slotType);
-            
+
             if (attachPoint != null && attachPoint.point != null)
             {
                 // Instantiate the prefab
                 GameObject moduleObj = Instantiate(loadoutSlot.equippedModule.instancePrefab, attachPoint.point);
-                
+
                 // Initialize it
                 Module moduleComponent = moduleObj.GetComponent<Module>();
                 if (moduleComponent != null)
                 {
                     moduleComponent.moduleData = loadoutSlot.equippedModule;
-                    moduleComponent.Initialize(this.gameObject); // Pass the real player object
+                    moduleComponent.Initialize(this.gameObject, null); // Pass the real player object
                     activeModules.Add(moduleComponent);
                 }
             }
