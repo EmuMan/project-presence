@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
-public class AbilityAttachments : MonoBehaviour
+public class AbilityScreen : MonoBehaviour
 {
     [Header("Data")]
     [Tooltip("The persistent loadout data that carries over to the game scene.")]
@@ -11,14 +12,14 @@ public class AbilityAttachments : MonoBehaviour
     [Header("Character Setup")]
     [Tooltip("The main player object that modules will be initialized with.")]
     public GameObject playerObject;
-    
+
     [Header("Explicit Attachment Points")]
     [Tooltip("Drag the Left Arm bone/transform here.")]
     public Transform leftArmAttachmentPoint;
-    
+
     [Tooltip("Drag the Right Arm bone/transform here.")]
     public Transform rightArmAttachmentPoint;
-    
+
     [Tooltip("Drag the Core/Chest bone/transform here.")]
     public Transform coreAttachmentPoint;
 
@@ -29,11 +30,11 @@ public class AbilityAttachments : MonoBehaviour
 
     [Header("UI Setup (World Space)")]
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
-    public GameObject moduleSelectionPanel; 
-    
+    public GameObject moduleSelectionPanel;
+
     [Tooltip("The parent transform (e.g., a Vertical Layout Group) where module buttons will be spawned.")]
     public Transform moduleButtonContainer;
-    
+
     [Tooltip("The UI Button prefab used for each module option.")]
     public GameObject moduleButtonPrefab;
 
@@ -61,6 +62,12 @@ public class AbilityAttachments : MonoBehaviour
         }
     }
 
+    // Close the module selection panel when clicking on a close button
+    public void CloseMSP()
+    {
+        moduleSelectionPanel.SetActive(false);
+    }
+
     /// <summary>
     /// Called by a World Space UI Button representing a specific body part on the character.
     /// Opens the selection menu for that part.
@@ -70,7 +77,7 @@ public class AbilityAttachments : MonoBehaviour
     {
         currentlySelectedSlot = (ModuleData.ModuleSlot)slotIndex;
         Debug.Log($"Selected body part: {currentlySelectedSlot} for modification.");
-        
+
         // Show the UI panel to select a module
         if (moduleSelectionPanel != null)
         {
@@ -90,29 +97,86 @@ public class AbilityAttachments : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        Debug.Log($"UpdateUIForSlot called for: {slot}");
+        Debug.Log($"Total modules in allAvailableModules: {allAvailableModules.Count}");
+
+        int matchingModules = 0;
+
         // 2. Find and instantiate buttons for matching modules
         foreach (ModuleData module in allAvailableModules)
         {
-            if (module.slotType == slot)
+            if (module == null)
             {
+                Debug.LogWarning("Found null module in allAvailableModules!");
+                continue;
+            }
+
+            string slotsDebug = module.compatibleSlots != null ? string.Join(", ", module.compatibleSlots) : "none";
+            Debug.Log($"Checking module: {module.moduleName} with compatible slots: {slotsDebug}");
+
+            if (module.compatibleSlots != null && System.Array.IndexOf(module.compatibleSlots, slot) >= 0)
+            {
+                matchingModules++;
                 GameObject buttonObj = Instantiate(moduleButtonPrefab, moduleButtonContainer);
-                
-                // 3. Setup button visuals
+
+                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
+                Debug.Log($"Attempting to set button text for module: '{module.moduleName}'");
+
+                bool textSet = false;
+
+                // Try legacy Text component first
                 Text buttonText = buttonObj.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
                     buttonText.text = module.moduleName;
+                    Debug.Log($"Set Text component to: '{module.moduleName}'");
+                    textSet = true;
+                }
+
+                // Try TextMeshPro if Text wasn't found
+                if (!textSet)
+                {
+                    TextMeshProUGUI tmpText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+                    if (tmpText != null)
+                    {
+                        tmpText.text = module.moduleName;
+                        Debug.Log($"Set TextMeshPro component to: '{module.moduleName}'");
+                        textSet = true;
+                    }
+                }
+
+                if (!textSet)
+                {
+                    Debug.LogWarning($"Button prefab is missing both Text and TextMeshProUGUI components! Module: {module.moduleName}");
+                    Debug.LogWarning($"Button hierarchy: {GetHierarchyPath(buttonObj.transform)}");
                 }
 
                 // 4. Setup button click event dynamically
                 Button btn = buttonObj.GetComponent<Button>();
                 if (btn != null)
                 {
-                    ModuleData capturedModule = module; 
+                    ModuleData capturedModule = module;
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
+                }
+                else
+                {
+                    Debug.LogWarning("Button prefab is missing Button component!");
                 }
             }
         }
+
+        Debug.Log($"Created {matchingModules} buttons for slot: {slot}");
+    }
+
+    private string GetHierarchyPath(Transform t)
+    {
+        string path = t.name;
+        while (t.parent != null)
+        {
+            t = t.parent;
+            path = t.name + "/" + path;
+        }
+        return path;
     }
 
     /// <summary>
@@ -121,7 +185,8 @@ public class AbilityAttachments : MonoBehaviour
     /// </summary>
     public void OnModuleSelectedFromUI(ModuleData newModuleData)
     {
-        if (newModuleData.slotType != currentlySelectedSlot) return;
+        // Sanity check to ensure the module is compatible with the currently selected slot, and checks if the selected slot is in the compatibleSlots array
+        if (newModuleData.compatibleSlots == null || System.Array.IndexOf(newModuleData.compatibleSlots, currentlySelectedSlot) < 0) return;
 
         // 1. Save the choice to the persistent loadout
         if (playerLoadout != null)
@@ -138,7 +203,7 @@ public class AbilityAttachments : MonoBehaviour
             moduleSelectionPanel.SetActive(false);
         }
     }
-    
+
     /// <summary>
     /// Handles the logic of removing the old module and instantiating the new one based on explicit slots.
     /// </summary>
@@ -185,13 +250,13 @@ public class AbilityAttachments : MonoBehaviour
         if (newModuleData.instancePrefab != null)
         {
             GameObject moduleObj = Instantiate(newModuleData.instancePrefab, targetAttachmentPoint);
-            
+
             // 4. Initialize the module using your existing Module.cs logic
             Module moduleComponent = moduleObj.GetComponent<Module>();
             if (moduleComponent != null)
             {
                 moduleComponent.moduleData = newModuleData;
-                moduleComponent.Initialize(playerObject);
+                moduleComponent.Initialize(playerObject, null);
 
                 // 5. Save the reference so we can destroy it later if we swap again
                 switch (slotType)

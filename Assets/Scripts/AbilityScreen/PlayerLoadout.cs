@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerLoadout", menuName = "Data/Player Loadout")]
-public class PlayerLoadout : ScriptableObject
+public class PlayerLoadout : MonoBehaviour
 {
     [System.Serializable]
     public class EquippedSlot

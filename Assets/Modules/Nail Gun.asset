@@ -15,6 +15,7 @@ MonoBehaviour:
   moduleName: Nail Gun
   moduleIcon: {fileID: 21300000, guid: c3e8767f79b5409e187fa1d76a58fe26, type: 3}
   instancePrefab: {fileID: 3956499695581270597, guid: 1f86bea9fcf7c2996a74de4d5642c91e, type: 3}
+  compatibleSlots: 0200000003000000
   isRepeating: 1
   bufferDuration: 0.2
   holdDuration: 0

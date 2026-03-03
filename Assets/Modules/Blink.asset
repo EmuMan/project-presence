@@ -15,6 +15,7 @@ MonoBehaviour:
   moduleName: Blink
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 4058667151143992760, guid: b94200113f83fca2a988d65173e93157, type: 3}
+  compatibleSlots: 00000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0

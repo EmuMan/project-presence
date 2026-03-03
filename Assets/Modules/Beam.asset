@@ -15,7 +15,8 @@ MonoBehaviour:
   moduleName: Beam
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 1588578355550155578, guid: 24620ef1f3ea3f71c8831f807220114a, type: 3}
-  isRepeating: 1
+  compatibleSlots: 0200000003000000
+  isRepeating: 0
   bufferDuration: 0.2
-  holdDuration: 2
+  holdDuration: 5
   cooldownDuration: 1

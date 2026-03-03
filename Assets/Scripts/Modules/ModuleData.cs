@@ -12,13 +12,15 @@ public class ModuleData : ScriptableObject
         Movement  // 4
     }
 
+    [Header("Basic Info")]
     public string moduleName;
     public Sprite moduleIcon;
     public GameObject instancePrefab;
-    
-    [Tooltip("Which body part this module can be attached to.")]
-    public ModuleSlot slotType;
 
+    [Tooltip("Which body part(s) this module can be attached to. Can select multiple slots.")]
+    public ModuleSlot[] compatibleSlots;
+
+    [Header("Action Settings")]
     public bool isRepeating = false;
     public float bufferDuration = 0.2f;
     public float holdDuration = 0.0f;

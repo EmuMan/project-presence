@@ -20,6 +20,13 @@ public class PlayerModules : MonoBehaviour
     [SerializeField] public ModuleData rightArmModuleData;
     [SerializeField] public ModuleData movementModuleData;
 
+    [Header("Module Status UI")]
+    [SerializeField] public ModuleStatus headModuleStatus;
+    [SerializeField] public ModuleStatus coreModuleStatus;
+    [SerializeField] public ModuleStatus leftArmModuleStatus;
+    [SerializeField] public ModuleStatus rightArmModuleStatus;
+    [SerializeField] public ModuleStatus movementModuleStatus;
+
     private Module headModule;
     private Module coreModule;
     private Module leftArmModule;
@@ -78,14 +85,14 @@ public class PlayerModules : MonoBehaviour
 
     private void SpawnAllModules()
     {
-        headModule = SpawnModule(headModuleData, headTransform);
-        coreModule = SpawnModule(coreModuleData, coreTransform);
-        leftArmModule = SpawnModule(leftArmModuleData, leftArmTransform);
-        rightArmModule = SpawnModule(rightArmModuleData, rightArmTransform);
-        movementModule = SpawnModule(movementModuleData, movementTransform);
+        headModule = SpawnModule(headModuleData, headTransform, headModuleStatus);
+        coreModule = SpawnModule(coreModuleData, coreTransform, coreModuleStatus);
+        leftArmModule = SpawnModule(leftArmModuleData, leftArmTransform, leftArmModuleStatus);
+        rightArmModule = SpawnModule(rightArmModuleData, rightArmTransform, rightArmModuleStatus);
+        movementModule = SpawnModule(movementModuleData, movementTransform, movementModuleStatus);
     }
 
-    private Module SpawnModule(ModuleData moduleData, Transform parentTransform)
+    private Module SpawnModule(ModuleData moduleData, Transform parentTransform, ModuleStatus moduleStatusUI)
     {
         if (moduleData == null)
         {
@@ -105,7 +112,7 @@ public class PlayerModules : MonoBehaviour
         if (moduleComponent != null)
         {
             // Initialize the module with its data and parent transform
-            moduleComponent.Initialize(gameObject);
+            moduleComponent.Initialize(gameObject, moduleStatusUI);
             return moduleComponent;
         }
         else
@@ -115,5 +122,16 @@ public class PlayerModules : MonoBehaviour
         }
 
         return null;
+    }
+
+    public float GetTotalSpeedModifier()
+    {
+        float totalModifier = 1.0f;
+        if (headModule != null) totalModifier *= headModule.speedModifier;
+        if (coreModule != null) totalModifier *= coreModule.speedModifier;
+        if (leftArmModule != null) totalModifier *= leftArmModule.speedModifier;
+        if (rightArmModule != null) totalModifier *= rightArmModule.speedModifier;
+        if (movementModule != null) totalModifier *= movementModule.speedModifier;
+        return totalModifier;
     }
 }
