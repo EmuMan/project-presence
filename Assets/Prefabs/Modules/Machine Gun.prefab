@@ -109,6 +109,7 @@ MonoBehaviour:
   shootPoint: {fileID: 6432236091949501594}
   range: 100
   damagePerShot: 2
+  hitscanTrailPrefab: {fileID: 6071810477562535072, guid: 45255721e5bc7e270810acac8a07e04e, type: 3}
 --- !u!1 &5859164319279606063
 GameObject:
   m_ObjectHideFlags: 0

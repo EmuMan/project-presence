@@ -7,6 +7,9 @@ public class MachineGunModule : Module
     public float range = 100.0f;
     public float damagePerShot = 2.0f;
 
+    [Header("Visuals")]
+    public GameObject hitscanTrailPrefab;
+
     private LayerMask hitMask;
 
     private Vector3 lastShootDirection;
@@ -31,12 +34,6 @@ public class MachineGunModule : Module
         lastShootDirection = direction;
         lastShootOrigin = shootPoint.position;
 
-        RaycastHit[] allHits = Physics.RaycastAll(shootPoint.position, direction, range);
-        foreach (var h in allHits)
-        {
-            Debug.Log($"Hit: {h.collider.gameObject.name} | Layer: {h.collider.gameObject.layer}");
-        }
-
         // Perform a raycast to simulate hitscan shooting
         RaycastHit hit;
 
@@ -47,6 +44,27 @@ public class MachineGunModule : Module
             if (targetHealth != null)
             {
                 targetHealth.TakeDamage(damagePerShot);
+            }
+
+            // Spawn a hitscan trail from the shoot point to the hit point
+            SpawnTrail(shootPoint.position, hit.point);
+        }
+        else
+        {
+            // If we didn't hit anything, spawn a trail to the maximum range point
+            SpawnTrail(shootPoint.position, shootPoint.position + direction.normalized * range);
+        }
+    }
+
+    private void SpawnTrail(Vector3 start, Vector3 end)
+    {
+        if (hitscanTrailPrefab != null)
+        {
+            GameObject trail = Instantiate(hitscanTrailPrefab, start, Quaternion.identity);
+            HitscanTrail hitscanTrail = trail.GetComponent<HitscanTrail>();
+            if (hitscanTrail != null)
+            {
+                hitscanTrail.SetTrail(start, end);
             }
         }
     }
