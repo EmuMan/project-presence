@@ -20,13 +20,21 @@ public class AbilityScreen : MonoBehaviour
     [Tooltip("Drag the Right Arm bone/transform here.")]
     public Transform rightArmAttachmentPoint;
 
-    [Tooltip("Drag the Core/Chest bone/transform here.")]
+    [Tooltip("Drag the Core bone/transform here.")]
     public Transform coreAttachmentPoint;
+
+    [Tooltip("Drag the Head bone/transform here.")]
+    public Transform headAttachmentPoint;
+
+    [Tooltip("Drag the Movement bone/transform here.")]
+    public Transform movementAttachmentPoint;
 
     // Keep track of the spawned modules so we can destroy them when swapping
     private Module instantiatedLeftArmModule;
     private Module instantiatedRightArmModule;
     private Module instantiatedCoreModule;
+    private Module instantiatedHeadModule;
+    private Module instantiatedMovementModule;
 
     [Header("UI Setup (World Space)")]
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
@@ -59,6 +67,8 @@ public class AbilityScreen : MonoBehaviour
             EquipModule(ModuleData.ModuleSlot.LeftArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm));
             EquipModule(ModuleData.ModuleSlot.RightArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm));
             EquipModule(ModuleData.ModuleSlot.Core, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Core));
+            EquipModule(ModuleData.ModuleSlot.Head, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Head));
+            EquipModule(ModuleData.ModuleSlot.Movement, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Movement));
         }
     }
 
@@ -229,8 +239,16 @@ public class AbilityScreen : MonoBehaviour
                 targetAttachmentPoint = coreAttachmentPoint;
                 currentInstantiatedModule = instantiatedCoreModule;
                 break;
+            case ModuleData.ModuleSlot.Head:
+                targetAttachmentPoint = headAttachmentPoint;
+                currentInstantiatedModule = instantiatedHeadModule;
+                break;
+            case ModuleData.ModuleSlot.Movement:
+                targetAttachmentPoint = movementAttachmentPoint;
+                currentInstantiatedModule = instantiatedMovementModule;
+                break;
             default:
-                Debug.LogWarning($"Slot {slotType} is not explicitly set up in AbilityAttachments!");
+                Debug.LogWarning($"Slot {slotType} is not set up in AbilityScreen script!");
                 return;
         }
 
@@ -269,6 +287,12 @@ public class AbilityScreen : MonoBehaviour
                         break;
                     case ModuleData.ModuleSlot.Core:
                         instantiatedCoreModule = moduleComponent;
+                        break;
+                    case ModuleData.ModuleSlot.Head:
+                        instantiatedHeadModule = moduleComponent;
+                        break;
+                    case ModuleData.ModuleSlot.Movement:
+                        instantiatedMovementModule = moduleComponent;
                         break;
                 }
             }
