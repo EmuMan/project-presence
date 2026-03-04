@@ -1121,7 +1121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35a73ff55325454ca3edc27222e0bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLoadout
-  equippedSlots: []
 --- !u!1 &234393833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4714,11 +4713,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0548d7435e2ba4ca43ddab67250658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityScreen
-  playerLoadout: {fileID: 0}
   playerObject: {fileID: 0}
   leftArmAttachmentPoint: {fileID: 193190304}
   rightArmAttachmentPoint: {fileID: 544206424}
   coreAttachmentPoint: {fileID: 356531985}
+  headAttachmentPoint: {fileID: 0}
+  movementAttachmentPoint: {fileID: 0}
   moduleSelectionPanel: {fileID: 70911521}
   moduleButtonContainer: {fileID: 665282479}
   moduleButtonPrefab: {fileID: 6596604455073148642, guid: 90f7303bbe7ee0b4d81742749d5c0082, type: 3}

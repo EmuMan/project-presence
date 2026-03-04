@@ -14,6 +14,8 @@ public class PlayerModules : MonoBehaviour
     [SerializeField] public Transform movementTransform;
 
     [Header("Module Data")]
+    [Tooltip("For testing purposes, you can override the modules assigned to each slot here. If false, the modules will be determined by the PlayerLoadout singleton based on the player's equipped loadout.")]
+    [SerializeField] public bool overrideModulesForTesting = false;
     [SerializeField] public ModuleData headModuleData;
     [SerializeField] public ModuleData coreModuleData;
     [SerializeField] public ModuleData leftArmModuleData;
@@ -48,6 +50,14 @@ public class PlayerModules : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
+        // Set the module data for each slot based on the player's equipped loadout from the PlayerLoadout singleton
+        PlayerLoadout loadout = PlayerLoadout.Instance;
+        headModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Head);
+        coreModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Core);
+        leftArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm);
+        rightArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm);
+        movementModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Movement);
 
         // Instantiate all the modules based on the assigned ModuleData and parent them to the appropriate transforms
         SpawnAllModules();

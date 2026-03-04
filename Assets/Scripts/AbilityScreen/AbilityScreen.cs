@@ -5,10 +5,6 @@ using TMPro;
 
 public class AbilityScreen : MonoBehaviour
 {
-    [Header("Data")]
-    [Tooltip("The persistent loadout data that carries over to the game scene.")]
-    public PlayerLoadout playerLoadout;
-
     [Header("Character Setup")]
     [Tooltip("The main player object that modules will be initialized with.")]
     public GameObject playerObject;
@@ -62,13 +58,13 @@ public class AbilityScreen : MonoBehaviour
         }
 
         // Optional: If you want to load the player's previously saved loadout right away
-        if (playerLoadout != null)
+        if (PlayerLoadout.Instance != null)
         {
-            EquipModule(ModuleData.ModuleSlot.LeftArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm));
-            EquipModule(ModuleData.ModuleSlot.RightArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm));
-            EquipModule(ModuleData.ModuleSlot.Core, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Core));
-            EquipModule(ModuleData.ModuleSlot.Head, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Head));
-            EquipModule(ModuleData.ModuleSlot.Movement, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Movement));
+            EquipModule(ModuleData.ModuleSlot.LeftArm, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.LeftArm));
+            EquipModule(ModuleData.ModuleSlot.RightArm, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.RightArm));
+            EquipModule(ModuleData.ModuleSlot.Core, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Core));
+            EquipModule(ModuleData.ModuleSlot.Head, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Head));
+            EquipModule(ModuleData.ModuleSlot.Movement, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Movement));
         }
     }
 
@@ -199,9 +195,9 @@ public class AbilityScreen : MonoBehaviour
         if (newModuleData.compatibleSlots == null || System.Array.IndexOf(newModuleData.compatibleSlots, currentlySelectedSlot) < 0) return;
 
         // 1. Save the choice to the persistent loadout
-        if (playerLoadout != null)
+        if (PlayerLoadout.Instance != null)
         {
-            playerLoadout.SetEquippedModule(currentlySelectedSlot, newModuleData);
+            PlayerLoadout.Instance.SetEquippedModule(currentlySelectedSlot, newModuleData);
             Debug.Log($"Saved {newModuleData.moduleName} to {currentlySelectedSlot} in Loadout.");
         }
 
@@ -216,6 +212,7 @@ public class AbilityScreen : MonoBehaviour
 
     /// <summary>
     /// Handles the logic of removing the old module and instantiating the new one based on explicit slots.
+    /// Instantiation in this context refers to the menu, not the actual gameplay scene.
     /// </summary>
     public void EquipModule(ModuleData.ModuleSlot slotType, ModuleData newModuleData)
     {
