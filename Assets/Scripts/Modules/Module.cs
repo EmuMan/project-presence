@@ -24,7 +24,6 @@ public class Module : MonoBehaviour
     {
         if (moduleStatusUI != null)
         {
-            Debug.Log("Updating module status UI");
             float cooldownFraction = moduleData.isRepeating ? repeatingAction.GetFractionUntilNextRepeat() : (cooldown / moduleData.cooldownDuration);
             moduleStatusUI.UpdateStatus(
                 GetResourceRemaining(),
