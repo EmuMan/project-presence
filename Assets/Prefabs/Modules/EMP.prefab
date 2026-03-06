@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3533769823291934413
+--- !u!1 &5068260895774933180
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1460272728369398350}
-  - component: {fileID: 2560806134826355918}
-  - component: {fileID: 3408661458450922588}
-  - component: {fileID: 6150352473368181084}
-  m_Layer: 0
-  m_Name: Cloak
+  - component: {fileID: 1077355330900687913}
+  - component: {fileID: 6176380424178216367}
+  - component: {fileID: 1078395449094429489}
+  - component: {fileID: 7256977268719260556}
+  m_Layer: 6
+  m_Name: EMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1460272728369398350
+--- !u!4 &1077355330900687913
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533769823291934413}
+  m_GameObject: {fileID: 5068260895774933180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,21 +34,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2560806134826355918
+--- !u!33 &6176380424178216367
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533769823291934413}
+  m_GameObject: {fileID: 5068260895774933180}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3408661458450922588
+--- !u!23 &1078395449094429489
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533769823291934413}
+  m_GameObject: {fileID: 5068260895774933180}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58e7ae08041c0baff86187bf2ca58400, type: 2}
+  - {fileID: 2100000, guid: 8a109cbdaefda52f3981388ad61b1796, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,19 +91,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6150352473368181084
+--- !u!114 &7256977268719260556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533769823291934413}
+  m_GameObject: {fileID: 5068260895774933180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df28a694a25b826ddbfa79aaf5e60a6f, type: 3}
+  m_Script: {fileID: 11500000, guid: d38b051b4248fd1d7b4e1766dd58d205, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CloakModule
-  moduleData: {fileID: 11400000, guid: d66d6385f6680fc0b9b060809ad8fe0f, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::EmpModule
+  moduleData: {fileID: 11400000, guid: 945e2038a98aafaa397a15470f41b2b2, type: 2}
   speedModifier: 1
   isCloaked: 0
-  cloakDuration: 5
+  empPrefab: {fileID: 5902210949609009364, guid: 53385c35a54f00f33b12b8bd93ddb63f, type: 3}

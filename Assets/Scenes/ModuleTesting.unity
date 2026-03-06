@@ -776,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: coreModuleData
       value: 
-      objectReference: {fileID: 11400000, guid: c8b4128a13c553c249147310a678bc4a, type: 2}
+      objectReference: {fileID: 11400000, guid: 945e2038a98aafaa397a15470f41b2b2, type: 2}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: headModuleData
       value: 

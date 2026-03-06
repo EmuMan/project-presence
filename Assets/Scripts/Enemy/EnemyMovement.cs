@@ -3,30 +3,25 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private TrackablePlayer player;
+    private Enemy enemy;
     private NavMeshAgent navMeshAgent;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enemy = GetComponent<Enemy>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject?.GetComponent<TrackablePlayer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (player != null)
+        Transform target = enemy.GetTarget();
+        if (enemy.canAct && target != null)
         {
-            if (player.IsCloaked())
-            {
-                navMeshAgent.ResetPath(); // Stop moving if the player is cloaked
-            }
-            else
-            {
-                navMeshAgent.SetDestination(player.transform.position);
-            }
+            navMeshAgent.SetDestination(target.position);
+        }
+        else
+        {
+            navMeshAgent.ResetPath();
         }
     }
 
