@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class JumpingEnemy : MonoBehaviour
 {
-    public Transform player;
     public Transform GroundCheck;
     public LayerMask ground;
+
+    private Enemy enemy;
     private Rigidbody rb;
 
     public float jumpVerticalAmount = 5f;
@@ -15,28 +16,32 @@ public class JumpingEnemy : MonoBehaviour
 
     void Awake()
     {
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody>();
-        timeOfNextJump = Time.time;
 
+        timeOfNextJump = Time.time;
     }
 
 
     void FixedUpdate()
     {
+        Transform playerTransform = enemy.GetTarget();
 
-        Debug.DrawLine(transform.position, player.position, Color.red, 0.1f);
+        if (playerTransform != null)
+        {
+            Debug.DrawLine(transform.position, playerTransform.position, Color.red, 0.1f);
+        }
         bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
 
-
         //change this to check if the object is touching the ground
-        if(grounded && Time.time >= timeOfNextJump)
+        if (enemy.canAct && playerTransform != null && grounded && Time.time >= timeOfNextJump)
         {
-            JumpTowardPlayer();
+            JumpTowardPlayer(playerTransform);
             timeOfNextJump = Time.time + jumpCooldown;
         }
-         
     }
-    void JumpTowardPlayer()
+
+    void JumpTowardPlayer(Transform player)
     {
         //direction for enemy to move towards
         Vector3 toPlayer = (player.position - transform.position);
@@ -44,7 +49,7 @@ public class JumpingEnemy : MonoBehaviour
 
         Vector3 dir = toPlayer.normalized;
 
-        if(toPlayer.sqrMagnitude < 0.0001f)
+        if (toPlayer.sqrMagnitude < 0.0001f)
         {
             return;
         }
@@ -58,7 +63,7 @@ public class JumpingEnemy : MonoBehaviour
 
         rb.AddForce(jumpVector, ForceMode.Impulse);
 
-        //movement 
+        //movement
         //rb.AddForce((toPlayer * 0.005f) + Vector3.up * jumpVerticalAmount, ForceMode.Impulse);
     }
 
