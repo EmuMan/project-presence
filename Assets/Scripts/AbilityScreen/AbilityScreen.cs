@@ -5,10 +5,6 @@ using TMPro;
 
 public class AbilityScreen : MonoBehaviour
 {
-    [Header("Data")]
-    [Tooltip("The persistent loadout data that carries over to the game scene.")]
-    public PlayerLoadout playerLoadout;
-
     [Header("Character Setup")]
     [Tooltip("The main player object that modules will be initialized with.")]
     public GameObject playerObject;
@@ -20,13 +16,21 @@ public class AbilityScreen : MonoBehaviour
     [Tooltip("Drag the Right Arm bone/transform here.")]
     public Transform rightArmAttachmentPoint;
 
-    [Tooltip("Drag the Core/Chest bone/transform here.")]
+    [Tooltip("Drag the Core bone/transform here.")]
     public Transform coreAttachmentPoint;
+
+    [Tooltip("Drag the Head bone/transform here.")]
+    public Transform headAttachmentPoint;
+
+    [Tooltip("Drag the Movement bone/transform here.")]
+    public Transform movementAttachmentPoint;
 
     // Keep track of the spawned modules so we can destroy them when swapping
     private Module instantiatedLeftArmModule;
     private Module instantiatedRightArmModule;
     private Module instantiatedCoreModule;
+    private Module instantiatedHeadModule;
+    private Module instantiatedMovementModule;
 
     [Header("UI Setup (World Space)")]
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
@@ -54,11 +58,13 @@ public class AbilityScreen : MonoBehaviour
         }
 
         // Optional: If you want to load the player's previously saved loadout right away
-        if (playerLoadout != null)
+        if (PlayerLoadout.Instance != null)
         {
-            EquipModule(ModuleData.ModuleSlot.LeftArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm));
-            EquipModule(ModuleData.ModuleSlot.RightArm, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm));
-            EquipModule(ModuleData.ModuleSlot.Core, playerLoadout.GetEquippedModule(ModuleData.ModuleSlot.Core));
+            EquipModule(ModuleData.ModuleSlot.LeftArm, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.LeftArm));
+            EquipModule(ModuleData.ModuleSlot.RightArm, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.RightArm));
+            EquipModule(ModuleData.ModuleSlot.Core, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Core));
+            EquipModule(ModuleData.ModuleSlot.Head, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Head));
+            EquipModule(ModuleData.ModuleSlot.Movement, PlayerLoadout.Instance.GetEquippedModule(ModuleData.ModuleSlot.Movement));
         }
     }
 
@@ -189,9 +195,9 @@ public class AbilityScreen : MonoBehaviour
         if (newModuleData.compatibleSlots == null || System.Array.IndexOf(newModuleData.compatibleSlots, currentlySelectedSlot) < 0) return;
 
         // 1. Save the choice to the persistent loadout
-        if (playerLoadout != null)
+        if (PlayerLoadout.Instance != null)
         {
-            playerLoadout.SetEquippedModule(currentlySelectedSlot, newModuleData);
+            PlayerLoadout.Instance.SetEquippedModule(currentlySelectedSlot, newModuleData);
             Debug.Log($"Saved {newModuleData.moduleName} to {currentlySelectedSlot} in Loadout.");
         }
 
@@ -206,6 +212,7 @@ public class AbilityScreen : MonoBehaviour
 
     /// <summary>
     /// Handles the logic of removing the old module and instantiating the new one based on explicit slots.
+    /// Instantiation in this context refers to the menu, not the actual gameplay scene.
     /// </summary>
     public void EquipModule(ModuleData.ModuleSlot slotType, ModuleData newModuleData)
     {
@@ -229,8 +236,16 @@ public class AbilityScreen : MonoBehaviour
                 targetAttachmentPoint = coreAttachmentPoint;
                 currentInstantiatedModule = instantiatedCoreModule;
                 break;
+            case ModuleData.ModuleSlot.Head:
+                targetAttachmentPoint = headAttachmentPoint;
+                currentInstantiatedModule = instantiatedHeadModule;
+                break;
+            case ModuleData.ModuleSlot.Movement:
+                targetAttachmentPoint = movementAttachmentPoint;
+                currentInstantiatedModule = instantiatedMovementModule;
+                break;
             default:
-                Debug.LogWarning($"Slot {slotType} is not explicitly set up in AbilityAttachments!");
+                Debug.LogWarning($"Slot {slotType} is not set up in AbilityScreen script!");
                 return;
         }
 
@@ -269,6 +284,12 @@ public class AbilityScreen : MonoBehaviour
                         break;
                     case ModuleData.ModuleSlot.Core:
                         instantiatedCoreModule = moduleComponent;
+                        break;
+                    case ModuleData.ModuleSlot.Head:
+                        instantiatedHeadModule = moduleComponent;
+                        break;
+                    case ModuleData.ModuleSlot.Movement:
+                        instantiatedMovementModule = moduleComponent;
                         break;
                 }
             }

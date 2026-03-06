@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1635154546939561525}
   - component: {fileID: 4241599127056407479}
   m_Layer: 0
-  m_Name: Bouncy Module
+  m_Name: Bounce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

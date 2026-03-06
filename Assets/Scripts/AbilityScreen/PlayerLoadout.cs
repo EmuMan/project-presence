@@ -1,37 +1,37 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "PlayerLoadout", menuName = "Data/Player Loadout")]
+/// <summary>
+/// Singleton that tracks the player's currently equipped modules across scenes.
+/// Persists between scene loads via DontDestroyOnLoad.
+/// <para>
+/// Access via <c>PlayerLoadout.Instance</c>. Use <see cref="GetEquippedModule"/> and
+/// <see cref="SetEquippedModule"/> to read and write module loadout slots.
+/// </para>
+/// </summary>
 public class PlayerLoadout : MonoBehaviour
 {
-    [System.Serializable]
-    public class EquippedSlot
+    public static PlayerLoadout Instance { get; private set; }
+
+    void Awake()
     {
-        public ModuleData.ModuleSlot slotType;
-        public ModuleData equippedModule;
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    [Tooltip("The modules currently equipped by the player.")]
-    public List<EquippedSlot> equippedSlots = new List<EquippedSlot>();
+    public Dictionary<ModuleData.ModuleSlot, ModuleData> equippedSlots = new Dictionary<ModuleData.ModuleSlot, ModuleData>();
 
     // Helper method to get a module for a specific slot
     public ModuleData GetEquippedModule(ModuleData.ModuleSlot slotType)
     {
-        var slot = equippedSlots.Find(s => s.slotType == slotType);
-        return slot != null ? slot.equippedModule : null;
+        equippedSlots.TryGetValue(slotType, out var module);
+        return module;
     }
 
     // Helper method to save a module to a specific slot
     public void SetEquippedModule(ModuleData.ModuleSlot slotType, ModuleData module)
     {
-        var slot = equippedSlots.Find(s => s.slotType == slotType);
-        if (slot != null)
-        {
-            slot.equippedModule = module;
-        }
-        else
-        {
-            equippedSlots.Add(new EquippedSlot { slotType = slotType, equippedModule = module });
-        }
+        equippedSlots[slotType] = module;
     }
 }

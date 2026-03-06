@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
-  m_Name: Bouncy Module
+  m_Name: Bounce
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
-  moduleName: Bouncy Module
+  moduleName: Bounce
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 8263396641466557956, guid: 85686d2c7fa7a041d871632881e01cf0, type: 3}
   compatibleSlots: 04000000
