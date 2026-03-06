@@ -15,7 +15,7 @@ MonoBehaviour:
   moduleName: EMP
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 5068260895774933180, guid: c2a25db34987023d7a38dc3a342e708f, type: 3}
-  compatibleSlots: 
+  compatibleSlots: 01000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0

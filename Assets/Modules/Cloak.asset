@@ -15,7 +15,7 @@ MonoBehaviour:
   moduleName: Cloak
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 3533769823291934413, guid: 5b98e03c435f0f76da0593460e36da89, type: 3}
-  compatibleSlots: 
+  compatibleSlots: 00000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0
