@@ -1102,12 +1102,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221275944}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 127.30709, y: 0, z: -82.55431}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1206221388}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &221275946
 MonoBehaviour:
@@ -1121,7 +1121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e35a73ff55325454ca3edc27222e0bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLoadout
-  equippedSlots: []
 --- !u!1 &221320791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4012,7 +4011,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 221275945}
   - {fileID: 1798333540}
   - {fileID: 726688681}
   - {fileID: 225553412}
@@ -4166,7 +4164,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1274631889}
   - component: {fileID: 1274631892}
-  - component: {fileID: 1274631891}
   - component: {fileID: 1274631890}
   m_Layer: 0
   m_Name: TitleCamera
@@ -4234,14 +4231,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1274631891
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274631888}
-  m_Enabled: 1
 --- !u!20 &1274631892
 Camera:
   m_ObjectHideFlags: 0
@@ -5888,7 +5877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0548d7435e2ba4ca43ddab67250658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityScreen
-  playerLoadout: {fileID: 0}
   playerObject: {fileID: 0}
   leftArmAttachmentPoint: {fileID: 193190304}
   rightArmAttachmentPoint: {fileID: 544206424}
@@ -5899,10 +5887,15 @@ MonoBehaviour:
   moduleButtonContainer: {fileID: 665282479}
   moduleButtonPrefab: {fileID: 6596604455073148642, guid: 90f7303bbe7ee0b4d81742749d5c0082, type: 3}
   allAvailableModules:
+  - {fileID: 11400000, guid: c8b4128a13c553c249147310a678bc4a, type: 2}
   - {fileID: 11400000, guid: ab7b769e27d052e71b21f773db4abd33, type: 2}
   - {fileID: 11400000, guid: 21d9d8ca1244269509ecc6e3f7d74b5e, type: 2}
   - {fileID: 11400000, guid: 843f9d030f580164e98894232f53c1b2, type: 2}
+  - {fileID: 11400000, guid: d66d6385f6680fc0b9b060809ad8fe0f, type: 2}
+  - {fileID: 11400000, guid: 945e2038a98aafaa397a15470f41b2b2, type: 2}
+  - {fileID: 11400000, guid: 568bf804ded4aff97aff31c48369734f, type: 2}
   - {fileID: 11400000, guid: 076cdb01a441f1537999008804b21c93, type: 2}
+  - {fileID: 11400000, guid: 219d6806f6b53c8ea9f51b1ace3bb128, type: 2}
   - {fileID: 11400000, guid: 47735a3f2cd8c15209accb5beaa7fa9d, type: 2}
   - {fileID: 11400000, guid: 9458970dda6f81c42ab7202e4c7f482d, type: 2}
 --- !u!1 &1830760646
@@ -7204,6 +7197,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 221275945}
   - {fileID: 479180506}
   - {fileID: 221320792}
   - {fileID: 1098002478}
