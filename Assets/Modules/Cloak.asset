@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
-  m_Name: Hammer
+  m_Name: Cloak
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
-  moduleName: Hammer
+  moduleName: Cloak
   moduleIcon: {fileID: 0}
-  instancePrefab: {fileID: 5740227005405684409, guid: df8de42b899ed1a739bab0ecd1b93cfe, type: 3}
-  compatibleSlots: 0200000003000000
+  instancePrefab: {fileID: 3533769823291934413, guid: 5b98e03c435f0f76da0593460e36da89, type: 3}
+  compatibleSlots: 00000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0
-  cooldownDuration: 3
+  cooldownDuration: 15

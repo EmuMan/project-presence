@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
-  m_Name: Hammer
+  m_Name: EMP
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
-  moduleName: Hammer
+  moduleName: EMP
   moduleIcon: {fileID: 0}
-  instancePrefab: {fileID: 5740227005405684409, guid: df8de42b899ed1a739bab0ecd1b93cfe, type: 3}
-  compatibleSlots: 0200000003000000
+  instancePrefab: {fileID: 5068260895774933180, guid: c2a25db34987023d7a38dc3a342e708f, type: 3}
+  compatibleSlots: 01000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0
-  cooldownDuration: 3
+  cooldownDuration: 20

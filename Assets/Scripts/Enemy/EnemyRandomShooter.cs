@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class RandomShooter : MonoBehaviour
+public class EnemyRandomShooter : MonoBehaviour
 {
+    [SerializeField] private Enemy enemy;
+
     public GameObject bulletPrefab;
     public Transform shootingPoint;
 
@@ -20,7 +22,10 @@ public class RandomShooter : MonoBehaviour
             float delay = Random.Range(minShootDelay, maxShootDelay);
             yield return new WaitForSeconds(delay);
 
-            Shoot();
+            if (enemy.canAct && enemy.GetTarget() != null)
+            {
+                Shoot();
+            }
         }
     }
 

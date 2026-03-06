@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c0cfec8bef4e146b797a5f6015bfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enemy: {fileID: 1507361075310447093}
   bulletPrefab: {fileID: 4732050411383927166, guid: ba48fa1568880c04d880d61d3548a5f5, type: 3}
   shootingPoint: {fileID: 4764803175013434167}
   minShootDelay: 1
@@ -124,6 +125,7 @@ GameObject:
   - component: {fileID: 5204889252350846611}
   - component: {fileID: 3133884301514291803}
   - component: {fileID: 6416037948823688838}
+  - component: {fileID: 1507361075310447093}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -310,6 +312,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   deathEffect: {fileID: 0}
+--- !u!114 &1507361075310447093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349583766261099199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420c6ab20c3763ac6a590eaec84a3477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  canAct: 1
 --- !u!1 &8153761906363888366
 GameObject:
   m_ObjectHideFlags: 0

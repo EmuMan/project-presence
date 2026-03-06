@@ -7,6 +7,7 @@ public class Module : MonoBehaviour
 
     [Header("Modifiers")]
     public float speedModifier = 1.0f;
+    public bool isCloaked = false;
 
     protected GameObject playerObject;
     protected ModuleStatus moduleStatusUI;

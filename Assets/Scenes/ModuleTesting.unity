@@ -776,11 +776,11 @@ PrefabInstance:
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: coreModuleData
       value: 
-      objectReference: {fileID: 11400000, guid: c8b4128a13c553c249147310a678bc4a, type: 2}
+      objectReference: {fileID: 11400000, guid: 945e2038a98aafaa397a15470f41b2b2, type: 2}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: headModuleData
       value: 
-      objectReference: {fileID: 11400000, guid: ab7b769e27d052e71b21f773db4abd33, type: 2}
+      objectReference: {fileID: 11400000, guid: d66d6385f6680fc0b9b060809ad8fe0f, type: 2}
     - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: coreModuleStatus
       value: 
@@ -813,6 +813,10 @@ PrefabInstance:
       propertyPath: rightArmModuleStatus
       value: 
       objectReference: {fileID: 2102561265}
+    - target: {fileID: 5946367356975470419, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
+      propertyPath: overrideModulesForTesting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8890456692041863436, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1211,7 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   prefab: {fileID: 4349583766261099199, guid: 7e10062f6776bcb48add0b0cdaa4231a, type: 3}
   spawnDelay: 4
-  spawnQuantity: 0
+  spawnQuantity: 20
   spawnBool: 1
   spawnPoint1: {x: 0, y: 0}
   spawnPoint2: {x: 0, y: 0}
