@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9d4a8b4dc2ace579e2988405539cd0, type: 3}
+  m_Name: Cloak
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleData
+  moduleName: Cloak
+  moduleIcon: {fileID: 0}
+  instancePrefab: {fileID: 3533769823291934413, guid: 5b98e03c435f0f76da0593460e36da89, type: 3}
+  compatibleSlots: 
+  isRepeating: 0
+  bufferDuration: 0.2
+  holdDuration: 0
+  cooldownDuration: 15

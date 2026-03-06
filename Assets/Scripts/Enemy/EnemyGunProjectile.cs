@@ -8,9 +8,14 @@ public class RandomShooter : MonoBehaviour
     public float minShootDelay = 1f;
     public float maxShootDelay = 3f;
 
+    private TrackablePlayer player;
+
     void Start()
     {
         StartCoroutine(ShootRoutine());
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerObject?.GetComponent<TrackablePlayer>();
     }
 
     System.Collections.IEnumerator ShootRoutine()
@@ -20,7 +25,10 @@ public class RandomShooter : MonoBehaviour
             float delay = Random.Range(minShootDelay, maxShootDelay);
             yield return new WaitForSeconds(delay);
 
-            Shoot();
+            if (player != null && !player.IsCloaked())
+            {
+                Shoot();
+            }
         }
     }
 

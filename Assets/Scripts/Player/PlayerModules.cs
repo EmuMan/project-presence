@@ -53,11 +53,14 @@ public class PlayerModules : MonoBehaviour
 
         // Set the module data for each slot based on the player's equipped loadout from the PlayerLoadout singleton
         PlayerLoadout loadout = PlayerLoadout.Instance;
-        headModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Head);
-        coreModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Core);
-        leftArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm);
-        rightArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm);
-        movementModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Movement);
+        if (!overrideModulesForTesting && loadout != null)
+        {
+            headModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Head);
+            coreModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Core);
+            leftArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm);
+            rightArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm);
+            movementModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Movement);
+        }
 
         // Instantiate all the modules based on the assigned ModuleData and parent them to the appropriate transforms
         SpawnAllModules();
@@ -143,5 +146,14 @@ public class PlayerModules : MonoBehaviour
         if (rightArmModule != null) totalModifier *= rightArmModule.speedModifier;
         if (movementModule != null) totalModifier *= movementModule.speedModifier;
         return totalModifier;
+    }
+
+    public bool IsCloaked()
+    {
+        return (headModule?.isCloaked == true) ||
+            (coreModule?.isCloaked == true) ||
+            (leftArmModule?.isCloaked == true) ||
+            (rightArmModule?.isCloaked == true) ||
+            (movementModule?.isCloaked == true);
     }
 }
