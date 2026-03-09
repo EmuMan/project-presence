@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerModules))]
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5.0f;
 
-    private CharacterController controller;
+    private CharacterController characterController;
     private PlayerModules playerModules;
 
     public Vector3 velocity;
@@ -20,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
         playerModules = GetComponent<PlayerModules>();
 
         moveAction = InputSystem.actions.FindAction("Move");
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         lookAction = InputSystem.actions.FindAction("Look");
     }
 
-    void Update()
+    void Update() 
     {
         GetMovementInput();
         GetLookInput();
@@ -129,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
-        CollisionFlags moveResult = controller.Move(velocity * Time.fixedDeltaTime);
+        CollisionFlags moveResult = characterController.Move(velocity * Time.fixedDeltaTime);
         if ((moveResult & CollisionFlags.Below) != 0)
         {
             velocity.y = 0; // Reset vertical velocity when grounded
@@ -138,6 +140,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return controller.isGrounded;
+        return characterController.isGrounded;
     }
 }
