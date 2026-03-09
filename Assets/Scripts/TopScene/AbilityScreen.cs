@@ -172,6 +172,13 @@ public class AbilityScreen : MonoBehaviour
         }
 
         Debug.Log($"Created {matchingModules} buttons for slot: {slot}");
+
+        // Force rebuild the layout after spawning buttons
+        Canvas.ForceUpdateCanvases();
+        if (moduleButtonContainer != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(moduleButtonContainer as RectTransform);
+        }
     }
 
     private string GetHierarchyPath(Transform t)
