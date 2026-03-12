@@ -28,8 +28,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7712412754829225505}
   - {fileID: 6885621266360098577}
+  - {fileID: 7712412754829225505}
   m_Father: {fileID: 124316214988687175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 3148865072507267344}
   - component: {fileID: 5244863576185272380}
   m_Layer: 5
-  m_Name: Image
+  m_Name: NameBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,15 +95,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.27216086, g: 0.3401164, b: 0.6226415, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -167,8 +167,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   dialogueText: {fileID: 2625954286329056238}
   characterNameText: {fileID: 3448941057950056894}
+  backgroundPanel: {fileID: 836014480007241386}
+  continueButton: {fileID: 5976153101647597276}
   isDialogueActive: 0
-  typingSpeed: 0.08
+  typingSpeed: 0.02
 --- !u!1 &5532152933781944698
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +183,7 @@ GameObject:
   - component: {fileID: 1927906051748485277}
   - component: {fileID: 4922214041661916248}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: DialogueBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,8 +205,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -642.8336, y: -185.41724}
-  m_SizeDelta: {x: 184.3328, y: 65.4556}
+  m_AnchoredPosition: {x: -493.3971, y: -185.41724}
+  m_SizeDelta: {x: 483.2058, y: 65.4556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1927906051748485277
 CanvasRenderer:
@@ -227,15 +229,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.27058825, g: 0.34117648, b: 0.62352943, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -256,7 +258,7 @@ GameObject:
   - component: {fileID: 1735874804395630804}
   - component: {fileID: 3448941057950056894}
   m_Layer: 5
-  m_Name: Name
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,7 +280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -505, y: -182}
+  m_AnchoredPosition: {x: -476, y: -186}
   m_SizeDelta: {x: 422.282, y: 48.731}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1735874804395630804
@@ -311,15 +313,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Name:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
+  m_sharedMaterial: {fileID: 3275705481163548480, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4294931712
+  m_fontColor: {r: 0, g: 0.4590602, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -336,8 +338,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -448,15 +450,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
+  m_sharedMaterial: {fileID: 3275705481163548480, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278252543
-  m_fontColor: {r: 1, g: 0.9534039, b: 0, a: 1}
+    rgba: 4294573824
+  m_fontColor: {r: 0, g: 1, b: 0.9783015, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -531,7 +533,7 @@ GameObject:
   - component: {fileID: 3198783412756635647}
   - component: {fileID: 8020090274426381661}
   m_Layer: 5
-  m_Name: Next
+  m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +556,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 602, y: -287.19568}
+  m_AnchoredPosition: {x: 617, y: -287.19568}
   m_SizeDelta: {x: 160, y: 90.8454}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6645825876922792217
@@ -662,7 +664,7 @@ GameObject:
   - component: {fileID: 6291938670668514010}
   - component: {fileID: 253299238112606514}
   m_Layer: 5
-  m_Name: TriggerBox
+  m_Name: Script
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,25 +705,52 @@ MonoBehaviour:
     lines:
     - character:
         name: ...
-      line: wake up...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
+      line: get up...
     - character:
-        name: Player
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
       line: ... ... ...
     - character:
-        name: Player
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
       line: Where am I...
     - character:
         name: ...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
       line: Wake up!
     - character:
-        name: Player
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
       line: Who is screaming at me...
     - character:
         name: ...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
       line: WAKE UP!!!!
     - character:
-        name: Player
-      line: Ahh wait. That's gotta be sergeant's voice
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Ahh. Of course. Tor's gotta be yelling at me for something again.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'You up?? Finally. I''ve been yelling for 5 minutes. Time to get to work. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Right... now don't get mad at me... but what are doing again?
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: You... never pay attention to Sergeant do you.
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Nope.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: '*Sigh* Alright... Let''s run through it again.'
 --- !u!1 &7440869723142469318
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +763,7 @@ GameObject:
   - component: {fileID: 4240357365253487765}
   - component: {fileID: 2625954286329056238}
   m_Layer: 5
-  m_Name: Dialogue
+  m_Name: DialogueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -756,8 +785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -96.69678, y: -298.73135}
-  m_SizeDelta: {x: 1238.3496, y: 146.2039}
+  m_AnchoredPosition: {x: -78, y: -298.73135}
+  m_SizeDelta: {x: 1215.2, y: 146.2039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4240357365253487765
 CanvasRenderer:
@@ -787,12 +816,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'random stuff random stuff random stuff blah blah blah blah blah blah blah
+  m_text: random stuff random stuff random stuff blah blah blah blah blah blah blah
     blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-    blah blah blah blah blah blah blah blah blah blah blah blah blah blah  '
+    blah blah blah blah blah blah blah blah blah blah blah
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
+  m_sharedMaterial: {fileID: 3275705481163548480, guid: db1581ecd578c4845b1f9fae26799e2d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

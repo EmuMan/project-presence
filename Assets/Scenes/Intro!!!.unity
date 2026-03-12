@@ -574,6 +574,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 253299238112606514, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[7].line
+      value: 'You up? Finally. I''ve been yelling for 5 minutes. Time to get to work. '
+      objectReference: {fileID: 0}
     - target: {fileID: 2424471378725654788, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_Name
       value: DialogueUI

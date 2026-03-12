@@ -8,6 +8,8 @@ public class DialogueManager : MonoBehaviour
 
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI characterNameText;
+    public GameObject backgroundPanel;
+    public GameObject continueButton;
 
     private Queue<DialogueLine> dialogueLines;
 
@@ -29,6 +31,12 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = true;
         dialogueLines.Clear();
 
+        backgroundPanel.SetActive(true);
+        continueButton.SetActive(true);
+        dialogueText.text = "";
+        characterNameText.text = "";
+        // turn on UI for dialogue
+
         foreach (DialogueLine line in dialogue.lines)
         {
             dialogueLines.Enqueue(line);
@@ -42,13 +50,17 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueLines.Count == 0)
         {
+            continueButton.SetActive(false);
             EndDialogue();
             return;
         }
         // check if there are any lines left, if not end dialogue
 
+        continueButton.SetActive(false);
         DialogueLine currentLine = dialogueLines.Dequeue();
+
         characterNameText.text = currentLine.character.name;
+        characterNameText.color = currentLine.character.nameColor;
         StopAllCoroutines();
         StartCoroutine(TypeLine(currentLine.line));
         // reset the newest line
@@ -59,6 +71,8 @@ public class DialogueManager : MonoBehaviour
         isDialogueActive = false;
         dialogueText.text = "";
         characterNameText.text = "";
+        backgroundPanel.SetActive(false);
+        continueButton.SetActive(false);
         // kill it all
     }
 
@@ -71,6 +85,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
         // to stall the displays in a typewriter effect
+        continueButton.SetActive(true);
     }
 
 }

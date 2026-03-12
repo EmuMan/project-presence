@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueCharacter
 {
     public string name;
+    public Color nameColor;
 }
 // character details of who is speaking
 
