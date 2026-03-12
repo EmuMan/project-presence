@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class JumpingEnemy : MonoBehaviour
 {
-    public Transform player;
     public Transform GroundCheck;
     public LayerMask ground;
+    
+
+    public Transform player;
+    private Enemy enemy;
     private Rigidbody rb;
 
     public float jumpVerticalAmount = 8f;
@@ -23,17 +26,23 @@ public class JumpingEnemy : MonoBehaviour
 
     void Awake()
     {
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody>();
         timeOfNextJump = Time.time;
         startingHorizAmount = jumpHorizontalAmount;
 
+        timeOfNextJump = Time.time;
     }
 
 
     void FixedUpdate()
     {
+        Transform playerTransform = enemy.GetTarget();
 
-        Debug.DrawLine(transform.position, player.position, Color.red, 0.1f);
+        if (playerTransform != null)
+        {
+            Debug.DrawLine(transform.position, playerTransform.position, Color.red, 0.1f);
+        }
         bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         
         //only jump if currently touching the ground
@@ -75,6 +84,7 @@ public class JumpingEnemy : MonoBehaviour
 
          
     }
+
     void JumpTowardPlayer()
     {
         //direction for enemy to move towards
@@ -83,7 +93,7 @@ public class JumpingEnemy : MonoBehaviour
 
         Vector3 dir = toPlayer.normalized;
 
-        if(toPlayer.sqrMagnitude < 0.0001f)
+        if (toPlayer.sqrMagnitude < 0.0001f)
         {
             return;
         }

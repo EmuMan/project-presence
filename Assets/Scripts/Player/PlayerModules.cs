@@ -14,11 +14,20 @@ public class PlayerModules : MonoBehaviour
     [SerializeField] public Transform movementTransform;
 
     [Header("Module Data")]
+    [Tooltip("For testing purposes, you can override the modules assigned to each slot here. If false, the modules will be determined by the PlayerLoadout singleton based on the player's equipped loadout.")]
+    [SerializeField] public bool overrideModulesForTesting = false;
     [SerializeField] public ModuleData headModuleData;
     [SerializeField] public ModuleData coreModuleData;
     [SerializeField] public ModuleData leftArmModuleData;
     [SerializeField] public ModuleData rightArmModuleData;
     [SerializeField] public ModuleData movementModuleData;
+
+    [Header("Module Status UI")]
+    [SerializeField] public ModuleStatus headModuleStatus;
+    [SerializeField] public ModuleStatus coreModuleStatus;
+    [SerializeField] public ModuleStatus leftArmModuleStatus;
+    [SerializeField] public ModuleStatus rightArmModuleStatus;
+    [SerializeField] public ModuleStatus movementModuleStatus;
 
     private Module headModule;
     private Module coreModule;
@@ -41,6 +50,17 @@ public class PlayerModules : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
+        // Set the module data for each slot based on the player's equipped loadout from the PlayerLoadout singleton
+        PlayerLoadout loadout = PlayerLoadout.Instance;
+        if (!overrideModulesForTesting && loadout != null)
+        {
+            headModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Head);
+            coreModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Core);
+            leftArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.LeftArm);
+            rightArmModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.RightArm);
+            movementModuleData = loadout.GetEquippedModule(ModuleData.ModuleSlot.Movement);
+        }
 
         // Instantiate all the modules based on the assigned ModuleData and parent them to the appropriate transforms
         SpawnAllModules();
@@ -78,14 +98,14 @@ public class PlayerModules : MonoBehaviour
 
     private void SpawnAllModules()
     {
-        headModule = SpawnModule(headModuleData, headTransform);
-        coreModule = SpawnModule(coreModuleData, coreTransform);
-        leftArmModule = SpawnModule(leftArmModuleData, leftArmTransform);
-        rightArmModule = SpawnModule(rightArmModuleData, rightArmTransform);
-        movementModule = SpawnModule(movementModuleData, movementTransform);
+        headModule = SpawnModule(headModuleData, headTransform, headModuleStatus);
+        coreModule = SpawnModule(coreModuleData, coreTransform, coreModuleStatus);
+        leftArmModule = SpawnModule(leftArmModuleData, leftArmTransform, leftArmModuleStatus);
+        rightArmModule = SpawnModule(rightArmModuleData, rightArmTransform, rightArmModuleStatus);
+        movementModule = SpawnModule(movementModuleData, movementTransform, movementModuleStatus);
     }
 
-    private Module SpawnModule(ModuleData moduleData, Transform parentTransform)
+    private Module SpawnModule(ModuleData moduleData, Transform parentTransform, ModuleStatus moduleStatusUI)
     {
         if (moduleData == null)
         {
@@ -105,7 +125,7 @@ public class PlayerModules : MonoBehaviour
         if (moduleComponent != null)
         {
             // Initialize the module with its data and parent transform
-            moduleComponent.Initialize(gameObject);
+            moduleComponent.Initialize(gameObject, moduleStatusUI);
             return moduleComponent;
         }
         else
@@ -115,5 +135,25 @@ public class PlayerModules : MonoBehaviour
         }
 
         return null;
+    }
+
+    public float GetTotalSpeedModifier()
+    {
+        float totalModifier = 1.0f;
+        if (headModule != null) totalModifier *= headModule.speedModifier;
+        if (coreModule != null) totalModifier *= coreModule.speedModifier;
+        if (leftArmModule != null) totalModifier *= leftArmModule.speedModifier;
+        if (rightArmModule != null) totalModifier *= rightArmModule.speedModifier;
+        if (movementModule != null) totalModifier *= movementModule.speedModifier;
+        return totalModifier;
+    }
+
+    public bool IsCloaked()
+    {
+        return (headModule?.isCloaked == true) ||
+            (coreModule?.isCloaked == true) ||
+            (leftArmModule?.isCloaked == true) ||
+            (rightArmModule?.isCloaked == true) ||
+            (movementModule?.isCloaked == true);
     }
 }

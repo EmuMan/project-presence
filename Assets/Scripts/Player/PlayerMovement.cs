@@ -1,37 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerModules))]
 public class PlayerMovement : MonoBehaviour
 {
-    public enum JumpState
-    {
-        Grounded,
-        Jumping,
-        Rising,
-        Falling
-    }
-
     public float speed = 5.0f;
-    public float jumpStrength = 5.0f;
-    public float jumpBufferTime = 0.2f;
-    public float jumpCoyoteTime = 0.2f;
-    public float extraGroundCheckDistance = 0.05f;
-    public float fallMultiplier = 2.0f;
 
-    public JumpState jumpState = JumpState.Grounded;
-
-    private CharacterController controller;
+    private CharacterController characterController;
+    private PlayerModules playerModules;
 
     public Vector3 velocity;
 
     private InputAction moveAction;
     private Vector3 movementInput;
-
-    private InputAction jumpAction;
-    private InputTracker jumpInputTracker = new InputTracker();
-    private BufferedAction jumpBufferedAction;
-    private float lastGroundedTime = 0.0f;
-    private bool canJump = true;
 
     private bool isUsingController = false;
     private InputAction lookAction;
@@ -40,19 +22,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
+        playerModules = GetComponent<PlayerModules>();
 
         moveAction = InputSystem.actions.FindAction("Move");
-
-        jumpAction = InputSystem.actions.FindAction("Jump");
-        jumpBufferedAction = new BufferedAction(jumpBufferTime);
-        /* this is a custom function where you give it a buffer time of how early
-        you can press jump, and then give it a duration time for how long you can hold it */
 
         lookAction = InputSystem.actions.FindAction("Look");
     }
 
-    void Update()
+    void Update() 
     {
         GetMovementInput();
         GetLookInput();
@@ -66,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         ApplyMovementInput();
         MoveCharacter();
-        JumpCharacter();
         /* on fixed update, use the stored input and act */
     }
 
@@ -80,15 +57,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void GetMovementInput()
+    private void GetMovementInput()
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
         movementInput = new Vector3(input.x, 0.0f, input.y);
-
-        jumpInputTracker.SetPressed(jumpAction.IsPressed());
     }
 
-    void GetLookInput()
+    private void GetLookInput()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 controllerInput = lookAction.ReadValue<Vector2>();
@@ -132,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void RotatePlayerToTarget()
+    private void RotatePlayerToTarget()
     {
         if (lookDirection != Vector3.zero)
         {
@@ -141,93 +116,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void ApplyGravity()
+    private void ApplyGravity()
     {
-        if (jumpState != JumpState.Grounded)
-        {
-            float fallDeltaSpeed = Physics.gravity.y * Time.fixedDeltaTime;
-            if (jumpState == JumpState.Falling || jumpState == JumpState.Rising)
-            {
-                fallDeltaSpeed *= fallMultiplier;
-            }
-            velocity.y += fallDeltaSpeed;
-        }
-        else
-        {
-            velocity.y = 0.0f;
-        }
+        float fallDeltaSpeed = Physics.gravity.y * Time.fixedDeltaTime;
+        velocity.y += fallDeltaSpeed;
     }
 
-    void ApplyMovementInput()
+    private void ApplyMovementInput()
     {
-        Vector3 horizontalVelocity = movementInput * speed;
+        Vector3 horizontalVelocity = movementInput * speed * playerModules.GetTotalSpeedModifier();
         velocity.x = horizontalVelocity.x;
         velocity.z = horizontalVelocity.z;
     }
 
-    void MoveCharacter()
+    private void MoveCharacter()
     {
-        controller.Move(velocity * Time.fixedDeltaTime);
-    }
-
-    void JumpCharacter()
-    {
-        if (Time.time - lastGroundedTime > jumpCoyoteTime)
+        CollisionFlags moveResult = characterController.Move(velocity * Time.fixedDeltaTime);
+        if ((moveResult & CollisionFlags.Below) != 0)
         {
-            // Coyote time expired
-            canJump = false;
-        }
-
-        if (jumpBufferedAction.IsActing(jumpInputTracker.IsPressed(), canJump))
-        {
-            // These lines of code will run during the full time the player is jumping.
-            velocity.y = jumpStrength;
-            jumpState = JumpState.Jumping;
-            // Invalidate coyote time after jumping
-            lastGroundedTime = -Mathf.Infinity;
-        }
-        else
-        {
-            if (IsGrounded())
-            {
-                jumpState = JumpState.Grounded;
-                lastGroundedTime = Time.time;
-                canJump = true;
-            }
-            else if (velocity.y > 0)
-            {
-                jumpState = JumpState.Rising;
-            }
-            else
-            {
-                jumpState = JumpState.Falling;
-            }
+            velocity.y = 0; // Reset vertical velocity when grounded
         }
     }
 
-    bool IsGrounded()
+    public bool IsGrounded()
     {
-        if (controller.isGrounded)
-        {
-            return true;
-        }
-
-        // Get the bottom center of the character capsule
-        float radius = controller.radius;
-        float height = controller.height;
-        Vector3 center = controller.transform.position + controller.center;
-
-        // Cast a sphere slightly below the character
-        float castDistance = height / 2f - radius + controller.skinWidth;
-
-        return Physics.SphereCast(
-            center,
-            radius * 0.99f,  // Slightly smaller radius to avoid edge cases
-            Vector3.down,
-            out RaycastHit hit,
-            castDistance + extraGroundCheckDistance,
-            LayerMask.GetMask("Terrain"),
-            QueryTriggerInteraction.Ignore
-        );
+        return characterController.isGrounded;
     }
 }

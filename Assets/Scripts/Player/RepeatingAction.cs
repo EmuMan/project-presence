@@ -88,4 +88,9 @@ public class RepeatingAction
             return false;
         }
     }
+
+    public float GetFractionUntilNextRepeat()
+    {
+        return 1.0f - Mathf.Clamp01(timeSinceLastRepeat / repeatInterval);
+    }
 }

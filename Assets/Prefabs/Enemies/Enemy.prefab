@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 668455954115820315}
   - component: {fileID: 3798787038265506203}
   - component: {fileID: 503405340737609242}
-  - component: {fileID: 8393244999948473454}
   - component: {fileID: 5438732442827605740}
   m_Layer: 8
   m_Name: EnemyGun
@@ -93,27 +92,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8393244999948473454
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685142072116109013}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5438732442827605740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c0cfec8bef4e146b797a5f6015bfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enemy: {fileID: 1507361075310447093}
   bulletPrefab: {fileID: 4732050411383927166, guid: ba48fa1568880c04d880d61d3548a5f5, type: 3}
   shootingPoint: {fileID: 4764803175013434167}
   minShootDelay: 1
@@ -144,8 +123,9 @@ GameObject:
   - component: {fileID: 6939818008697662490}
   - component: {fileID: 1498236393389872178}
   - component: {fileID: 5204889252350846611}
-  - component: {fileID: 533380348323600131}
+  - component: {fileID: 3133884301514291803}
   - component: {fileID: 6416037948823688838}
+  - component: {fileID: 1507361075310447093}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -284,7 +264,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &533380348323600131
+--- !u!54 &3133884301514291803
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,7 +287,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -332,6 +312,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   deathEffect: {fileID: 0}
+--- !u!114 &1507361075310447093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349583766261099199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420c6ab20c3763ac6a590eaec84a3477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  canAct: 1
 --- !u!1 &8153761906363888366
 GameObject:
   m_ObjectHideFlags: 0

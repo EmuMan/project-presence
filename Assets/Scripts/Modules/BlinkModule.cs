@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BlinkModule : Module
 {
+    [Header("Blink Settings")]
     [SerializeField] private float maxBlinkDistance = 7.0f; // Maximum distance the player can blink
 
     public ModuleData data;
@@ -21,7 +22,8 @@ public class BlinkModule : Module
 
         // Check for obstacles using a spherecast with a small radius to prevent teleporting inside walls or other objects
         float sphereRadius = 0.5f;
-        if (Physics.SphereCast(playerTransform.position, sphereRadius, direction.normalized, out RaycastHit hitInfo, maxBlinkDistance))
+        int layerMask = LayerMask.GetMask("Terrain");
+        if (Physics.SphereCast(playerTransform.position, sphereRadius, direction.normalized, out RaycastHit hitInfo, maxBlinkDistance, layerMask))
         {
             blinkDisplacement = direction.normalized * hitInfo.distance;
         }

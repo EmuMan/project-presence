@@ -5,17 +5,22 @@ public class ModuleData : ScriptableObject
 {
     public enum ModuleSlot
     {
-        Head,
-        Core,
-        LeftArm,
-        RightArm,
-        Movement
+        Head,     // 0
+        Core,     // 1
+        LeftArm,  // 2
+        RightArm, // 3
+        Movement  // 4
     }
 
+    [Header("Basic Info")]
     public string moduleName;
     public Sprite moduleIcon;
     public GameObject instancePrefab;
 
+    [Tooltip("Which body part(s) this module can be attached to. Can select multiple slots.")]
+    public ModuleSlot[] compatibleSlots;
+
+    [Header("Action Settings")]
     public bool isRepeating = false;
     public float bufferDuration = 0.2f;
     public float holdDuration = 0.0f;
