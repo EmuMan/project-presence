@@ -7,12 +7,6 @@ public class BlinkModule : Module
 
     public ModuleData data;
 
-    public Material onColor;
-    public Material offColor;
-
-    private float coolTime;
-    private bool acted = false;
-
     protected override void PerformAction(Vector3 direction)
     {
         Transform playerTransform = playerObject.transform;
@@ -29,27 +23,5 @@ public class BlinkModule : Module
         }
 
         playerTransform.GetComponent<CharacterController>().Move(blinkDisplacement);
-        acted = true;
-    }
-
-    void FixedUpdate()
-    {
-        if (coolTime > 0.0f)
-        {
-            coolTime -= Time.deltaTime;
-        }
-        else
-        {
-            if (acted == true)
-            {
-                GetComponent<Renderer>().material = offColor;
-                coolTime = data.cooldownDuration;
-                acted = false;
-            }
-            else
-            {
-                GetComponent<Renderer>().material = onColor;
-            }
-        }
     }
 }
