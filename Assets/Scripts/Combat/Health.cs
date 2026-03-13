@@ -1,5 +1,7 @@
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -54,6 +56,15 @@ public class Health : MonoBehaviour
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+
+        // Sets the game over flag in PlayerPrefs to indicate the player has died
+        // This is helpful for the GameOverScreen to know when to show the game over state
+        PlayerPrefs.SetInt("IsGameOver", 1);
+        PlayerPrefs.Save(); // Ensures it saves immediately
+        
         Destroy(gameObject);
+
+        // Scene transition to the Game Over screen
+        SceneManager.LoadScene("TopScene");
     }
 }

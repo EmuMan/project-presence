@@ -6,8 +6,6 @@ using TMPro;
 public class AbilityScreen : MonoBehaviour
 {
     [Header("Character Setup")]
-    [Tooltip("The main player object that modules will be initialized with.")]
-    public GameObject playerObject;
 
     [Header("Explicit Attachment Points")]
     [Tooltip("Drag the Left Arm bone/transform here.")]
@@ -278,7 +276,7 @@ public class AbilityScreen : MonoBehaviour
             if (moduleComponent != null)
             {
                 moduleComponent.moduleData = newModuleData;
-                moduleComponent.Initialize(playerObject, null);
+                //moduleComponent.Initialize(playerObject, null);
 
                 // 5. Save the reference so we can destroy it later if we swap again
                 switch (slotType)
