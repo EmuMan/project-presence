@@ -103,6 +103,8 @@ public class BufferedAction
         {
             timeSinceLastActionStart = 0.0f;
             isBeingActivated = true;
+            // force buffer to invalidate
+            timeSinceLastInput = bufferTime + 1.0f;
             return true;
         }
         else if (heldInputValid && holdAllowed)
