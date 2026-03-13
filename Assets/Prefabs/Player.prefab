@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 910431902890869238}
   - component: {fileID: 7771426428859037133}
   - component: {fileID: 988446329584537703}
+  - component: {fileID: 424045249472552000}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -308,6 +309,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   deathEffect: {fileID: 0}
+  onHealthBoost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7771426428859037133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +337,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackablePlayer
   cloakedColor: {r: 1, g: 1, b: 1, a: 0.14901961}
+--- !u!114 &424045249472552000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031992384780835471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5d8531a665f3dba98650583dad33db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverOnDeath
 --- !u!1 &5268017491059182608
 GameObject:
   m_ObjectHideFlags: 0

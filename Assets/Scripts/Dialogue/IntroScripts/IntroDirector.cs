@@ -21,6 +21,7 @@ public class IntroDirector : MonoBehaviour
         yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
 
         Debug.Log("Intro sequence finished!");
+
     }
 
     public void MoveTo(Vector3 targetPosition, float duration)
@@ -47,5 +48,5 @@ public class IntroDirector : MonoBehaviour
 
         planet.transform.position = target;
     }
-    
+
 }
