@@ -37,16 +37,13 @@ public class MachineGunModule : Module
         lastShootOrigin = shootPoint.position;
 
         // Perform a raycast to simulate hitscan shooting
-        RaycastHit hit;
+        RaycastHit? maybeHit = SendDualRaycast(shootPoint.position, direction);
 
-        if (Physics.Raycast(shootPoint.position, direction, out hit, range, hitMask))
+        if (maybeHit is RaycastHit hit)
         {
             // Check if the hit object has a health component and apply damage
             Health targetHealth = hit.collider.GetComponent<Health>();
-            if (targetHealth != null)
-            {
-                targetHealth.TakeDamage(damagePerShot);
-            }
+            targetHealth?.TakeDamage(damagePerShot);
 
             // Spawn a hitscan trail from the shoot point to the hit point
             SpawnTrail(shootPoint.position, hit.point);
@@ -61,6 +58,31 @@ public class MachineGunModule : Module
 
         // Spawn a muzzle flash at the shoot point
         SpawnMuzzleFlash(direction);
+    }
+
+    private RaycastHit? SendDualRaycast(Vector3 origin, Vector3 direction)
+    {
+        Vector3? hitPoint = null;
+        float hitDistance = 0f;
+
+        if (Physics.Raycast(origin, direction, out RaycastHit forwardHit, range, hitMask))
+        {
+            hitPoint = forwardHit.point;
+            hitDistance = forwardHit.distance;
+        }
+
+        // If it hit a closer object, start the backwards raycast from there
+        // Otherwise, start it from the end of the forward raycast range
+        Vector3 newOrigin = hitPoint ?? origin + direction.normalized * range;
+        float newRange = hitDistance > 0f ? hitDistance : range;
+        if (Physics.Raycast(newOrigin, -direction, out RaycastHit backwardHit, newRange, hitMask))
+        {
+            // If the backwards raycast hits something, return that object
+            return backwardHit;
+        }
+
+        // If the backwards raycast doesn't hit anything, return the forward hit object if it did
+        return hitPoint != null ? forwardHit : (RaycastHit?)null;
     }
 
     private void SpawnTrail(Vector3 start, Vector3 end)
