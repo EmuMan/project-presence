@@ -176,6 +176,7 @@ MonoBehaviour:
   isCloaked: 0
   nailPrefab: {fileID: 5774805946932156845, guid: f7c3b448562786e26bce186f0e0a2015, type: 3}
   shootPoint: {fileID: 2652158898584009904}
+  muzzleFlashPrefab: {fileID: 7281439958936200007, guid: e73fe0723c9703638bb198162a871f67, type: 3}
 --- !u!4 &4441568678099568895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e97d1c309b09b86ca8ed268fd4d21aed, type: 3}
