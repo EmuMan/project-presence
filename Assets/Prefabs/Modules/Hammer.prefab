@@ -94,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 8655360381743285540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.418, z: 0.284}
+  m_LocalPosition: {x: 0, y: 1.418, z: -0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -237,7 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerModule
   moduleData: {fileID: 11400000, guid: 076cdb01a441f1537999008804b21c93, type: 2}
-  playerObject: {fileID: 0}
+  speedModifier: 1
+  isCloaked: 0
   hammerDownAngle: 90
   hammerUpAngle: 0
   hammerWindUpAngle: -45
@@ -246,5 +247,5 @@ MonoBehaviour:
   recoveryTime: 0.2
   hitbox: {fileID: 7544683505589331812}
   groundDetectionOrigin: {fileID: 6591046302855962688}
-  groundDetectionDistance: 1
+  groundDetectionDistance: 1.5
   groundEffectPrefab: {fileID: 1269568631021167840, guid: be9fbc6c0b626f9bbac85cc086eabc62, type: 3}

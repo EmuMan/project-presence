@@ -16,7 +16,7 @@ public class HammerModule : Module
     [Header("Hitbox and Effects")]
     public DamagingHitbox hitbox;
     public Transform groundDetectionOrigin;
-    public float groundDetectionDistance = 1.0f;
+    public float groundDetectionDistance = 1.5f;
     public GameObject groundEffectPrefab;
 
     protected override void PerformAction(Vector3 direction)
