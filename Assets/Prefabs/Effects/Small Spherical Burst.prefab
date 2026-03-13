@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 192520334270606129}
   - component: {fileID: 6578223559001647948}
   - component: {fileID: 779540177281658209}
+  - component: {fileID: 1753691057186490643}
   m_Layer: 0
   m_Name: Small Spherical Burst
   m_TagString: Untagged
@@ -4894,3 +4895,17 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &1753691057186490643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281439958936200007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e597fe2931fa152ba6ab0c4081fa8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyAfter
+  lifetime: 1
+  destroyEffect: {fileID: 0}
