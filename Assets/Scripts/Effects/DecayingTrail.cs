@@ -2,19 +2,19 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class HitscanTrail : MonoBehaviour
+public class DecayingTrail : MonoBehaviour
 {
-    public float duration = 0.08f;
-    public AnimationCurve widthCurve = AnimationCurve.Linear(0, 0.1f, 1, 0.1f);
+    public float duration = 0.5f;
+    public float startWidth = 0.1f;
+    public float endWidth = 0.1f;
 
     private LineRenderer lr;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
-        lr.widthCurve = widthCurve;
+        lr.widthCurve = GenerateWidthCurve(1f);
         lr.positionCount = 2;
-        SetTrail(Vector3.zero, Vector3.up * 10f);
     }
 
     public void SetTrail(Vector3 start, Vector3 end)
@@ -31,12 +31,20 @@ public class HitscanTrail : MonoBehaviour
 
         while (elapsed < duration)
         {
+            float t = elapsed / duration;
             elapsed += Time.deltaTime;
-            float a = Mathf.Lerp(1f, 0f, elapsed / duration);
+            float a = Mathf.Lerp(1f, 0f, t);
             lr.material.color = new Color(startColor.r, startColor.g, startColor.b, a);
+            lr.widthCurve = GenerateWidthCurve(t);
             yield return null;
         }
 
         Destroy(gameObject);
+    }
+
+    private AnimationCurve GenerateWidthCurve(float t)
+    {
+        t = 1f - t;
+        return AnimationCurve.Linear(0, startWidth * t, 1, endWidth * t);
     }
 }

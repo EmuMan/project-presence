@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EmpBlast : MonoBehaviour
 {
-    [SerializeField] private float endRadius = 20f;
     [SerializeField] private float blastDuration = 1f;
     [SerializeField] private float disableDuration = 5f;
 
@@ -21,14 +20,7 @@ public class EmpBlast : MonoBehaviour
     void Update()
     {
         blastTimer += Time.deltaTime;
-        float currentRadius = Mathf.Lerp(0f, endRadius, blastTimer / blastDuration);
-        transform.localScale = new Vector3(currentRadius, currentRadius, currentRadius);
         SetAlpha((1f - (blastTimer / blastDuration)) / 2f);
-
-        if (blastTimer >= blastDuration)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void OnTriggerEnter(Collider other)
