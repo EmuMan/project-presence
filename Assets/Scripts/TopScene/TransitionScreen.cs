@@ -37,6 +37,7 @@ public class TransitionScreen : MonoBehaviour
     public float nextUIFadeDuration = 2f;
 
     private bool isTransitioning = false;
+    private CanvasGroup currentUICanvasGroup;
 
     void Awake()
     {
@@ -93,24 +94,25 @@ public class TransitionScreen : MonoBehaviour
         }
 
         // Fade in the title UI when the game starts
-        StartCoroutine(FadeInTitleUI());
+        currentUICanvasGroup = titleUICanvasGroup;
+        StartCoroutine(FadeInUI());
     }
 
-    private IEnumerator FadeInTitleUI()
+    private IEnumerator FadeInUI()
     {
-        if (titleUICanvasGroup == null) yield break;
+        if (currentUICanvasGroup == null) yield break;
 
         float fadeTime = 0f;
         while (fadeTime < titleUIFadeDuration)
         {
             fadeTime += Time.deltaTime;
-            titleUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / titleUIFadeDuration);
+            currentUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / titleUIFadeDuration);
             yield return null;
         }
 
-        titleUICanvasGroup.alpha = 1f;
-        titleUICanvasGroup.interactable = true;
-        titleUICanvasGroup.blocksRaycasts = true;
+        currentUICanvasGroup.alpha = 1f;
+        currentUICanvasGroup.interactable = true;
+        currentUICanvasGroup.blocksRaycasts = true;
     }
 
     /// <summary>

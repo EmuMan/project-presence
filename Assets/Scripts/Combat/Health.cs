@@ -1,5 +1,7 @@
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -44,5 +46,8 @@ public class Health : MonoBehaviour
         PlayerPrefs.Save(); // Ensures it saves immediately
         
         Destroy(gameObject);
+
+        // Scene transition to the Game Over screen
+        SceneManager.LoadScene("TopScene");
     }
 }
