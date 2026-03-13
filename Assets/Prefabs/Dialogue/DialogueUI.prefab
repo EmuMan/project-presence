@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &673574186927662630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6093484619720776398}
+  m_Layer: 0
+  m_Name: Director
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6093484619720776398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673574186927662630}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.600403, y: -371.83334, z: 1422.7397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 124316214988687175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &836014480007241386
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +176,7 @@ RectTransform:
   - {fileID: 6930228617928136212}
   - {fileID: 7357048491338603017}
   - {fileID: 8960810631305829774}
+  - {fileID: 6093484619720776398}
   - {fileID: 6291938670668514010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -662,9 +694,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6291938670668514010}
-  - component: {fileID: 253299238112606514}
+  - component: {fileID: 6378508848691539592}
   m_Layer: 5
-  m_Name: Script
+  m_Name: Script1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +721,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &253299238112606514
+--- !u!114 &6378508848691539592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -702,55 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogue:
-    lines:
-    - character:
-        name: ...
-        nameColor: {r: 1, g: 1, b: 1, a: 1}
-      line: get up...
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: ... ... ...
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: Where am I...
-    - character:
-        name: ...
-        nameColor: {r: 1, g: 1, b: 1, a: 1}
-      line: Wake up!
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: Who is screaming at me...
-    - character:
-        name: ...
-        nameColor: {r: 1, g: 1, b: 1, a: 1}
-      line: WAKE UP!!!!
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: Ahh. Of course. Tor's gotta be yelling at me for something again.
-    - character:
-        name: Tor
-        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
-      line: 'You up?? Finally. I''ve been yelling for 5 minutes. Time to get to work. '
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: Right... now don't get mad at me... but what are doing again?
-    - character:
-        name: Tor
-        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
-      line: You... never pay attention to Sergeant do you.
-    - character:
-        name: Trick
-        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
-      line: Nope.
-    - character:
-        name: Tor
-        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
-      line: '*Sigh* Alright... Let''s run through it again.'
+    lines: []
 --- !u!1 &7440869723142469318
 GameObject:
   m_ObjectHideFlags: 0

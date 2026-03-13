@@ -119,6 +119,107 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &43891472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 43891473}
+  - component: {fileID: 43891474}
+  m_Layer: 5
+  m_Name: Script2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &43891473
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43891472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 231443508}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &43891474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43891472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb97ce41fd5ef2644bc9e1a2b0c69e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogue:
+    lines:
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: You see the orbital mass in your hud?
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Yes.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'This is G1563, the terraformed goldilocks planet we were assigned to
+        free. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Nova...
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: What?
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Nothing. Let's get started.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'Woah there, its been a few months our time since we did a run. Gotta
+        do a telepresence simulation first, Sergeant''s orders. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: '*Sigh* Didn''t I get everyone to enlist? Who died and made you leader?'
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: ...
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Sorry... I didn't me-
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: It's ok. Lets just try to stay on his good side at least until we are
+        cleared to start runs on the planet to do some REAL work?
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Fine fine... lets get this over with.
 --- !u!224 &231443508 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
@@ -407,6 +508,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1727381759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6348884089634201324, guid: b5eefe37216130042a6bef2647179636, type: 3}
+  m_PrefabInstance: {fileID: 6480450797664931237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1727381761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727381759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb97ce41fd5ef2644bc9e1a2b0c69e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogue:
+    lines:
+    - character:
+        name: ...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
+      line: get up...
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: ... ... ...
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Where am I...
+    - character:
+        name: ...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
+      line: Wake up!
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Who is screaming at me...
+    - character:
+        name: ...
+        nameColor: {r: 1, g: 1, b: 1, a: 1}
+      line: WAKE UP!!!!
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Ahh. Of course. Tor's gotta be yelling at me for something again.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'You up?? Finally. I''ve been yelling for 5 minutes. Time to get to work. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Right... now don't get mad at me... but what are doing again?
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: You... never pay attention to Sergeant do you.
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Nope.
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: '*Sigh* Alright... Let''s run through it again.'
 --- !u!1 &1754017868
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +654,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1772597127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
+  m_PrefabInstance: {fileID: 6480450797664931237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1772597129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772597127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bb1f91524d62d468ede8ca7d71a339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &6480450797664931237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,10 +767,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueUI
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6348884089634201324, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: m_Name
+      value: Script1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 43891473}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1772597129}
+    - targetCorrespondingSourceObject: {fileID: 6348884089634201324, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727381761}
   m_SourcePrefab: {fileID: 100100000, guid: b5eefe37216130042a6bef2647179636, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

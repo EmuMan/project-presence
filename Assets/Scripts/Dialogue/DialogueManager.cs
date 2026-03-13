@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+// using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class DialogueManager : MonoBehaviour
 
     public bool isDialogueActive = false;
     public float typingSpeed = 0.2f;
+
+    // public event Action OnDialogueFinished;
+    // // to trigger an event saying the current dialogue is finished
     
     void Awake()
     {
@@ -68,12 +72,12 @@ public class DialogueManager : MonoBehaviour
     
     public void EndDialogue()
     {
+        // dialogueText.text = "";
+        // characterNameText.text = "";
+        // backgroundPanel.SetActive(false);
+        // continueButton.SetActive(false);
+        Debug.Log("Dialogue Ended");
         isDialogueActive = false;
-        dialogueText.text = "";
-        characterNameText.text = "";
-        backgroundPanel.SetActive(false);
-        continueButton.SetActive(false);
-        // kill it all
     }
 
     private System.Collections.IEnumerator TypeLine(string line)

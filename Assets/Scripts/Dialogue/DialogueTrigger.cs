@@ -33,9 +33,9 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
 
     
-    void Start(){
-        DialogueManager.Instance.StartDialogue(dialogue);
+    public void Begin(){
         Debug.Log("Dialogue Triggered");
+        DialogueManager.Instance.StartDialogue(dialogue);
     }
 
 }
