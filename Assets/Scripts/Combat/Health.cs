@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
 
     public GameObject deathEffect;
 
+    public UnityEvent onHealthBoost;
+
     public bool Alive => currentHealth > 0;
 
     void Start()
@@ -27,6 +29,21 @@ public class Health : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void AddHealth(float healthBoost)
+    {
+        //cap at max health
+        if (currentHealth + healthBoost > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth += healthBoost;
+        }
+        onHealthBoost?.Invoke();
+
     }
 
     private void Die()

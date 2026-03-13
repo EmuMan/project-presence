@@ -135,9 +135,12 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 0
+  player: {fileID: 5002766444822128922, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
   jumpVerticalAmount: 10
   jumpHorizontalAmount: 4
   jumpCooldown: 0.5
+  fallMultiplier: 45
+  heightLimit: 10
   timeOfNextJump: 0
 --- !u!54 &5043122845618274519
 Rigidbody:

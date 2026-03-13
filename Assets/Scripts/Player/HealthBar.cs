@@ -12,6 +12,7 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         health.onDamageTaken.AddListener(UpdateHealth);
+        health.onHealthBoost.AddListener(UpdateHealth);
     }
 
     public void UpdateHealth()
