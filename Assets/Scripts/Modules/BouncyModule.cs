@@ -16,8 +16,10 @@ public class BouncyModule : Module
         playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (playerMovement.IsGrounded())
         {
             timeSinceLastGrounded = 0.0f;
@@ -39,7 +41,7 @@ public class BouncyModule : Module
         playerMovement.velocity.y = jumpStrength;
     }
 
-    protected override bool CanPerformAction()
+    public override bool CanPerformAction()
     {
         return canJump;
     }

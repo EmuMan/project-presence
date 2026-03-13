@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Module : MonoBehaviour
 {
@@ -20,19 +21,30 @@ public class Module : MonoBehaviour
     private float cooldown;
 
     private bool wasPerformingAction;
+    private bool wasOnCooldown;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (moduleStatusUI != null)
         {
-            float cooldownFraction = moduleData.isRepeating ? repeatingAction.GetFractionUntilNextRepeat() : (cooldown / moduleData.cooldownDuration);
             moduleStatusUI.UpdateStatus(
                 GetResourceRemaining(),
-                cooldownFraction,
+                GetCooldownFractionRemaining(),
                 CanPerformAction()
             );
         }
     }
+
+    protected virtual void FixedUpdate()
+    {
+        var isOnCooldown = GetCooldownRemaining() > 0.0f;
+        if (!isOnCooldown && wasOnCooldown)
+        {
+            OnCooldownComplete();
+        }
+        wasOnCooldown = isOnCooldown;
+    }
+
 
     public void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
     {
@@ -103,21 +115,47 @@ public class Module : MonoBehaviour
         wasPerformingAction = shouldPerformAction;
     }
 
-    protected virtual void StartPerformingAction(Vector3 direction) { }
+    public float GetCooldownRemaining()
+    {
+        if (moduleData.isRepeating)
+        {
+            return repeatingAction.GetTimeUntilNextRepeat();
+        }
+        else
+        {
+            return cooldown;
+        }
+    }
 
-    protected virtual void PerformAction(Vector3 direction) { }
+    public float GetCooldownFractionRemaining()
+    {
+        if (moduleData.isRepeating)
+        {
+            return repeatingAction.GetFractionUntilNextRepeat();
+        }
+        else
+        {
+            return cooldown / moduleData.cooldownDuration;
+        }
+    }
 
-    protected virtual void StopPerformingAction(Vector3 direction) { }
+    protected virtual void OnCooldownComplete() { }
 
-    protected virtual bool CanPerformAction()
+    public virtual float GetResourceRemaining()
+    {
+        // This can be overridden by specific modules that have a resource to track, like ammo or energy
+        return 1.0f; // Default to full resource
+    }
+
+    public virtual bool CanPerformAction()
     {
         // This can be overridden by specific modules to add additional conditions for whether the action can be performed
         return true;
     }
 
-    protected virtual float GetResourceRemaining()
-    {
-        // This can be overridden by specific modules that have a resource to track, like ammo or energy
-        return 1.0f; // Default to full resource
-    }
+    protected virtual void StartPerformingAction(Vector3 direction) { }
+
+    protected virtual void PerformAction(Vector3 direction) { }
+
+    protected virtual void StopPerformingAction(Vector3 direction) { }
 }

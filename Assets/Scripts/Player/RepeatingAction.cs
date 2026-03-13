@@ -89,6 +89,11 @@ public class RepeatingAction
         }
     }
 
+    public float GetTimeUntilNextRepeat()
+    {
+        return Mathf.Max(0.0f, repeatInterval - timeSinceLastRepeat);
+    }
+
     public float GetFractionUntilNextRepeat()
     {
         return 1.0f - Mathf.Clamp01(timeSinceLastRepeat / repeatInterval);

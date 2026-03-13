@@ -12,8 +12,10 @@ public class TankTreadsModule : Module
     private float originalSpeed;
     private bool isSpeedBoostActive;
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (isSpeedBoostActive)
         {
             // Consume resource while speed boost is active
@@ -57,7 +59,7 @@ public class TankTreadsModule : Module
         }
     }
 
-    protected override bool CanPerformAction()
+    public override bool CanPerformAction()
     {
         // Can perform action if we have resource to boost
         return speedBoostResourceCurrent > 0.0f;
@@ -73,7 +75,7 @@ public class TankTreadsModule : Module
         TryStopSpeedBoost();
     }
 
-    protected override float GetResourceRemaining()
+    public override float GetResourceRemaining()
     {
         return speedBoostResourceCurrent / speedBoostResourceMax;
     }
