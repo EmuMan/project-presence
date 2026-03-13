@@ -68,7 +68,7 @@ public class MachineGunModule : Module
         if (hitscanTrailPrefab != null)
         {
             GameObject trail = Instantiate(hitscanTrailPrefab, start, Quaternion.identity);
-            HitscanTrail hitscanTrail = trail.GetComponent<HitscanTrail>();
+            DecayingTrail hitscanTrail = trail.GetComponent<DecayingTrail>();
             if (hitscanTrail != null)
             {
                 hitscanTrail.SetTrail(start, end);
