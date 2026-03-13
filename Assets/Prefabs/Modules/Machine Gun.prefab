@@ -51,8 +51,10 @@ MonoBehaviour:
   isCloaked: 0
   shootPoint: {fileID: 6432236091949501594}
   range: 100
-  damagePerShot: 2
+  damagePerShot: 1
   hitscanTrailPrefab: {fileID: 6071810477562535072, guid: 45255721e5bc7e270810acac8a07e04e, type: 3}
+  muzzleFlashPrefab: {fileID: 7281439958936200007, guid: e73fe0723c9703638bb198162a871f67, type: 3}
+  hitEffectPrefab: {fileID: 7281439958936200007, guid: ec253ee8b0cecd1dfbfad4179600e9f2, type: 3}
 --- !u!1 &5859164319279606063
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 5859164319279606063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.767, z: -0.062}
+  m_LocalPosition: {x: 0, y: 0.902, z: -0.062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

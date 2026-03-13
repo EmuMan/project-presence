@@ -9,6 +9,8 @@ public class MachineGunModule : Module
 
     [Header("Visuals")]
     public GameObject hitscanTrailPrefab;
+    public GameObject muzzleFlashPrefab;
+    public GameObject hitEffectPrefab;
 
     private LayerMask hitMask;
 
@@ -17,7 +19,7 @@ public class MachineGunModule : Module
 
     void Start()
     {
-        hitMask = LayerMask.GetMask("Enemy", "Terrain");
+        hitMask = LayerMask.GetMask("Default", "Enemy", "Terrain");
     }
 
     void OnDrawGizmos()
@@ -48,12 +50,17 @@ public class MachineGunModule : Module
 
             // Spawn a hitscan trail from the shoot point to the hit point
             SpawnTrail(shootPoint.position, hit.point);
+            // Spawn a hit effect at the point of impact
+            SpawnHitEffect(hit.point, hit.normal);
         }
         else
         {
             // If we didn't hit anything, spawn a trail to the maximum range point
             SpawnTrail(shootPoint.position, shootPoint.position + direction.normalized * range);
         }
+
+        // Spawn a muzzle flash at the shoot point
+        SpawnMuzzleFlash(direction);
     }
 
     private void SpawnTrail(Vector3 start, Vector3 end)
@@ -66,6 +73,22 @@ public class MachineGunModule : Module
             {
                 hitscanTrail.SetTrail(start, end);
             }
+        }
+    }
+
+    private void SpawnMuzzleFlash(Vector3 direction)
+    {
+        if (muzzleFlashPrefab != null)
+        {
+            Instantiate(muzzleFlashPrefab, shootPoint.position, Quaternion.LookRotation(direction));
+        }
+    }
+
+    private void SpawnHitEffect(Vector3 position, Vector3 normal)
+    {
+        if (hitEffectPrefab != null)
+        {
+            Instantiate(hitEffectPrefab, position, Quaternion.LookRotation(normal));
         }
     }
 }
