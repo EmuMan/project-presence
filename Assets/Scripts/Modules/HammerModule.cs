@@ -18,6 +18,7 @@ public class HammerModule : Module
     public Transform groundDetectionOrigin;
     public float groundDetectionDistance = 1.5f;
     public GameObject groundEffectPrefab;
+    public ParticleSystem rocketEffect;
 
     protected override void PerformAction(Vector3 direction)
     {
@@ -36,6 +37,8 @@ public class HammerModule : Module
             yield return null;
         }
 
+        EnableRocketEffect();
+
         // Swing down
         hitbox.EnableHitbox();
         elapsed = 0.0f;
@@ -49,6 +52,7 @@ public class HammerModule : Module
         hitbox.DisableHitbox();
 
         OnFullyDown();
+        DisableRocketEffect();
 
         // Recovery
         elapsed = 0.0f;
@@ -70,6 +74,24 @@ public class HammerModule : Module
             {
                 Instantiate(groundEffectPrefab, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
             }
+        }
+    }
+
+    private void EnableRocketEffect()
+    {
+        if (rocketEffect != null)
+        {
+            var emission = rocketEffect.emission;
+            emission.enabled = true;
+        }
+    }
+
+    private void DisableRocketEffect()
+    {
+        if (rocketEffect != null)
+        {
+            var emission = rocketEffect.emission;
+            emission.enabled = false;
         }
     }
 }
