@@ -46,7 +46,7 @@ public class Module : MonoBehaviour
     }
 
 
-    public void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
+    public virtual void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
     {
         this.playerObject = playerObject;
         this.moduleStatusUI = moduleStatusUI;

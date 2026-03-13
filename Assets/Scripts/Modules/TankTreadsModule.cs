@@ -9,8 +9,25 @@ public class TankTreadsModule : Module
     public float speedBoostConsumptionRate = 1.0f; // Resource consumed per second while speed boost is active
     public float speedBoostRegenRate = 0.5f; // Resource regenerated per second when not using speed boost
 
+    [Header("Visuals")]
+    public ParticleSystem speedBoostEffect;
+
+    private PlayerMovement playerMovement;
+
     private float originalSpeed;
     private bool isSpeedBoostActive;
+
+    public override void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
+    {
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
+        base.Initialize(playerObject, moduleStatusUI);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        TurnTowardsPlayerVelocity();
+    }
 
     protected override void FixedUpdate()
     {
@@ -40,6 +57,16 @@ public class TankTreadsModule : Module
         }
     }
 
+    private void TurnTowardsPlayerVelocity()
+    {
+        Vector3 velocity = playerMovement.velocity;
+        if (velocity.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+        }
+    }
+
     private void TryStartSpeedBoost()
     {
         if (!isSpeedBoostActive && speedBoostResourceCurrent > 0.0f)
@@ -47,6 +74,7 @@ public class TankTreadsModule : Module
             originalSpeed = speedModifier;
             speedModifier *= speedIncrease; // Increase speed by 50%
             isSpeedBoostActive = true;
+            EnableSpeedBoostEffect();
         }
     }
 
@@ -56,6 +84,25 @@ public class TankTreadsModule : Module
         {
             speedModifier = originalSpeed; // Reset to original speed
             isSpeedBoostActive = false;
+            DisableSpeedBoostEffect();
+        }
+    }
+
+    private void EnableSpeedBoostEffect()
+    {
+        if (speedBoostEffect != null)
+        {
+            var emission = speedBoostEffect.emission;
+            emission.enabled = true;
+        }
+    }
+
+    private void DisableSpeedBoostEffect()
+    {
+        if (speedBoostEffect != null)
+        {
+            var emission = speedBoostEffect.emission;
+            emission.enabled = false;
         }
     }
 
