@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cloak
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Cloak
+  moduleKey: cloak
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 3533769823291934413, guid: 5b98e03c435f0f76da0593460e36da89, type: 3}
   compatibleSlots: 00000000

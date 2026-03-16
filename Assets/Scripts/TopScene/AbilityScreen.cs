@@ -40,10 +40,6 @@ public class AbilityScreen : MonoBehaviour
     [Tooltip("The UI Button prefab used for each module option.")]
     public GameObject moduleButtonPrefab;
 
-    [Header("Available Modules")]
-    [Tooltip("A master list of all modules the player currently owns or can equip.")]
-    public List<ModuleData> allAvailableModules = new List<ModuleData>();
-
     // Keeps track of which slot is currently being modified by the UI
     private ModuleData.ModuleSlot currentlySelectedSlot;
 
@@ -101,17 +97,19 @@ public class AbilityScreen : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        var unlockedModules = ModuleManager.Instance.GetUnlockedModules();
+
         Debug.Log($"UpdateUIForSlot called for: {slot}");
-        Debug.Log($"Total modules in allAvailableModules: {allAvailableModules.Count}");
+        Debug.Log($"Total modules unlocked: {unlockedModules.Count}");
 
         int matchingModules = 0;
 
         // 2. Find and instantiate buttons for matching modules
-        foreach (ModuleData module in allAvailableModules)
+        foreach (ModuleData module in unlockedModules)
         {
             if (module == null)
             {
-                Debug.LogWarning("Found null module in allAvailableModules!");
+                Debug.LogWarning("Found null module in unlockedModules!");
                 continue;
             }
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grenade Launcher
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Grenade Launcher
+  moduleKey: grenade_launcher
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 3563872833158975680, guid: a910eb1850b56cc1b84896075cb0797e, type: 3}
   compatibleSlots: 0200000003000000
