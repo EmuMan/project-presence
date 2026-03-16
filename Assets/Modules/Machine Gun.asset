@@ -19,4 +19,4 @@ MonoBehaviour:
   isRepeating: 1
   bufferDuration: 0.2
   holdDuration: 0
-  cooldownDuration: 0.1
+  cooldownDuration: 0.08

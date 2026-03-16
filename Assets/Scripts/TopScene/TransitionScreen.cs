@@ -21,11 +21,14 @@ public class TransitionScreen : MonoBehaviour
     public float targetFOV = 0f;
 
     [Header("UI Fade Settings")]
-    [Tooltip("The CanvasGroup component attached to your Title Screen UI Panel.")]
-    public CanvasGroup titleUI_CanvasGroup;
+    [Tooltip("The Title Screen UI CanvasGroup goes here.")]
+    public CanvasGroup titleUICanvasGroup;
 
-    [Tooltip("The next UI CanvasGroup to fade in after the camera transition (e.g., Ability Screen).")]
-    public CanvasGroup nextUI_CanvasGroup;
+    [Tooltip("The Ability UI CanvasGroup goes here.")]
+    public CanvasGroup abilityUICanvasGroup;
+
+    [Tooltip("The Game Over UI CanvasGroup goes here.")]
+    public CanvasGroup gameOverUICanvasGroup;
 
     [Tooltip("How fast the UI fades out before the camera starts moving (or during).")]
     public float titleUIFadeDuration = 0.5f;
@@ -33,23 +36,35 @@ public class TransitionScreen : MonoBehaviour
     [Tooltip("How fast the next UI fades in after the camera finishes moving.")]
     public float nextUIFadeDuration = 2f;
 
+    [Header("Data Settings")]
+    [Tooltip("The PlayerPrefs key used to check the game over state.")]
+    public string gameOverPrefKey = "IsGameOver";
+
     private bool isTransitioning = false;
+    private CanvasGroup currentUICanvasGroup;
 
     void Awake()
     {
         // Make UIs invisible at the start
-        if (titleUI_CanvasGroup != null)
+        if (titleUICanvasGroup != null)
         {
-            titleUI_CanvasGroup.alpha = 0f;
-            titleUI_CanvasGroup.interactable = false;
-            titleUI_CanvasGroup.blocksRaycasts = false;
+            titleUICanvasGroup.alpha = 0f;
+            titleUICanvasGroup.interactable = false;
+            titleUICanvasGroup.blocksRaycasts = false;
         }
 
-        if (nextUI_CanvasGroup != null)
+        if (abilityUICanvasGroup != null)
         {
-            nextUI_CanvasGroup.alpha = 0f;
-            nextUI_CanvasGroup.interactable = false;
-            nextUI_CanvasGroup.blocksRaycasts = false;
+            abilityUICanvasGroup.alpha = 0f;
+            abilityUICanvasGroup.interactable = false;
+            abilityUICanvasGroup.blocksRaycasts = false;
+        }
+
+        if (gameOverUICanvasGroup != null)
+        {
+            gameOverUICanvasGroup.alpha = 0f;
+            gameOverUICanvasGroup.interactable = false;
+            gameOverUICanvasGroup.blocksRaycasts = false;
         }
 
         // Initialize curve with proper smooth ease-out
@@ -83,24 +98,29 @@ public class TransitionScreen : MonoBehaviour
         }
 
         // Fade in the title UI when the game starts
-        StartCoroutine(FadeInTitleUI());
+        currentUICanvasGroup = titleUICanvasGroup;
+        if (PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1) // Check if game over flag is set
+        {
+            currentUICanvasGroup = gameOverUICanvasGroup;
+        }
+        StartCoroutine(FadeInUI());
     }
 
-    private IEnumerator FadeInTitleUI()
+    private IEnumerator FadeInUI()
     {
-        if (titleUI_CanvasGroup == null) yield break;
+        if (currentUICanvasGroup == null) yield break;
 
         float fadeTime = 0f;
         while (fadeTime < titleUIFadeDuration)
         {
             fadeTime += Time.deltaTime;
-            titleUI_CanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / titleUIFadeDuration);
+            currentUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / titleUIFadeDuration);
             yield return null;
         }
 
-        titleUI_CanvasGroup.alpha = 1f;
-        titleUI_CanvasGroup.interactable = true;
-        titleUI_CanvasGroup.blocksRaycasts = true;
+        currentUICanvasGroup.alpha = 1f;
+        currentUICanvasGroup.interactable = true;
+        currentUICanvasGroup.blocksRaycasts = true;
     }
 
     /// <summary>
@@ -119,21 +139,21 @@ public class TransitionScreen : MonoBehaviour
         isTransitioning = true;
 
         // 1. FADE OUT THE UI
-        if (titleUI_CanvasGroup != null)
+        if (titleUICanvasGroup != null)
         {
             // Disable interactions immediately so the user can't click things twice
-            titleUI_CanvasGroup.interactable = false;
-            titleUI_CanvasGroup.blocksRaycasts = false;
+            titleUICanvasGroup.interactable = false;
+            titleUICanvasGroup.blocksRaycasts = false;
 
             float fadeTime = 0f;
             while (fadeTime < titleUIFadeDuration)
             {
                 fadeTime += Time.deltaTime;
                 // Lerp alpha from 1 (fully visible) to 0 (invisible)
-                titleUI_CanvasGroup.alpha = Mathf.Lerp(1f, 0f, fadeTime / titleUIFadeDuration);
+                titleUICanvasGroup.alpha = Mathf.Lerp(1f, 0f, fadeTime / titleUIFadeDuration);
                 yield return null;
             }
-            titleUI_CanvasGroup.alpha = 0f;
+            titleUICanvasGroup.alpha = 0f;
         }
 
         // 2. MOVE THE CAMERA
@@ -167,19 +187,19 @@ public class TransitionScreen : MonoBehaviour
         mainCamera.fieldOfView = endFOV;
 
         // Fading in the Ability Screen UI
-        if (nextUI_CanvasGroup != null)
+        if (abilityUICanvasGroup != null)
         {
             // Fade in the next UI
             float fadeInTime = 0f;
             while (fadeInTime < nextUIFadeDuration)
             {
                 fadeInTime += Time.deltaTime;
-                nextUI_CanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeInTime / nextUIFadeDuration);
+                abilityUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeInTime / nextUIFadeDuration);
                 yield return null;
             }
-            nextUI_CanvasGroup.alpha = 1f;
-            nextUI_CanvasGroup.interactable = true;
-            nextUI_CanvasGroup.blocksRaycasts = true;
+            abilityUICanvasGroup.alpha = 1f;
+            abilityUICanvasGroup.interactable = true;
+            abilityUICanvasGroup.blocksRaycasts = true;
         }
     }
 

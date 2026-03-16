@@ -1,5 +1,7 @@
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class Health : MonoBehaviour
     public UnityEvent onDeath;
 
     public GameObject deathEffect;
+
+    public UnityEvent onHealthBoost;
 
     public bool Alive => currentHealth > 0;
 
@@ -29,6 +33,21 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void AddHealth(float healthBoost)
+    {
+        //cap at max health
+        if (currentHealth + healthBoost > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth += healthBoost;
+        }
+        onHealthBoost?.Invoke();
+
+    }
+
     private void Die()
     {
         Debug.Log(gameObject.name + " has died.");
@@ -37,6 +56,7 @@ public class Health : MonoBehaviour
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+
         Destroy(gameObject);
     }
 }

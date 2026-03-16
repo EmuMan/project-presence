@@ -56,5 +56,5 @@ public class IntroDirector : MonoBehaviour
 
         planet.transform.position = target;
     }
-    
+
 }
