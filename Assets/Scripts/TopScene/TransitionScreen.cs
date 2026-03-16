@@ -36,6 +36,10 @@ public class TransitionScreen : MonoBehaviour
     [Tooltip("How fast the next UI fades in after the camera finishes moving.")]
     public float nextUIFadeDuration = 2f;
 
+    [Header("Data Settings")]
+    [Tooltip("The PlayerPrefs key used to check the game over state.")]
+    public string gameOverPrefKey = "IsGameOver";
+
     private bool isTransitioning = false;
     private CanvasGroup currentUICanvasGroup;
 
@@ -95,6 +99,10 @@ public class TransitionScreen : MonoBehaviour
 
         // Fade in the title UI when the game starts
         currentUICanvasGroup = titleUICanvasGroup;
+        if (PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1) // Check if game over flag is set
+        {
+            currentUICanvasGroup = gameOverUICanvasGroup;
+        }
         StartCoroutine(FadeInUI());
     }
 
