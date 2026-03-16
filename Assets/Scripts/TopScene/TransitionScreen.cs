@@ -6,19 +6,11 @@ using UnityEngine.UI;
 public class TransitionScreen : MonoBehaviour
 {
     [Header("Camera Transition Settings")]
-    [Tooltip("The camera that will move.")]
-    public Camera mainCamera;
-    [Tooltip("The Transform (Empty GameObject) representing where the camera should move to.")]
-    public Transform targetCameraPosition;
-    
     [Tooltip("How many seconds the camera movement should take.")]
     public float transitionDuration = 2.0f;
 
     [Tooltip("Animation curve for smooth easing. Adjust in Inspector for custom smoothing.")]
     public AnimationCurve transitionCurve;
-
-    [Tooltip("Set target FOV if you want to change it during the transition. Leave as 0 to keep current FOV.")]
-    public float targetFOV = 0f;
 
     [Header("UI Fade Settings")]
     [Tooltip("The Title Screen UI CanvasGroup goes here.")]
@@ -91,22 +83,21 @@ public class TransitionScreen : MonoBehaviour
 
     void Start()
     {
-        // Fallback to the main camera if not assigned
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
+        bool isGameOver = PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1;
 
-        // Fade in the title UI when the game starts
-        currentUICanvasGroup = titleUICanvasGroup;
-        if (PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1) // Check if game over flag is set
+        // Fade in the title UI when the game starts if it's a normal start,
+        // or fade in the game over UI if they are coming from a game over state
+        if (!isGameOver)
         {
-            currentUICanvasGroup = gameOverUICanvasGroup;
+            StartCoroutine(FadeInUI(titleUICanvasGroup));
         }
-        StartCoroutine(FadeInUI());
+        else
+        {
+            StartCoroutine(FadeInUI(gameOverUICanvasGroup));
+        }
     }
 
-    private IEnumerator FadeInUI()
+    public IEnumerator FadeInUI(CanvasGroup currentUICanvasGroup)
     {
         if (currentUICanvasGroup == null) yield break;
 
@@ -124,46 +115,54 @@ public class TransitionScreen : MonoBehaviour
     }
 
     /// <summary>
-    /// Call this method from your UI Button's OnClick event!
+    /// Highly modular method to transition any camera to any target, while fading specific UIs.
     /// </summary>
-    public void StartCameraTransition()
+    /// <param name="camToMove">The specific camera you want to move.</param>
+    /// <param name="target">The transform to move the camera to.</param>
+    /// <param name="fadeOutUI">Optional: The UI CanvasGroup to fade out before moving.</param>
+    /// <param name="fadeInUI">Optional: The UI CanvasGroup to fade in after moving.</param>
+    /// <param name="overrideFOV">Optional: The FOV to transition to. Leave as 0 to keep current FOV.</param>
+    public void StartCameraTransition(Camera camToMove, Transform target, CanvasGroup fadeOutUI = null, CanvasGroup fadeInUI = null, float overrideFOV = 0f)
     {
-        if (!isTransitioning)
+        if (!isTransitioning && camToMove != null && target != null)
         {
-            StartCoroutine(TransitionRoutine());
+            StartCoroutine(TransitionRoutine(camToMove, target, fadeOutUI, fadeInUI, overrideFOV));
+        }
+        else if (camToMove == null || target == null)
+        {
+            Debug.LogWarning("StartCameraTransition failed: Camera or Target is null!");
         }
     }
 
-    private IEnumerator TransitionRoutine()
+    private IEnumerator TransitionRoutine(Camera camToMove, Transform target, CanvasGroup fadeOutUI, CanvasGroup fadeInUI, float expectedFOV)
     {
         isTransitioning = true;
 
-        // 1. FADE OUT THE UI
-        if (titleUICanvasGroup != null)
+        // 1. FADE OUT THE SPECIFIED UI
+        if (fadeOutUI != null)
         {
-            // Disable interactions immediately so the user can't click things twice
-            titleUICanvasGroup.interactable = false;
-            titleUICanvasGroup.blocksRaycasts = false;
+            // Disable interactions immediately
+            fadeOutUI.interactable = false;
+            fadeOutUI.blocksRaycasts = false;
 
-            float fadeTime = 0f;
-            while (fadeTime < titleUIFadeDuration)
+            float fadeOutTime = 0f;
+            while (fadeOutTime < titleUIFadeDuration)
             {
-                fadeTime += Time.deltaTime;
-                // Lerp alpha from 1 (fully visible) to 0 (invisible)
-                titleUICanvasGroup.alpha = Mathf.Lerp(1f, 0f, fadeTime / titleUIFadeDuration);
+                fadeOutTime += Time.deltaTime;
+                fadeOutUI.alpha = Mathf.Lerp(1f, 0f, fadeOutTime / titleUIFadeDuration);
                 yield return null;
             }
-            titleUICanvasGroup.alpha = 0f;
+            fadeOutUI.alpha = 0f;
         }
 
         // 2. MOVE THE CAMERA
-        Vector3 startPos = mainCamera.transform.position;
-        Quaternion startRot = mainCamera.transform.rotation;
-        float startFOV = mainCamera.fieldOfView;
+        Vector3 startPos = camToMove.transform.position;
+        Quaternion startRot = camToMove.transform.rotation;
+        float startCamFOV = camToMove.fieldOfView;
 
-        Vector3 endPos = targetCameraPosition.position;
-        Quaternion endRot = targetCameraPosition.rotation;
-        float endFOV = targetFOV > 0 ? targetFOV : startFOV;
+        Vector3 endPos = target.position;
+        Quaternion endRot = target.rotation;
+        float endCamFOV = expectedFOV > 0 ? expectedFOV : startCamFOV;
 
         float elapsedTime = 0f;
 
@@ -174,36 +173,40 @@ public class TransitionScreen : MonoBehaviour
             float percent = Mathf.Clamp01(elapsedTime / transitionDuration);
             float curvePercent = transitionCurve.Evaluate(percent);
 
-            mainCamera.transform.position = Vector3.Lerp(startPos, endPos, curvePercent);
-            mainCamera.transform.rotation = Quaternion.Slerp(startRot, endRot, curvePercent);
-            mainCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, curvePercent);
+            camToMove.transform.position = Vector3.Lerp(startPos, endPos, curvePercent);
+            camToMove.transform.rotation = Quaternion.Slerp(startRot, endRot, curvePercent);
+            camToMove.fieldOfView = Mathf.Lerp(startCamFOV, endCamFOV, curvePercent);
 
             yield return null;
         }
 
         // Snap to exactly the end position
-        mainCamera.transform.position = endPos;
-        mainCamera.transform.rotation = endRot;
-        mainCamera.fieldOfView = endFOV;
+        camToMove.transform.position = endPos;
+        camToMove.transform.rotation = endRot;
+        camToMove.fieldOfView = endCamFOV;
 
-        // Fading in the Ability Screen UI
-        if (abilityUICanvasGroup != null)
+        // 3. FADE IN THE SPECIFIED UI
+        if (fadeInUI != null)
         {
-            // Fade in the next UI
             float fadeInTime = 0f;
             while (fadeInTime < nextUIFadeDuration)
             {
                 fadeInTime += Time.deltaTime;
-                abilityUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeInTime / nextUIFadeDuration);
+                fadeInUI.alpha = Mathf.Lerp(0f, 1f, fadeInTime / nextUIFadeDuration);
                 yield return null;
             }
-            abilityUICanvasGroup.alpha = 1f;
-            abilityUICanvasGroup.interactable = true;
-            abilityUICanvasGroup.blocksRaycasts = true;
+            fadeInUI.alpha = 1f;
+            fadeInUI.interactable = true;
+            fadeInUI.blocksRaycasts = true;
+            
+            // Keep track of the newly activated UI
+            currentUICanvasGroup = fadeInUI;
         }
+
+        isTransitioning = false; // Allow future transitions
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Load Specific Scene
     public void LoadSpecificScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -212,11 +215,9 @@ public class TransitionScreen : MonoBehaviour
     // Quit the game
     public void QuitGame()
     {
-            // This will stop the game from running in the actual Unity Editor (stops play mode)
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
-            // This will quit the built, standalone application
             Application.Quit();
         #endif
     }
