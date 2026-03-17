@@ -3,20 +3,28 @@ using UnityEngine;
 public class TitleScreen : MonoBehaviour
 {
     [Header("Cameras")]
-    [Tooltip("The normal title screen camera.")]
+    [Tooltip("The main camera.")]
     public Camera mainCamera;
 
     [Header("Transition Settings")]
-    [Tooltip("The target position/rotation for the camera to transition to when going from title to ability screen.")]
-    public Transform targetCameraPosition;
+
     [Tooltip("The CanvasGroup for the game over UI elements.")]
-    public CanvasGroup gameoverUICanvasGroup;
+    public CanvasGroup gameOverUICanvasGroup;
+
     [Tooltip("The CanvasGroup for the ability UI elements.")]
     public CanvasGroup abilityUICanvasGroup;
+
     [Tooltip("The CanvasGroup for the title UI elements.")]
     public CanvasGroup titleUICanvasGroup;
-    [Tooltip("The target field of view for the camera transition.")]
-    public float targetFOV = 60f;
+
+    [Tooltip("The coords for ability UI.")]
+    public Transform abilityCameraPosition;
+
+    [Tooltip("The coords for game over UI.")]
+    public Transform gameOverCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform titleCameraPosition;
 
     public void CamTransitionToAbility()
     {
@@ -25,10 +33,10 @@ public class TitleScreen : MonoBehaviour
         {
             transitionScreen.StartCameraTransition(
                 mainCamera, 
-                targetCameraPosition, 
+                abilityCameraPosition, 
                 titleUICanvasGroup, 
                 abilityUICanvasGroup, 
-                targetFOV
+                60f
             );
         }
         else

@@ -3,30 +3,34 @@ using UnityEngine;
 public class GameOverScreen : MonoBehaviour
 {
     [Header("Cameras")]
-    [Tooltip("The normal title screen camera.")]
+    [Tooltip("The main camera.")]
     public Camera mainCamera;
-    
-    [Tooltip("The camera positioned at the specific Game Over angle/location.")]
-    public Camera gameOverCamera;
 
     [Header("Transition Settings")]
-    [Tooltip("The target position/rotation for the camera to transition to when going from title to ability screen.")]
-    public Transform targetCameraPosition;
-    [Tooltip("The CanvasGroup for the game over UI elements.")]
-    public CanvasGroup gameoverUICanvasGroup;
-    [Tooltip("The CanvasGroup for the ability UI elements.")]
-    public CanvasGroup abilityUICanvasGroup;
-    [Tooltip("The CanvasGroup for the title UI elements.")]
-    public CanvasGroup titleUICanvasGroup;
-    [Tooltip("The target field of view for the camera transition.")]
-    public float targetFOV = 60f;
+    [Tooltip("The coords for ability UI.")]
+    public Transform abilityCameraPosition;
+
+    [Tooltip("The coords for game over UI.")]
+    public Transform gameOverCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform titleCameraPosition;
+
+    [Tooltip("The coords to transition into the game.")]
+    public Transform redeployCameraPosition;
 
     [Header("UI")]
     [Tooltip("The Game Over UI Panel to display.")]
     public GameObject gameOverUIPanel;
 
-    [Tooltip("The Game Over UI CanvasGroup goes here.")]
+    [Tooltip("The CanvasGroup for the game over UI elements.")]
     public CanvasGroup gameOverUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the ability UI elements.")]
+    public CanvasGroup abilityUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the title UI elements.")]
+    public CanvasGroup titleUICanvasGroup;
 
     [Header("Data Settings")]
     [Tooltip("The PlayerPrefs key used to check the game over state.")]
@@ -34,6 +38,10 @@ public class GameOverScreen : MonoBehaviour
 
     void Start()
     {
+        //TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+
+        //StartCoroutine(transitionScreen.FadeFromBlack());
+
         // Check if the game over flag is set to 1 (true). Default to 0 (false) if it doesn't exist.
         bool isGameOver = PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1;
 
@@ -49,9 +57,12 @@ public class GameOverScreen : MonoBehaviour
 
     private void SetupGameOverState()
     {
-        // Switch cameras
-        if (mainCamera != null) mainCamera.gameObject.SetActive(false);
-        if (gameOverCamera != null) gameOverCamera.gameObject.SetActive(true);
+        // Send main camera to the game over position and rotation immediately without transition
+        if (mainCamera != null)
+        {
+            mainCamera.transform.position = gameOverCameraPosition.position;
+            mainCamera.transform.rotation = gameOverCameraPosition.rotation;
+        }
 
         // Show Game Over UI
         if (gameOverUIPanel != null) gameOverUIPanel.SetActive(true);
@@ -65,7 +76,7 @@ public class GameOverScreen : MonoBehaviour
     {
         // Switch cameras naturally
         if (mainCamera != null) mainCamera.gameObject.SetActive(true);
-        if (gameOverCamera != null) gameOverCamera.gameObject.SetActive(false);
+        //if (gameOverCamera != null) gameOverCamera.gameObject.SetActive(false);
 
         // Hide Game Over UI
         if (gameOverUIPanel != null) gameOverUIPanel.SetActive(false);
@@ -78,11 +89,32 @@ public class GameOverScreen : MonoBehaviour
         if (transitionScreen != null)
         {
             transitionScreen.StartCameraTransition(
-                gameOverCamera,
-                targetCameraPosition,
+                mainCamera,
+                abilityCameraPosition,
                 gameOverUICanvasGroup,
                 abilityUICanvasGroup,
-                targetFOV
+                60f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToGame(string useLoadScreen)
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                redeployCameraPosition,
+                gameOverUICanvasGroup,
+                titleUICanvasGroup,
+                50f,
+                true,
+                useLoadScreen
             );
         }
         else

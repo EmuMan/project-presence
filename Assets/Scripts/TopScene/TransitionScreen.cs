@@ -22,8 +22,8 @@ public class TransitionScreen : MonoBehaviour
     [Tooltip("The Game Over UI CanvasGroup goes here.")]
     public CanvasGroup gameOverUICanvasGroup;
 
-    [Tooltip("How fast the UI fades out before the camera starts moving (or during).")]
-    public float titleUIFadeDuration = 0.5f;
+    [Tooltip("How fast the UI fades in/out before the camera starts moving (or during).")]
+    public float currentUIFadeDuration = 0.5f;
 
     [Tooltip("How fast the next UI fades in after the camera finishes moving.")]
     public float nextUIFadeDuration = 2f;
@@ -31,6 +31,11 @@ public class TransitionScreen : MonoBehaviour
     [Header("Data Settings")]
     [Tooltip("The PlayerPrefs key used to check the game over state.")]
     public string gameOverPrefKey = "IsGameOver";
+
+    [Header("Blackout Settings")]
+    [Tooltip("A CanvasGroup attached to a full-screen black panel.")]
+    public CanvasGroup blackoutCanvasGroup;
+    public float blackoutFadeDuration = 1f;
 
     private bool isTransitioning = false;
     private CanvasGroup currentUICanvasGroup;
@@ -83,10 +88,11 @@ public class TransitionScreen : MonoBehaviour
 
     void Start()
     {
-        bool isGameOver = PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1;
+        StartCoroutine(FadeFromBlack()); // Fade in from black 
 
         // Fade in the title UI when the game starts if it's a normal start,
         // or fade in the game over UI if they are coming from a game over state
+        bool isGameOver = PlayerPrefs.GetInt(gameOverPrefKey, 0) == 1;
         if (!isGameOver)
         {
             StartCoroutine(FadeInUI(titleUICanvasGroup));
@@ -102,10 +108,10 @@ public class TransitionScreen : MonoBehaviour
         if (currentUICanvasGroup == null) yield break;
 
         float fadeTime = 0f;
-        while (fadeTime < titleUIFadeDuration)
+        while (fadeTime < currentUIFadeDuration)
         {
             fadeTime += Time.deltaTime;
-            currentUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / titleUIFadeDuration);
+            currentUICanvasGroup.alpha = Mathf.Lerp(0f, 1f, fadeTime / currentUIFadeDuration);
             yield return null;
         }
 
@@ -122,11 +128,20 @@ public class TransitionScreen : MonoBehaviour
     /// <param name="fadeOutUI">Optional: The UI CanvasGroup to fade out before moving.</param>
     /// <param name="fadeInUI">Optional: The UI CanvasGroup to fade in after moving.</param>
     /// <param name="overrideFOV">Optional: The FOV to transition to. Leave as 0 to keep current FOV.</param>
-    public void StartCameraTransition(Camera camToMove, Transform target, CanvasGroup fadeOutUI = null, CanvasGroup fadeInUI = null, float overrideFOV = 0f)
+    /// <param name="useBlackout">If true, the screen fades to black, the camera snaps instantly, and fades back in.</param>
+    public void StartCameraTransition(
+        Camera camToMove, 
+        Transform target, 
+        CanvasGroup fadeOutUI = null, 
+        CanvasGroup fadeInUI = null, 
+        float overrideFOV = 0f, 
+        bool useBlackout = false,
+        string useLoadScene = null
+        )
     {
         if (!isTransitioning && camToMove != null && target != null)
         {
-            StartCoroutine(TransitionRoutine(camToMove, target, fadeOutUI, fadeInUI, overrideFOV));
+            StartCoroutine(TransitionRoutine(camToMove, target, fadeOutUI, fadeInUI, overrideFOV, useBlackout, useLoadScene));
         }
         else if (camToMove == null || target == null)
         {
@@ -134,82 +149,153 @@ public class TransitionScreen : MonoBehaviour
         }
     }
 
-    private IEnumerator TransitionRoutine(Camera camToMove, Transform target, CanvasGroup fadeOutUI, CanvasGroup fadeInUI, float expectedFOV)
+    private IEnumerator TransitionRoutine(
+        Camera camToMove, 
+        Transform target, 
+        CanvasGroup fadeOutUI, 
+        CanvasGroup fadeInUI, 
+        float expectedFOV, 
+        bool useBlackout,
+        string useLoadScene = null
+        )
     {
         isTransitioning = true;
 
         // 1. FADE OUT THE SPECIFIED UI
         if (fadeOutUI != null)
         {
-            // Disable interactions immediately
             fadeOutUI.interactable = false;
             fadeOutUI.blocksRaycasts = false;
-
-            float fadeOutTime = 0f;
-            while (fadeOutTime < titleUIFadeDuration)
-            {
-                fadeOutTime += Time.deltaTime;
-                fadeOutUI.alpha = Mathf.Lerp(1f, 0f, fadeOutTime / titleUIFadeDuration);
-                yield return null;
-            }
-            fadeOutUI.alpha = 0f;
         }
 
-        // 2. MOVE THE CAMERA
-        Vector3 startPos = camToMove.transform.position;
-        Quaternion startRot = camToMove.transform.rotation;
-        float startCamFOV = camToMove.fieldOfView;
+        if (useBlackout && blackoutCanvasGroup != null)
+        {
+            blackoutCanvasGroup.blocksRaycasts = true; // Prevent clicking while we are going to black
+        }
 
-        Vector3 endPos = target.position;
-        Quaternion endRot = target.rotation;
+        float fadeOutTime = 0f;
+        while (fadeOutTime < currentUIFadeDuration)
+        {
+            fadeOutTime += Time.deltaTime;
+            float lerpVal = fadeOutTime / currentUIFadeDuration;
+
+            // Only fade out the UI right now, leave the blackout canvas alone (alpha 0)
+            if (fadeOutUI != null) fadeOutUI.alpha = Mathf.Lerp(1f, 0f, lerpVal);
+            yield return null;
+        }
+        
+        if (fadeOutUI != null) fadeOutUI.alpha = 0f;
+
+        // 2. MOVE THE CAMERA (And Fade to Black at the end)
+        float startCamFOV = camToMove.fieldOfView;
         float endCamFOV = expectedFOV > 0 ? expectedFOV : startCamFOV;
 
+        Vector3 startPos = camToMove.transform.position;
+        Quaternion startRot = camToMove.transform.rotation;
+
         float elapsedTime = 0f;
+        
+        // Calculate when we should start making the screen go black
+        // E.g., if total transition is 3s, and blackout duration is 1s, we start at 2s.
+        // We use Mathf.Max to ensure it doesn't go below 0 if blackoutFadeDuration is longer than the camera move.
+        float startBlackoutTime = Mathf.Max(0f, transitionDuration - blackoutFadeDuration);
 
         while (elapsedTime < transitionDuration)
         {
             elapsedTime += Time.deltaTime;
-
             float percent = Mathf.Clamp01(elapsedTime / transitionDuration);
             float curvePercent = transitionCurve.Evaluate(percent);
 
-            camToMove.transform.position = Vector3.Lerp(startPos, endPos, curvePercent);
-            camToMove.transform.rotation = Quaternion.Slerp(startRot, endRot, curvePercent);
+            // Move Camera
+            camToMove.transform.position = Vector3.Lerp(startPos, target.position, curvePercent);
+            camToMove.transform.rotation = Quaternion.Slerp(startRot, target.rotation, curvePercent);
             camToMove.fieldOfView = Mathf.Lerp(startCamFOV, endCamFOV, curvePercent);
+
+            // Handle Blackout Logic based on time left
+            if (useBlackout && blackoutCanvasGroup != null)
+            {
+                if (elapsedTime >= startBlackoutTime)
+                {
+                    // Calculate how far along the blackout segment we are (0 to 1)
+                    float blackoutPercent = (elapsedTime - startBlackoutTime) / blackoutFadeDuration;
+                    blackoutCanvasGroup.alpha = Mathf.Lerp(0f, 1f, blackoutPercent);
+                }
+            }
 
             yield return null;
         }
 
-        // Snap to exactly the end position
-        camToMove.transform.position = endPos;
-        camToMove.transform.rotation = endRot;
+        // Snap to exactly the target end position
+        camToMove.transform.position = target.position;
+        camToMove.transform.rotation = target.rotation;
         camToMove.fieldOfView = endCamFOV;
 
-        // 3. FADE IN THE SPECIFIED UI
+        // Ensure it is fully black if enabled
+        if (useBlackout && blackoutCanvasGroup != null) 
+        {
+            blackoutCanvasGroup.alpha = 1f;
+        }
+
+        // 3. FADE IN THE SPECIFIED UI (and fade back from black if we didn't load a scene)
+        float fadeInTime = 0f;
+        while (fadeInTime < nextUIFadeDuration)
+        {
+            fadeInTime += Time.deltaTime;
+            float lerpVal = fadeInTime / nextUIFadeDuration;
+
+            if (fadeInUI != null) fadeInUI.alpha = Mathf.Lerp(0f, 1f, lerpVal);
+            
+            // Only fade back from black if we aren't about to load a new scene
+            // (If we load a scene, we want it to stay black until the new scene starts)
+            if (useBlackout && blackoutCanvasGroup != null && string.IsNullOrEmpty(useLoadScene)) 
+            {
+                blackoutCanvasGroup.alpha = Mathf.Lerp(1f, 0f, lerpVal);
+            }
+
+            yield return null;
+        }
+
         if (fadeInUI != null)
         {
-            float fadeInTime = 0f;
-            while (fadeInTime < nextUIFadeDuration)
-            {
-                fadeInTime += Time.deltaTime;
-                fadeInUI.alpha = Mathf.Lerp(0f, 1f, fadeInTime / nextUIFadeDuration);
-                yield return null;
-            }
             fadeInUI.alpha = 1f;
             fadeInUI.interactable = true;
             fadeInUI.blocksRaycasts = true;
-            
-            // Keep track of the newly activated UI
             currentUICanvasGroup = fadeInUI;
         }
+        
+        // Clean up the blackout canvas state
+        if (useBlackout && blackoutCanvasGroup != null && string.IsNullOrEmpty(useLoadScene))
+        {
+            blackoutCanvasGroup.alpha = 0f;
+            blackoutCanvasGroup.blocksRaycasts = false;
+        }
 
-        isTransitioning = false; // Allow future transitions
+        if (!string.IsNullOrEmpty(useLoadScene)) 
+        {
+            // Load the next scene after the transition (while still black)
+            SceneManager.LoadScene(useLoadScene);
+        }
+
+        isTransitioning = false;
     }
 
-    // Load Specific Scene
+    // Basic Load Scene function
     public void LoadSpecificScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    /// <summary>
+    /// Reloads the currently active scene.
+    /// Hook this up to a Button's OnClick event to "Restart".
+    /// </summary>
+    public void ReloadCurrentScene()
+    {
+        // Get the currently active scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Load it again by its Build Index
+        SceneManager.LoadScene(currentScene.buildIndex);
     }
 
     // Quit the game
@@ -220,5 +306,53 @@ public class TransitionScreen : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    /// <summary>
+    /// Fades the screen to black, switches the scene, then the new scene takes over.
+    /// </summary>
+    public void LoadSceneWithBlackout(string sceneName)
+    {
+        StartCoroutine(BlackoutAndLoadRoutine(sceneName));
+    }
+
+    private IEnumerator BlackoutAndLoadRoutine(string sceneName)
+    {
+        // 1. Fade to black
+        if (blackoutCanvasGroup != null)
+        {
+            blackoutCanvasGroup.blocksRaycasts = true; // Prevent clicking during fade
+            float time = 0f;
+            while (time < blackoutFadeDuration)
+            {
+                time += Time.deltaTime;
+                blackoutCanvasGroup.alpha = Mathf.Lerp(0f, 1f, time / blackoutFadeDuration);
+                yield return null;
+            }
+            blackoutCanvasGroup.alpha = 1f;
+        }
+
+        // 2. Load the scene
+        SceneManager.LoadScene(sceneName);
+    }
+
+    /// <summary>
+    /// Fades the black screen away (useful to call in Start() of a new scene)
+    /// </summary>
+    public IEnumerator FadeFromBlack()
+    {
+        if (blackoutCanvasGroup != null)
+        {
+            blackoutCanvasGroup.alpha = 1f;
+            float time = 0f;
+            while (time < blackoutFadeDuration)
+            {
+                time += Time.deltaTime;
+                blackoutCanvasGroup.alpha = Mathf.Lerp(1f, 0f, time / blackoutFadeDuration);
+                yield return null;
+            }
+            blackoutCanvasGroup.alpha = 0f;
+            blackoutCanvasGroup.blocksRaycasts = false; // Allow clicking again
+        }
     }
 }

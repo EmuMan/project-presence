@@ -30,7 +30,10 @@ public class AbilityScreen : MonoBehaviour
     private Module instantiatedHeadModule;
     private Module instantiatedMovementModule;
 
-    [Header("UI Setup (World Space)")]
+    [Header("UI")]
+    [Tooltip("The scene to transition to when the player clicks the Deploy button.")]
+    public string gameplaySceneName = "GameplayScene";
+
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
     public GameObject moduleSelectionPanel;
 
@@ -39,6 +42,29 @@ public class AbilityScreen : MonoBehaviour
 
     [Tooltip("The UI Button prefab used for each module option.")]
     public GameObject moduleButtonPrefab;
+
+    [Tooltip("The CanvasGroup for the ability UI elements.")]
+    public CanvasGroup abilityUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the title UI elements.")]
+    public CanvasGroup titleUICanvasGroup;
+
+    [Header("Cameras")]
+    [Tooltip("The normal main camera.")]
+    public Camera mainCamera;
+
+    [Header("Transition Settings")]
+    [Tooltip("The coords for ability UI.")]
+    public Transform abilityCameraPosition;
+
+    [Tooltip("The coords for game over UI.")]
+    public Transform gameOverCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform titleCameraPosition;
+
+    [Tooltip("The coords to get into game.")]
+    public Transform deployCameraPosition;
 
     [Header("Available Modules")]
     [Tooltip("A master list of all modules the player currently owns or can equip.")]
@@ -305,5 +331,44 @@ public class AbilityScreen : MonoBehaviour
         }
 
         Debug.Log($"Equipped {newModuleData.moduleName} to {slotType}");
+    }
+    public void CamTransitionToStart()
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                titleCameraPosition,
+                abilityUICanvasGroup,
+                titleUICanvasGroup,
+                50f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToGame(string useLoadScene)
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                deployCameraPosition,
+                abilityUICanvasGroup,
+                titleUICanvasGroup,
+                60f,
+                true,
+                useLoadScene
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
     }
 }

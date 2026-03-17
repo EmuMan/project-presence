@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameOverOnDeath : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class GameOverOnDeath : MonoBehaviour
         PlayerPrefs.Save(); // Ensures it saves immediately
 
         // Scene transition to the Game Over screen
-        SceneManager.LoadScene("TopScene");
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        transitionScreen.LoadSceneWithBlackout("TopScene");
     }
 }
