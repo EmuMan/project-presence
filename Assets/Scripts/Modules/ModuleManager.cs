@@ -22,6 +22,7 @@ public class ModuleManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
@@ -64,8 +65,11 @@ public class ModuleManager : MonoBehaviour
         var unlockedModules = new List<ModuleData>();
         var unlockedString = PlayerPrefs.GetString("UnlockedModules", "");
 
+        Debug.Log($"Modules unlocked: {unlockedString}");
+
         if (unlockedString == string.Empty)
         {
+            Debug.Log("No modules found, unlocking default modules.");
             var defaultModules = GetDefaultModules();
             foreach (var module in defaultModules)
             {
@@ -93,6 +97,7 @@ public class ModuleManager : MonoBehaviour
 
     public void UnlockModule(string moduleKey)
     {
+        Debug.Log($"Unlocking module: {moduleKey}");
         var unlockedKeys = new HashSet<string>(PlayerPrefs.GetString("UnlockedModules", "").Split(','));
         if (!unlockedKeys.Contains(moduleKey))
         {
