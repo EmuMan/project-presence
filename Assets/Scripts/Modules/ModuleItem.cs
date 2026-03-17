@@ -25,6 +25,12 @@ public class ModuleItem : MonoBehaviour
 
     void Start()
     {
+        if (ModuleManager.Instance != null && ModuleManager.Instance.IsModuleUnlocked(moduleData))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instantiate(moduleData.instancePrefab, instantiationPoint);
 
         moduleInitialY = instantiationPoint.position.y;
