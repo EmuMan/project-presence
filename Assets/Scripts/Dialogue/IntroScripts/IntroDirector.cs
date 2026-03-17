@@ -13,21 +13,29 @@ public class IntroDirector : MonoBehaviour
         GameObject.Find("Script1").GetComponent<DialogueTrigger>().Begin();
         yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
         // waits until the dialogue is completed via the isDialogueActive boolean in DialogueManager
+        // this dialogue is the player waking up and getting updated on where they are
 
         MoveTo(new Vector3(1201, 513, 480), 1);
         // all to move the planet into view
 
         GameObject.Find("Script2").GetComponent<DialogueTrigger>().Begin();
         yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
+        // this script is Trick being shown the world they are set to free
 
         Debug.Log("Intro sequence finished!");
 
+        GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadSpecificScene("TopScene");
     }
+
+
+
+
 
     public void MoveTo(Vector3 targetPosition, float duration)
     {
         StartCoroutine(MoveRoutine(targetPosition, duration));
     }
+    // to move the planet into the camera view
 
     private IEnumerator MoveRoutine(Vector3 target, float duration)
     {
