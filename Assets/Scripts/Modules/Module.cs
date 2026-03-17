@@ -23,8 +23,14 @@ public class Module : MonoBehaviour
     private bool wasPerformingAction;
     private bool wasOnCooldown;
 
+    private bool initialized = false;
+
     protected virtual void Update()
     {
+        if (!initialized)
+        {
+            return;
+        }
         if (moduleStatusUI != null)
         {
             moduleStatusUI.UpdateStatus(
@@ -37,6 +43,10 @@ public class Module : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        if (!initialized)
+        {
+            return;
+        }
         var isOnCooldown = GetCooldownRemaining() > 0.0f;
         if (!isOnCooldown && wasOnCooldown)
         {
@@ -60,6 +70,8 @@ public class Module : MonoBehaviour
             bufferedAction = new BufferedAction(moduleData.bufferDuration, moduleData.holdDuration);
             cooldown = 0.0f;
         }
+
+        initialized = true;
     }
 
     /// <summary>

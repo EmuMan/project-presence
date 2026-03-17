@@ -14,11 +14,15 @@ public class ModuleData : ScriptableObject
 
     [Header("Basic Info")]
     public string moduleName;
+    public string moduleKey;
     public Sprite moduleIcon;
     public GameObject instancePrefab;
 
     [Tooltip("Which body part(s) this module can be attached to. Can select multiple slots.")]
     public ModuleSlot[] compatibleSlots;
+
+    [Tooltip("Whether this module is equipped by default when the game starts.")]
+    public bool isDefault = false;
 
     [Header("Action Settings")]
     public bool isRepeating = false;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Barrier
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Barrier Field
+  moduleKey: barrier
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 2443243611342939283, guid: 0be96b7cbc64b258bba19ff14c26063b, type: 3}
   compatibleSlots: 01000000
