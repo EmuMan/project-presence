@@ -34,10 +34,10 @@ public class Enemy : MonoBehaviour
 
     public Transform GetTarget()
     {
-        if (player != null && player.IsCloaked())
+        if (player != null)
         {
-            return null;
+            return player.IsCloaked() ? null : player.transform;
         }
-        return player?.transform;
+        return null;
     }
 }

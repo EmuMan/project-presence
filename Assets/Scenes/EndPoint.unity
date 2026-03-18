@@ -2048,10 +2048,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 910431902890869238, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
-      propertyPath: maxHealth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 910431902890869238, guid: 33de52b0dea26b94cb92f4d613e9c71c, type: 3}
       propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
