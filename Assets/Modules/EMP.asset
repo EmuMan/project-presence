@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EMP
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: EMP
+  moduleKey: emp
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 5068260895774933180, guid: c2a25db34987023d7a38dc3a342e708f, type: 3}
   compatibleSlots: 01000000

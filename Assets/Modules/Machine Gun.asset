@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Machine Gun
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Machine Gun
+  moduleKey: machine_gun
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 3563872833158975680, guid: 4c57bf08866022846a4d18e349a45272, type: 3}
   compatibleSlots: 0200000003000000

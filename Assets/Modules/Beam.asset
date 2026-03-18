@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Beam
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Beam
+  moduleKey: beam
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 1588578355550155578, guid: 24620ef1f3ea3f71c8831f807220114a, type: 3}
   compatibleSlots: 0200000003000000
