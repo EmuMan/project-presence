@@ -1,44 +1,29 @@
 using UnityEngine;
 
-public class EnemyTriggerAttack : MonoBehaviour
+public class EnemyTrigger : MonoBehaviour
 {
+    [Header("Enemies to activate")]
+    public Enemy[] enemies;
     public float attackRange = 2f;
     public float attackCooldown = 1.5f;
     public float damage = 10f;
 
-    private Transform player;
-    private bool playerInTrigger = false;
-    private float lastAttackTime;
-
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (playerInTrigger && player != null)
+        if (!other.CompareTag("Player")) return;
+
+        foreach (Enemy enemy in enemies)
         {
-            float distance = Vector3.Distance(transform.position, player.position);
-
-            // Face the player
-            transform.LookAt(player);
-
-            if (distance <= attackRange)
-            {
-                TryAttack();
-            }
+            if (enemy != null)
+                enemy.Activate();
         }
     }
 
-    void TryAttack()
+    private void OnTriggerExit(Collider other)
     {
-        if (Time.time >= lastAttackTime + attackCooldown)
-        {
-            lastAttackTime = Time.time;
-            AttackPlayer();
-        }
-    }
+        if (!other.CompareTag("Player")) return;
 
-    void AttackPlayer()
-    {
-        Debug.Log("Enemy attacks player!");
-
+        foreach (Enemy enemy in enemies)
         // health script, call it here
         Health health = player.GetComponent<Health>();
         if (health != null)
@@ -61,9 +46,8 @@ public class EnemyTriggerAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInTrigger = false;
-            player = null;
-            Debug.Log("Player left enemy range.");
+            if (enemy != null)
+                enemy.Deactivate();
         }
     }
 }
