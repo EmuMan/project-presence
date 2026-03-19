@@ -53,8 +53,13 @@ public class BasicProjectile : MonoBehaviour
         }
     }
 
-    private void OnHit(Collider other)
+    private void OnHit(Collider other, bool isTrigger)
     {
+        // Ignore triggers that are not barriers
+        if (isTrigger && !other.CompareTag("Barrier"))
+        {
+            return;
+        }
         // If we already hit something, ignore further collisions to prevent multiple damage applications
         if (hasHit)
         {
@@ -75,23 +80,23 @@ public class BasicProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        OnHit(collision.collider);
+        OnHit(collision.collider, false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        OnHit(other);
+        OnHit(other, true);
     }
 
     private void OnCollisionExit(Collision collision)
     {
         insideBarriers.Remove(collision.gameObject);
-        OnHit(collision.collider);
+        OnHit(collision.collider, false);
     }
 
     private void OnTriggerExit(Collider other)
     {
         insideBarriers.Remove(other.gameObject);
-        OnHit(other);
+        OnHit(other, true);
     }
 }
