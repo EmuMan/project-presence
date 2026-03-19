@@ -399,6 +399,9 @@ public class AbilityScreen : MonoBehaviour
                 CamTransitionToGame("Simulation");
                 // some checks to change the ability screen deploy 
             }
+            else if (PlayerPrefs.GetInt("FinalTutorial", 0) == 1){
+                CamTransitionToGame("Final");
+            }
             else{
                 transitionScreen.StartCameraTransition(
                     mainCamera,

@@ -5561,6 +5561,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899212857}
   m_CullTransparentMesh: 1
+--- !u!1 &937598311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937598312}
+  m_Layer: 5
+  m_Name: Folder2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &937598312
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937598311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1214940363}
+  - {fileID: 1968055499}
+  m_Father: {fileID: 1795056441}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &973732292
 GameObject:
   m_ObjectHideFlags: 0
@@ -7183,6 +7220,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212776839}
   m_CullTransparentMesh: 1
+--- !u!1 &1214940362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214940363}
+  - component: {fileID: 1214940364}
+  m_Layer: 0
+  m_Name: StartLevelDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214940363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214940362}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.600403, y: -371.83334, z: 1422.7397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 937598312}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214940364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214940362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19db656c50b128649892e11b8d86ee8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  mainCamera: {fileID: 1274631892}
+  abilityCameraPosition: {fileID: 693789424}
+  abilityUICanvasGroup: {fileID: 1582999195}
+  abilityUI: {fileID: 1582999190}
+  titleUICanvasGroup: {fileID: 1971553454}
+  transitionWaitTime: 2
 --- !u!1 &1240027362
 GameObject:
   m_ObjectHideFlags: 0
@@ -9861,7 +9948,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 937598312}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
       insertIndex: -1
@@ -10913,6 +11003,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958245691}
   m_CullTransparentMesh: 1
+--- !u!1 &1968055498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968055499}
+  - component: {fileID: 1968055500}
+  m_Layer: 5
+  m_Name: StartLevelScript1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1968055499
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968055498}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 937598312}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1968055500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968055498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb97ce41fd5ef2644bc9e1a2b0c69e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogue:
+    lines:
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Alright, I did the stupid simulation, you happy?
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: '*Sigh* God forbid I want to HELP you not die out there. Just promise
+        your team you won''t do anything too reckless. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: '"Not reckless" is my middle name.'
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'Ok... you are officially given clearance to deploy on the planet. I''ll
+        give you the last status report we had about the terraforming work Nova has
+        completed thusfar here. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Ughhhhhhh...
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'G1563 is a relatively drier planet. Nova has mainly used this station
+        to harvest mining materials and as a trade location. There is not much life
+        here other than whatever experiementations they have released. '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: 'That sounds delightful. '
+    - character:
+        name: Tor
+        nameColor: {r: 1, g: 0.8666667, b: 0.31764707, a: 1}
+      line: 'They seem to be two main stations: one as a storage fascility and the
+        other as the main hub of excavation. Destroy all presence of Nova on G1563
+        and your mission will be deemed successful.  '
+    - character:
+        name: Trick
+        nameColor: {r: 0, g: 0.45882353, b: 1, a: 1}
+      line: Now we're talking, let's get started.
 --- !u!1 &1971553449
 GameObject:
   m_ObjectHideFlags: 0
