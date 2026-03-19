@@ -6,8 +6,6 @@ public class HardJumpingEnemy : MonoBehaviour
     public Transform GroundCheck;
     public LayerMask ground;
 
-
-    public Transform player;
     private Enemy enemy;
     private Rigidbody rb;
 
@@ -39,10 +37,16 @@ public class HardJumpingEnemy : MonoBehaviour
     {
         Transform playerTransform = enemy.GetTarget();
 
+        if (playerTransform == null)
+        {
+            return;
+        }
+
         if (playerTransform != null)
         {
             Debug.DrawLine(transform.position, playerTransform.position, Color.red, 0.1f);
         }
+
         bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
 
         //only jump if currently touching the ground
@@ -72,7 +76,7 @@ public class HardJumpingEnemy : MonoBehaviour
 
         //if the horizontal jumping distance is bigger than the distance between enemy and player
         //then decrease horizontal jumping distance
-        if (math.sqrt(math.pow(math.abs(player.position.x - transform.position.x), 2) + math.pow(math.abs(player.position.z - transform.position.z), 2)) <= 8f)
+        if (math.sqrt(math.pow(math.abs(playerTransform.position.x - transform.position.x), 2) + math.pow(math.abs(playerTransform.position.z - transform.position.z), 2)) <= 8f)
         {
             jumpHorizontalAmount = jumpHorizontalAmount / 2;
             //jumpHorizontalAmount = jumpHorizontalAmount - 1;
@@ -82,11 +86,11 @@ public class HardJumpingEnemy : MonoBehaviour
             }
         }
 
-        else if (math.sqrt(math.pow(math.abs(player.position.x - transform.position.x), 2) + math.pow(math.abs(player.position.z - transform.position.z), 2)) > 8f)
+        else if (math.sqrt(math.pow(math.abs(playerTransform.position.x - transform.position.x), 2) + math.pow(math.abs(playerTransform.position.z - transform.position.z), 2)) > 8f)
         {
             jumpHorizontalAmount = jumpHorizontalAmount * 2;
             //jumpHorizontalAmount = jumpHorizontalAmount + 1;
-            if(jumpHorizontalAmount >= 10f)
+            if (jumpHorizontalAmount >= 10f)
             {
                 jumpHorizontalAmount = 8f;
             }
@@ -135,7 +139,7 @@ public class HardJumpingEnemy : MonoBehaviour
             health.TakeDamage(damage); // Example damage value
         }
         //Destroy(gameObject);
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
