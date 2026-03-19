@@ -1780,6 +1780,7 @@ MonoBehaviour:
   titleCameraPosition: {fileID: 667431589}
   levelCameraPosition: {fileID: 376670291}
   deployCameraPosition: {fileID: 798528741}
+  mspCloseButton: {fileID: 0}
 --- !u!1 &225553411
 GameObject:
   m_ObjectHideFlags: 0
@@ -9589,20 +9590,199 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: m_Name
+      value: AbilityTutorialDirector
+      objectReference: {fileID: 0}
     - target: {fileID: 2424471378725654788, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_Name
       value: DialogueUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6348884089634201324, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: m_Name
+      value: AbilityTutorialScript1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[0].line
+      value: "Wait what\u2019s with my hud? It\u2019s completely blank."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].line
+      value: "We\u2019re on a remote planet shipping countless telepresence hosts
+        across the universe, each costing millions of credits to manufacture and
+        send out."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].line
+      value: 'You think you would have every bell and whistle available to you? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].line
+      value: Well... huh.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].line
+      value: "For now, we start from the basics again and rely on our training to
+        build from there. For now, just choose what\u2019s available and deploy."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].line
+      value: Fine fine.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[0].character.name
+      value: Trick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].character.name
+      value: Tor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].character.name
+      value: Tor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].character.name
+      value: Trick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.name
+      value: Tor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].character.name
+      value: Trick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[0].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[0].character.nameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[0].character.nameColor.g
+      value: 0.45882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].character.nameColor.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].character.nameColor.g
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[1].character.nameColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].character.nameColor.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].character.nameColor.g
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[2].character.nameColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].character.nameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].character.nameColor.g
+      value: 0.45882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[3].character.nameColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.nameColor.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.nameColor.g
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.nameColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].character.nameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].character.nameColor.g
+      value: 0.45882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[5].character.nameColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795056443}
   m_SourcePrefab: {fileID: 100100000, guid: b5eefe37216130042a6bef2647179636, type: 3}
 --- !u!224 &1795056441 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
   m_PrefabInstance: {fileID: 1795056440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1795056442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 673574186927662630, guid: b5eefe37216130042a6bef2647179636, type: 3}
+  m_PrefabInstance: {fileID: 1795056440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1795056443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795056442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fc1fc5f4817ef4b8c53996d45e38db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  mainCamera: {fileID: 1274631892}
+  abilityCameraPosition: {fileID: 693789424}
+  abilityUICanvasGroup: {fileID: 1582999195}
+  titleUICanvasGroup: {fileID: 1971553454}
 --- !u!1 &1830760646
 GameObject:
   m_ObjectHideFlags: 0

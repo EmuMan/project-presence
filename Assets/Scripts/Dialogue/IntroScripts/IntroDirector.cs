@@ -8,23 +8,33 @@ public class IntroDirector : MonoBehaviour
 
     private IEnumerator Start()
     {
-        planet.transform.position = new Vector3(2870, 1328, 1748);
+        PlayerPrefs.SetInt("IntroTutorial", 0);
+        // MAKE SURE TO DELETE THE ABOVE STATEMENT, ONLY FOR TESTING
 
-        GameObject.Find("Script1").GetComponent<DialogueTrigger>().Begin();
-        yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
-        // waits until the dialogue is completed via the isDialogueActive boolean in DialogueManager
-        // this dialogue is the player waking up and getting updated on where they are
+        if (PlayerPrefs.GetInt("IntroTutorial", 0) == 0)
+        {
+            planet.transform.position = new Vector3(2870, 1328, 1748);
 
-        MoveTo(new Vector3(1201, 513, 480), 1);
-        // all to move the planet into view
+            GameObject.Find("Script1").GetComponent<DialogueTrigger>().Begin();
+            yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
+            // waits until the dialogue is completed via the isDialogueActive boolean in DialogueManager
+            // this dialogue is the player waking up and getting updated on where they are
 
-        GameObject.Find("Script2").GetComponent<DialogueTrigger>().Begin();
-        yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
-        // this script is Trick being shown the world they are set to free
+            MoveTo(new Vector3(1201, 513, 480), 1);
+            // all to move the planet into view
 
-        Debug.Log("Intro sequence finished!");
+            GameObject.Find("Script2").GetComponent<DialogueTrigger>().Begin();
+            yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
+            // this script is Trick being shown the world they are set to free
 
-        GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadSpecificScene("TopScene");
+            MoveTo(new Vector3(2870, 1328, 1748), 1);
+
+            Debug.Log("Intro sequence finished!");
+
+            PlayerPrefs.SetInt("IntroTutorial", 1);
+
+            GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadSpecificScene("TopScene");
+        }
     }
 
 
