@@ -609,7 +609,6 @@ GameObject:
   - component: {fileID: 902578742}
   - component: {fileID: 902578747}
   - component: {fileID: 902578748}
-  - component: {fileID: 902578749}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -750,8 +749,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
-  velocity: {x: 0, y: 0, z: 0}
-  lookDirection: {x: 0, y: 0, z: 0}
+  jumpStrength: 5
+  jumpBufferTime: 0.2
+  jumpCoyoteTime: 0.2
+  extraGroundCheckDistance: 0.1
+  fallMultiplier: 2
+  jumpState: 0
 --- !u!114 &902578748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,79 +769,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
   projectilePrefab: {fileID: 5774805946932156845, guid: f7c3b448562786e26bce186f0e0a2015, type: 3}
   shootPoint: {fileID: 902578746}
---- !u!114 &902578749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902578741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8adb001f10c64b1d88fd57a2340136d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerModules
-  headTransform: {fileID: 0}
-  coreTransform: {fileID: 0}
-  leftArmTransform: {fileID: 0}
-  rightArmTransform: {fileID: 0}
-  movementTransform: {fileID: 0}
-  overrideModulesForTesting: 0
-  headModuleData: {fileID: 0}
-  coreModuleData: {fileID: 0}
-  leftArmModuleData: {fileID: 0}
-  rightArmModuleData: {fileID: 0}
-  movementModuleData: {fileID: 0}
-  headModuleStatus: {fileID: 0}
-  coreModuleStatus: {fileID: 0}
-  leftArmModuleStatus: {fileID: 0}
-  rightArmModuleStatus: {fileID: 0}
-  movementModuleStatus: {fileID: 0}
-  headInputAction:
-    m_Name: Head Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 72d1f4dc-6fea-456e-aaaf-ac12d5f07745
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  coreInputAction:
-    m_Name: Core Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 51e2267f-4693-4fa6-bf26-66511b522bc5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  leftArmInputAction:
-    m_Name: Left Arm Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4e84db3c-7f39-45fb-a193-e0956cd3e842
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rightArmInputAction:
-    m_Name: Right Arm Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c3e4f230-fd1a-4b99-8b74-94a353e8cdd4
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  movementInputAction:
-    m_Name: Movement Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 91c3036b-4102-43bb-bbc6-a455869d784d
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &1612298235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,12 +943,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06e5bb0f17ec984ea0da4a74387efd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  xRange: {x: -23, y: 23}
+  yRange: {x: -23, y: 23}
   prefab: {fileID: 4349583766261099199, guid: 7e10062f6776bcb48add0b0cdaa4231a, type: 3}
   spawnDelay: 4
-  spawnQuantity: 5
-  spawnBool: 1
-  spawnPoint1: {x: 0, y: 0}
-  spawnPoint2: {x: 0, y: 0}
 --- !u!4 &1761610972
 Transform:
   m_ObjectHideFlags: 0
