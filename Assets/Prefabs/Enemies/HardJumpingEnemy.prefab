@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   canAct: 1
+  isSleeping: 1
 --- !u!114 &7604004459153423182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 7281439958936200007, guid: 62968d20738945ae8adaaaa5351db82c, type: 3}
   onHealthBoost:
     m_PersistentCalls:
       m_Calls: []
@@ -199,7 +200,6 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 0
-  player: {fileID: 0}
   jumpVerticalAmount: 20
   jumpHorizontalAmount: 2
   jumpCooldown: 0.5

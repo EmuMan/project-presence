@@ -311,7 +311,10 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 7281439958936200007, guid: 62968d20738945ae8adaaaa5351db82c, type: 3}
+  onHealthBoost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1507361075310447093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   canAct: 1
+  isSleeping: 1
 --- !u!1 &8153761906363888366
 GameObject:
   m_ObjectHideFlags: 0

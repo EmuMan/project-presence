@@ -1212,7 +1212,7 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 7281439958936200007, guid: 62968d20738945ae8adaaaa5351db82c, type: 3}
   onHealthBoost:
     m_PersistentCalls:
       m_Calls: []

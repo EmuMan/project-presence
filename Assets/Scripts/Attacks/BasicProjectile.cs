@@ -7,6 +7,8 @@ public class BasicProjectile : MonoBehaviour
     public float lifetime = 5.0f;
     public float damage = 5.0f;
 
+    public GameObject hitEffectPrefab;
+
     private Rigidbody projRigidbody;
 
     private bool hasHit = false;
@@ -55,11 +57,12 @@ public class BasicProjectile : MonoBehaviour
 
     private void OnHit(Collider other, bool isTrigger)
     {
-        // Ignore triggers that are not barriers
+        // Ignore triggers unless they are barriers
         if (isTrigger && !other.CompareTag("Barrier"))
         {
             return;
         }
+
         // If we already hit something, ignore further collisions to prevent multiple damage applications
         if (hasHit)
         {
@@ -74,6 +77,10 @@ public class BasicProjectile : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Health health))
         {
             health.TakeDamage(damage); // Example damage value
+        }
+        if (hitEffectPrefab != null)
+        {
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
     }
