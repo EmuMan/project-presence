@@ -33,8 +33,17 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
 
     
-    public void Begin(){
+    public void Begin()
+    {
         Debug.Log("Dialogue Triggered");
+
+        if (DialogueManager.Instance == null)
+        {
+            Debug.LogError("DialogueManager.Instance is NULL");
+            return;
+        }
+
+        Debug.Log("Dialogue line count: " + dialogue.lines.Count);
         DialogueManager.Instance.StartDialogue(dialogue);
     }
 

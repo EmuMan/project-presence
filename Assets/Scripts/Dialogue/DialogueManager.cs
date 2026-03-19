@@ -28,10 +28,18 @@ public class DialogueManager : MonoBehaviour
         }
 
         dialogueLines = new Queue<DialogueLine>();
+
+        dialogueText.text = "";
+        characterNameText.text = "";
+        backgroundPanel.SetActive(false);
+        continueButton.SetActive(false);
+        // to deactivate the dialogue UI until it is needed
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
+        Debug.Log("StartDialogue called");
+
         isDialogueActive = true;
         dialogueLines.Clear();
 
@@ -39,15 +47,16 @@ public class DialogueManager : MonoBehaviour
         continueButton.SetActive(true);
         dialogueText.text = "";
         characterNameText.text = "";
-        // turn on UI for dialogue
+        // reactivate
 
         foreach (DialogueLine line in dialogue.lines)
         {
             dialogueLines.Enqueue(line);
         }
 
+        Debug.Log("Queued lines: " + dialogueLines.Count);
+
         DisplayNextLine();
-        // clear any leftover lines, queue all lines
     }
 
     public void DisplayNextLine()
@@ -72,10 +81,10 @@ public class DialogueManager : MonoBehaviour
     
     public void EndDialogue()
     {
-        // dialogueText.text = "";
-        // characterNameText.text = "";
-        // backgroundPanel.SetActive(false);
-        // continueButton.SetActive(false);
+        dialogueText.text = "";
+        characterNameText.text = "";
+        backgroundPanel.SetActive(false);
+        continueButton.SetActive(false);
         Debug.Log("Dialogue Ended");
         isDialogueActive = false;
     }

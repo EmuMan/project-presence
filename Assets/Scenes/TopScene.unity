@@ -4247,7 +4247,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!1 &571048424
 GameObject:
@@ -8510,7 +8510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1567627897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9599,27 +9599,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9631,7 +9631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.506653
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9651,11 +9651,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -735.94214
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -371.83334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124316214988687175, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9866,6 +9866,7 @@ MonoBehaviour:
   abilityCameraPosition: {fileID: 693789424}
   abilityUICanvasGroup: {fileID: 1582999195}
   titleUICanvasGroup: {fileID: 1971553454}
+  transitionWaitTime: 2
 --- !u!1 &1830760646
 GameObject:
   m_ObjectHideFlags: 0
