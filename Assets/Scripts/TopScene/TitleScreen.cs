@@ -9,6 +9,13 @@ public class TitleScreen : MonoBehaviour
 
     [Header("UI Navigation")]
 
+    [Header("UI Navigation Targets")]
+    [Tooltip("The first button that should be highlighted when the Ability screen opens (e.g., the Core or Head button).")]
+    public GameObject firstAbilityButton;
+
+    [Tooltip("The first button that should be highlighted when the Options screen opens.")]
+    public GameObject firstOptionsButton;
+
     [Header("Transition Settings")]
     [Tooltip("The CanvasGroup for the options UI elements.")]
     public CanvasGroup optionsUICanvasGroup;
@@ -32,12 +39,16 @@ public class TitleScreen : MonoBehaviour
         TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
         if (transitionScreen != null)
         {
+            // Pass the target to the transition (add false and null to skip the blackout/scene load arguments)
             transitionScreen.StartCameraTransition(
                 mainCamera, 
                 abilityCameraPosition, 
                 titleUICanvasGroup, 
                 abilityUICanvasGroup, 
-                60f
+                60f,
+                false,
+                null,
+                firstAbilityButton // <- WE PASS IT HERE!
             );
         }
         else
@@ -56,7 +67,9 @@ public class TitleScreen : MonoBehaviour
                 optionsCameraPosition, 
                 titleUICanvasGroup, 
                 optionsUICanvasGroup, 
-                50f
+                50f,
+                false,
+                null
             );
         }
         else

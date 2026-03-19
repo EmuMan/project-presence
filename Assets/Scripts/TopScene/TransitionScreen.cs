@@ -160,12 +160,13 @@ public class TransitionScreen : MonoBehaviour
         CanvasGroup fadeInUI = null, 
         float overrideFOV = 0f, 
         bool useBlackout = false,
-        string useLoadScene = null
+        string useLoadScene = null,
+        GameObject specificFocusTarget = null // ADDED THIS PARAMETER
         )
     {
         if (!isTransitioning && camToMove != null && target != null)
         {
-            StartCoroutine(TransitionRoutine(camToMove, target, fadeOutUI, fadeInUI, overrideFOV, useBlackout, useLoadScene));
+            StartCoroutine(TransitionRoutine(camToMove, target, fadeOutUI, fadeInUI, overrideFOV, useBlackout, useLoadScene, specificFocusTarget));
         }
         else if (camToMove == null || target == null)
         {
@@ -180,7 +181,8 @@ public class TransitionScreen : MonoBehaviour
         CanvasGroup fadeInUI, 
         float expectedFOV, 
         bool useBlackout,
-        string useLoadScene = null
+        string useLoadScene = null,
+        GameObject specificFocusTarget = null // ADDED THIS PARAMETER
         )
     {
         isTransitioning = true;
@@ -286,8 +288,17 @@ public class TransitionScreen : MonoBehaviour
             fadeInUI.blocksRaycasts = true;
             currentUICanvasGroup = fadeInUI;
 
-            // Focus the first button on the new screen once it's interactable
-            FocusFirstButton(fadeInUI);
+            // NEW FOCUS LOGIC:
+            if (specificFocusTarget != null)
+            {
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(specificFocusTarget);
+            }
+            else
+            {
+                // Fallback to the old method if we didn't specify one
+                FocusFirstButton(fadeInUI);
+            }
         }
         
         // Clean up the blackout canvas state
