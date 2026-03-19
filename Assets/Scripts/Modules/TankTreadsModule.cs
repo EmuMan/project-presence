@@ -9,11 +9,30 @@ public class TankTreadsModule : Module
     public float speedBoostConsumptionRate = 1.0f; // Resource consumed per second while speed boost is active
     public float speedBoostRegenRate = 0.5f; // Resource regenerated per second when not using speed boost
 
+    [Header("Visuals")]
+    public ParticleSystem speedBoostEffect;
+
+    private PlayerMovement playerMovement;
+
     private float originalSpeed;
     private bool isSpeedBoostActive;
 
-    void FixedUpdate()
+    public override void Initialize(GameObject playerObject, ModuleStatus moduleStatusUI)
     {
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
+        base.Initialize(playerObject, moduleStatusUI);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        TurnTowardsPlayerVelocity();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
         if (isSpeedBoostActive)
         {
             // Consume resource while speed boost is active
@@ -38,6 +57,16 @@ public class TankTreadsModule : Module
         }
     }
 
+    private void TurnTowardsPlayerVelocity()
+    {
+        Vector3 velocity = playerMovement.velocity;
+        if (velocity.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+        }
+    }
+
     private void TryStartSpeedBoost()
     {
         if (!isSpeedBoostActive && speedBoostResourceCurrent > 0.0f)
@@ -45,6 +74,7 @@ public class TankTreadsModule : Module
             originalSpeed = speedModifier;
             speedModifier *= speedIncrease; // Increase speed by 50%
             isSpeedBoostActive = true;
+            EnableSpeedBoostEffect();
         }
     }
 
@@ -54,13 +84,31 @@ public class TankTreadsModule : Module
         {
             speedModifier = originalSpeed; // Reset to original speed
             isSpeedBoostActive = false;
+            DisableSpeedBoostEffect();
         }
     }
 
-    protected override bool CanPerformAction()
+    private void EnableSpeedBoostEffect()
+    {
+        if (speedBoostEffect != null)
+        {
+            var emission = speedBoostEffect.emission;
+            emission.enabled = true;
+        }
+    }
+
+    private void DisableSpeedBoostEffect()
+    {
+        if (speedBoostEffect != null)
+        {
+            var emission = speedBoostEffect.emission;
+            emission.enabled = false;
+        }
+    }
+
+    public override bool CanPerformAction()
     {
         // Can perform action if we have resource to boost
-        Debug.Log($"Checking if can perform speed boost: current resource = {speedBoostResourceCurrent}");
         return speedBoostResourceCurrent > 0.0f;
     }
 
@@ -74,7 +122,7 @@ public class TankTreadsModule : Module
         TryStopSpeedBoost();
     }
 
-    protected override float GetResourceRemaining()
+    public override float GetResourceRemaining()
     {
         return speedBoostResourceCurrent / speedBoostResourceMax;
     }

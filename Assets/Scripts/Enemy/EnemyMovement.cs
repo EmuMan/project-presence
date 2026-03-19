@@ -1,25 +1,28 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 public class EnemyMovement : MonoBehaviour
 {
-    Transform player;
+    private Enemy enemy;
     private NavMeshAgent navMeshAgent;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enemy = GetComponent<Enemy>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-       if (player != null)
-       {    
-           navMeshAgent.SetDestination(player.position);
-       }        
+        Transform target = enemy.GetTarget();
+        if (enemy.canAct && target != null)
+        {
+            navMeshAgent.SetDestination(target.position);
+        }
+        else
+        {
+            navMeshAgent.ResetPath();
+        }
     }
 
 }

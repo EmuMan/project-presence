@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Hammer
+  moduleKey: hammer
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 5740227005405684409, guid: df8de42b899ed1a739bab0ecd1b93cfe, type: 3}
-  slotType: 2
+  compatibleSlots: 0200000003000000
   isRepeating: 0
   bufferDuration: 0.2
   holdDuration: 0

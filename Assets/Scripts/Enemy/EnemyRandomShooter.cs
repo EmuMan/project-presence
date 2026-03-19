@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public class EnemyRandomShooter : MonoBehaviour
+{
+    [SerializeField] private Enemy enemy;
+
+    public GameObject bulletPrefab;
+    public Transform shootingPoint;
+
+    public float minShootDelay = 1f;
+    public float maxShootDelay = 3f;
+
+    void Start()
+    {
+        StartCoroutine(ShootRoutine());
+    }
+
+    System.Collections.IEnumerator ShootRoutine()
+    {
+        while (true)
+        {
+            float delay = Random.Range(minShootDelay, maxShootDelay);
+            yield return new WaitForSeconds(delay);
+
+            if (enemy.canAct && enemy.GetTarget() != null)
+            {
+                Shoot();
+            }
+        }
+    }
+
+    void Shoot()
+    {
+        GameObject projectile = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        projectile.GetComponent<BasicProjectile>().Initialize(shootingPoint.forward);
+    }
+}
