@@ -20,6 +20,8 @@ public class GameOverOnDeath : MonoBehaviour
 
     private void OnPlayerDeath()
     {
+        Debug.Log("Player has died. Triggering game over sequence.");
+
         // Sets the game over flag in PlayerPrefs to indicate the player has died
         // This is helpful for the GameOverScreen to know when to show the game over state
         PlayerPrefs.SetInt("IsGameOver", 1);
