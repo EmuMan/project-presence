@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems; // Add this namespace
 
 public class TitleScreen : MonoBehaviour
 {
@@ -6,8 +7,9 @@ public class TitleScreen : MonoBehaviour
     [Tooltip("The main camera.")]
     public Camera mainCamera;
 
-    [Header("Transition Settings")]
+    [Header("UI Navigation")]
 
+    [Header("Transition Settings")]
     [Tooltip("The CanvasGroup for the options UI elements.")]
     public CanvasGroup optionsUICanvasGroup;
 
@@ -25,7 +27,6 @@ public class TitleScreen : MonoBehaviour
 
     [Tooltip("The coords for title UI.")]
     public Transform titleCameraPosition;
-
     public void CamTransitionToAbility()
     {
         TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();

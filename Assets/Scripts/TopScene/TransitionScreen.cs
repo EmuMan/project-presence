@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TransitionScreen : MonoBehaviour
@@ -138,6 +139,9 @@ public class TransitionScreen : MonoBehaviour
         currentUICanvasGroup.alpha = 1f;
         currentUICanvasGroup.interactable = true;
         currentUICanvasGroup.blocksRaycasts = true;
+
+        // Focus the first button on the screen when the game starts
+        FocusFirstButton(currentUICanvasGroup);
     }
 
     /// <summary>
@@ -281,6 +285,9 @@ public class TransitionScreen : MonoBehaviour
             fadeInUI.interactable = true;
             fadeInUI.blocksRaycasts = true;
             currentUICanvasGroup = fadeInUI;
+
+            // Focus the first button on the new screen once it's interactable
+            FocusFirstButton(fadeInUI);
         }
         
         // Clean up the blackout canvas state
@@ -373,6 +380,21 @@ public class TransitionScreen : MonoBehaviour
             }
             blackoutCanvasGroup.alpha = 0f;
             blackoutCanvasGroup.blocksRaycasts = false; // Allow clicking again
+        }
+    }
+
+    private void FocusFirstButton(CanvasGroup canvasGroup)
+    {
+        if (canvasGroup == null) return;
+
+        // Find the first Selectable (Button, Slider, etc.) that is active in the CanvasGroup
+        Selectable firstSelectable = canvasGroup.GetComponentInChildren<Selectable>();
+        if (firstSelectable != null)
+        {
+            // Clear current selection
+            EventSystem.current.SetSelectedGameObject(null);
+            // Select the new UI element
+            firstSelectable.Select();
         }
     }
 }

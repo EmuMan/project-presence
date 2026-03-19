@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using TMPro;
 
@@ -75,6 +76,13 @@ public class AbilityScreen : MonoBehaviour
     // Keeps track of which slot is currently being modified by the UI
     private ModuleData.ModuleSlot currentlySelectedSlot;
 
+    [Header("MSP Navigation")]
+    [Tooltip("Drag the Close/Exit button of the MSP here.")]
+    public Button mspCloseButton;
+
+    // Remembers the body part button you clicked to open the menu
+    private GameObject lastSelectedBeforeMSP; 
+
     void Start()
     {
         // Initialize UI state
@@ -98,6 +106,12 @@ public class AbilityScreen : MonoBehaviour
     public void CloseMSP()
     {
         moduleSelectionPanel.SetActive(false);
+
+        // 2. Return focus to the body part we originally clicked
+        if (lastSelectedBeforeMSP != null && UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(lastSelectedBeforeMSP);
+        }
     }
 
     /// <summary>
@@ -107,10 +121,15 @@ public class AbilityScreen : MonoBehaviour
     /// <param name="slotIndex">Cast to int from ModuleData.ModuleSlot enum in the Unity Inspector</param>
     public void OnBodyPartSelected(int slotIndex)
     {
+        // 1. Remember what button we clicked so we can return to it when we close the panel
+        if (UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            lastSelectedBeforeMSP = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        }
+
         currentlySelectedSlot = (ModuleData.ModuleSlot)slotIndex;
         Debug.Log($"Selected body part: {currentlySelectedSlot} for modification.");
 
-        // Show the UI panel to select a module
         if (moduleSelectionPanel != null)
         {
             moduleSelectionPanel.SetActive(true);
@@ -123,58 +142,40 @@ public class AbilityScreen : MonoBehaviour
     /// </summary>
     private void UpdateUIForSlot(ModuleData.ModuleSlot slot)
     {
-        // 1. Clear existing buttons in the container
         foreach (Transform child in moduleButtonContainer)
         {
             Destroy(child.gameObject);
         }
 
         var unlockedModules = ModuleManager.Instance.GetUnlockedModules();
+        
+        // Add a list to track the buttons we spawn!
+        List<Button> spawnedButtons = new List<Button>();
 
-        Debug.Log($"UpdateUIForSlot called for: {slot}");
-        Debug.Log($"Total modules unlocked: {unlockedModules.Count}");
-
-        int matchingModules = 0;
-
-        // 2. Find and instantiate buttons for matching modules
         foreach (ModuleData module in unlockedModules)
         {
-            if (module == null)
-            {
-                Debug.LogWarning("Found null module in unlockedModules!");
-                continue;
-            }
-
-            string slotsDebug = module.compatibleSlots != null ? string.Join(", ", module.compatibleSlots) : "none";
-            Debug.Log($"Checking module: {module.moduleName} with compatible slots: {slotsDebug}");
+            if (module == null) continue;
 
             if (module.compatibleSlots != null && System.Array.IndexOf(module.compatibleSlots, slot) >= 0)
             {
-                matchingModules++;
                 GameObject buttonObj = Instantiate(moduleButtonPrefab, moduleButtonContainer);
-
-                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
-                Debug.Log($"Attempting to set button text for module: '{module.moduleName}'");
-
+                
                 bool textSet = false;
-
-                // Try legacy Text component first
+                
+                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
                 Text buttonText = buttonObj.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
                     buttonText.text = module.moduleName;
-                    Debug.Log($"Set Text component to: '{module.moduleName}'");
                     textSet = true;
                 }
 
-                // Try TextMeshPro if Text wasn't found
                 if (!textSet)
                 {
                     TextMeshProUGUI tmpText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmpText != null)
                     {
                         tmpText.text = module.moduleName;
-                        Debug.Log($"Set TextMeshPro component to: '{module.moduleName}'");
                         textSet = true;
                     }
                 }
@@ -182,26 +183,62 @@ public class AbilityScreen : MonoBehaviour
                 if (!textSet)
                 {
                     Debug.LogWarning($"Button prefab is missing both Text and TextMeshProUGUI components! Module: {module.moduleName}");
-                    Debug.LogWarning($"Button hierarchy: {GetHierarchyPath(buttonObj.transform)}");
                 }
 
-                // 4. Setup button click event dynamically
                 Button btn = buttonObj.GetComponent<Button>();
                 if (btn != null)
                 {
                     ModuleData capturedModule = module;
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
-                }
-                else
-                {
-                    Debug.LogWarning("Button prefab is missing Button component!");
+                    
+                    // Add to our tracker list
+                    spawnedButtons.Add(btn); 
                 }
             }
         }
 
-        Debug.Log($"Created {matchingModules} buttons for slot: {slot}");
+        // ==========================================
+        // EXPLICIT NAVIGATION SETUP FOR THE CONTROLLER
+        // ==========================================
+        for (int i = 0; i < spawnedButtons.Count; i++)
+        {
+            Navigation customNav = new Navigation();
+            customNav.mode = Navigation.Mode.Explicit;
 
-        // Force rebuild the layout after spawning buttons
+            // Up action: If it's the first UI item, go to Close Button. Otherwise, go to the previous item.
+            customNav.selectOnUp = (i == 0) ? mspCloseButton : spawnedButtons[i - 1];
+
+            // Down action: If it's the last item, stay. Otherwise, go to the next item.
+            customNav.selectOnDown = (i == spawnedButtons.Count - 1) ? null : spawnedButtons[i + 1];
+
+            // Assign the navigation rules
+            spawnedButtons[i].navigation = customNav;
+        }
+
+        // Connect the Close Button downward into the list
+        if (mspCloseButton != null)
+        {
+            Navigation closeNav = mspCloseButton.navigation;
+            closeNav.mode = Navigation.Mode.Explicit;
+
+            if (spawnedButtons.Count > 0)
+            {
+                closeNav.selectOnDown = spawnedButtons[0]; // Press down from close -> goes to first module
+                mspCloseButton.navigation = closeNav;
+
+                // Step 3: Automatically focus the first module button or the close button
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(spawnedButtons[0].gameObject);
+            }
+            else
+            {
+                closeNav.selectOnDown = null;
+                mspCloseButton.navigation = closeNav;
+                
+                // If there are no modules to select, focus the close button so the player isn't stuck
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(mspCloseButton.gameObject);
+            }
+        }
+
         Canvas.ForceUpdateCanvases();
         if (moduleButtonContainer != null)
         {
@@ -239,10 +276,8 @@ public class AbilityScreen : MonoBehaviour
         // 2. Equip it visually on the dummy character in this scene
         EquipModule(currentlySelectedSlot, newModuleData);
 
-        if (moduleSelectionPanel != null)
-        {
-            moduleSelectionPanel.SetActive(false);
-        }
+        // When a module is selected, the panel closes. Call CloseMSP to handle the panel state and refocus the UI properly.
+        CloseMSP(); 
     }
 
     /// <summary>

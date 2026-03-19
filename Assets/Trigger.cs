@@ -4,7 +4,7 @@ public class EnemyTriggerAttack : MonoBehaviour
 {
     public float attackRange = 2f;
     public float attackCooldown = 1.5f;
-    public int damage = 10;
+    public float damage = 10f;
 
     private Transform player;
     private bool playerInTrigger = false;
@@ -40,7 +40,7 @@ public class EnemyTriggerAttack : MonoBehaviour
         Debug.Log("Enemy attacks player!");
 
         // health script, call it here
-        PlayerHealth health = player.GetComponent<PlayerHealth>();
+        Health health = player.GetComponent<Health>();
         if (health != null)
         {
             health.TakeDamage(damage);
