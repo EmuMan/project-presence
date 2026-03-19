@@ -6,6 +6,7 @@ public class AbilityTutorialDirector : MonoBehaviour
     public Camera mainCamera;
     public Transform abilityCameraPosition;
     public CanvasGroup abilityUICanvasGroup;
+    public GameObject abilityUI;
     public CanvasGroup titleUICanvasGroup;
 
     [SerializeField] private float transitionWaitTime = 2f;
@@ -21,6 +22,7 @@ public class AbilityTutorialDirector : MonoBehaviour
             Debug.Log("Ability tutorial sequence Started!");
 
             mainCamera.transform.position = new Vector3(1000, 1000, 1000);
+            abilityUI.SetActive(false);
 
             yield return StartCoroutine(CamTransitionToAbility());
 
@@ -47,7 +49,7 @@ public class AbilityTutorialDirector : MonoBehaviour
             Debug.Log("Ability tutorial sequence finished!");
 
             PlayerPrefs.SetInt("AbilityTutorial", 1);
-            GameObject.Find("SceneManager").GetComponent<SceneLoader>().LoadSpecificScene("TopScene");
+            abilityUI.SetActive(true);
         }
     }
 

@@ -9691,7 +9691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[0].line
-      value: "Wait what\u2019s with my hud? It\u2019s completely blank."
+      value: "Wait what\u2019s with my hud? Most of my modules are blank."
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[1].line
@@ -9865,6 +9865,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1274631892}
   abilityCameraPosition: {fileID: 693789424}
   abilityUICanvasGroup: {fileID: 1582999195}
+  abilityUI: {fileID: 1582999190}
   titleUICanvasGroup: {fileID: 1971553454}
   transitionWaitTime: 2
 --- !u!1 &1830760646

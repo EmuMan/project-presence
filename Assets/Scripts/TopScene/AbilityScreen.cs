@@ -395,13 +395,19 @@ public class AbilityScreen : MonoBehaviour
         TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
         if (transitionScreen != null)
         {
-            transitionScreen.StartCameraTransition(
+            if ((PlayerPrefs.GetInt("AbilityTutorial", 0) == 1) && (PlayerPrefs.GetInt("Tutorial", 0) == 0)){
+                CamTransitionToGame("EndPoint");
+                // some checks to change the ability screen deploy 
+            }
+            else{
+                transitionScreen.StartCameraTransition(
                 mainCamera,
                 levelCameraPosition,
                 abilityUICanvasGroup,
                 levelUICanvasGroup,
                 60f
             );
+            }
         }
         else
         {

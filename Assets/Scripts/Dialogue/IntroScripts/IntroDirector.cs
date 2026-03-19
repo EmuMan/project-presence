@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class IntroDirector : MonoBehaviour
 {
-
     public GameObject planet;
-
-    public bool moveIn = true;
 
     private IEnumerator Start()
     {
@@ -18,20 +15,18 @@ public class IntroDirector : MonoBehaviour
             planet.transform.position = new Vector3(2870, 1328, 1748);
 
             GameObject.Find("Script1").GetComponent<DialogueTrigger>().Begin();
-            yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
-            // waits until the dialogue is completed via the isDialogueActive boolean in DialogueManager
-            // this dialogue is the player waking up and getting updated on where they are
+            yield return null;
+            yield return new WaitUntil(() => DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive);
+            yield return new WaitUntil(() => DialogueManager.Instance != null && !DialogueManager.Instance.isDialogueActive);
 
-            MoveTo(new Vector3(1201, 513, 480), 1);
-            yield return new WaitUntil(() => !moveIn);
-            // all to move the planet into view
+            yield return StartCoroutine(MoveTo(new Vector3(1201, 513, 480), 1f));
 
             GameObject.Find("Script2").GetComponent<DialogueTrigger>().Begin();
-            yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
-            // this script is Trick being shown the world they are set to free
+            yield return null;
+            yield return new WaitUntil(() => DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive);
+            yield return new WaitUntil(() => DialogueManager.Instance != null && !DialogueManager.Instance.isDialogueActive);
 
-            MoveTo(new Vector3(2870, 1328, 1748), 1);
-            yield return new WaitUntil(() => !moveIn);
+            yield return StartCoroutine(MoveTo(new Vector3(2870, 1328, 1748), 1f));
 
             Debug.Log("Intro sequence finished!");
 
@@ -41,17 +36,10 @@ public class IntroDirector : MonoBehaviour
         }
     }
 
-
-
-
-
-    public void MoveTo(Vector3 targetPosition, float duration)
+    public IEnumerator MoveTo(Vector3 targetPosition, float duration)
     {
-        moveIn = true;
-        StartCoroutine(MoveRoutine(targetPosition, duration));
-        moveIn = false;
+        yield return StartCoroutine(MoveRoutine(targetPosition, duration));
     }
-    // to move the planet into the camera view
 
     private IEnumerator MoveRoutine(Vector3 target, float duration)
     {
@@ -63,7 +51,6 @@ public class IntroDirector : MonoBehaviour
             time += Time.deltaTime;
             float t = time / duration;
 
-            // Ease Out (quadratic)
             t = 1 - Mathf.Pow(1 - t, 2);
 
             planet.transform.position = Vector3.Lerp(start, target, t);
@@ -72,5 +59,4 @@ public class IntroDirector : MonoBehaviour
 
         planet.transform.position = target;
     }
-
 }
