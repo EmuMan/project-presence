@@ -7,8 +7,6 @@ public class IntroDirector : MonoBehaviour
 
     private IEnumerator Start()
     {
-        PlayerPrefs.SetInt("IntroTutorial", 0);
-        // MAKE SURE TO DELETE THE ABOVE STATEMENT, ONLY FOR TESTING
 
         if (PlayerPrefs.GetInt("IntroTutorial", 0) == 0)
         {

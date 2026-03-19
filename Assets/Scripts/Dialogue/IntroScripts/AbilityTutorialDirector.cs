@@ -14,9 +14,6 @@ public class AbilityTutorialDirector : MonoBehaviour
     private IEnumerator Start()
     {
 
-        PlayerPrefs.SetInt("AbilityTutorial", 0);
-        // MAKE SURE TO DELETE THE ABOVE STATEMENT, ONLY FOR TESTING
-
         if ((PlayerPrefs.GetInt("IntroTutorial", 0) == 1) && (PlayerPrefs.GetInt("AbilityTutorial", 0) == 0))
         {
             Debug.Log("Ability tutorial sequence Started!");

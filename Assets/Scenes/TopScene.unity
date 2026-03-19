@@ -9687,7 +9687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[0].line
@@ -9695,25 +9695,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[1].line
-      value: "We\u2019re on a remote planet shipping countless telepresence hosts
-        across the universe, each costing millions of credits to manufacture and
-        send out."
+      value: Just hold on a minute, your ability modules should appear above your
+        ports in a second.
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[2].line
-      value: 'You think you would have every bell and whistle available to you? '
+      value: Also I should remind you we're on a remote planet shipping countless
+        telepresence hosts across the universe, each costing millions of credits
+        to manufacture and send out.
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[3].line
-      value: Well... huh.
+      value: 'You think you would have every bell and whistle available to you? '
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[4].line
-      value: "For now, we start from the basics again and rely on our training to
-        build from there. For now, just choose what\u2019s available and deploy."
+      value: Well... huh.
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].line
+      value: "For now, we start from the basics again and rely on our training to
+        build from there. For now, just click each module, choose what\u2019s available
+        and deploy."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].line
       value: Fine fine.
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
@@ -9730,14 +9736,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[3].character.name
-      value: Trick
-      objectReference: {fileID: 0}
-    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
-      propertyPath: dialogue.lines.Array.data[4].character.name
       value: Tor
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[4].character.name
+      value: Trick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].character.name
+      value: Tor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].character.name
       value: Trick
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
@@ -9790,15 +9800,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[3].character.nameColor.b
-      value: 1
+      value: 0.31764707
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[3].character.nameColor.g
-      value: 0.45882353
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[3].character.nameColor.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[4].character.nameColor.a
@@ -9806,15 +9816,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[4].character.nameColor.b
-      value: 0.31764707
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[4].character.nameColor.g
-      value: 0.8666667
+      value: 0.45882353
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[4].character.nameColor.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].character.nameColor.a
@@ -9822,14 +9832,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].character.nameColor.b
-      value: 1
+      value: 0.31764707
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].character.nameColor.g
-      value: 0.45882353
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: dialogue.lines.Array.data[5].character.nameColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].character.nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].character.nameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].character.nameColor.g
+      value: 0.45882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6378508848691539592, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: dialogue.lines.Array.data[6].character.nameColor.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
