@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public bool canAct = true;
     private float disabledTimer;
 
+    [SerializeField] private bool isSleeping = true;
+
     void Start()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -34,10 +36,21 @@ public class Enemy : MonoBehaviour
 
     public Transform GetTarget()
     {
+        if (isSleeping) return null;
         if (player != null)
         {
             return player.IsCloaked() ? null : player.transform;
         }
         return null;
+    }
+
+    public void Activate()
+    {
+        isSleeping = false;
+    }
+
+    public void Deactivate()
+    {
+        isSleeping = true;
     }
 }
