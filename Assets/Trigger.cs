@@ -40,7 +40,7 @@ public class EnemyTriggerAttack : MonoBehaviour
         Debug.Log("Enemy attacks player!");
 
         // health script, call it here
-        PlayerHealth health = player.GetComponent<PlayerHealth>();
+        Health health = player.GetComponent<Health>();
         if (health != null)
         {
             health.TakeDamage(damage);
