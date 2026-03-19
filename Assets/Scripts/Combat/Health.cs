@@ -1,5 +1,7 @@
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -54,6 +56,7 @@ public class Health : MonoBehaviour
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+
         Destroy(gameObject);
     }
 }

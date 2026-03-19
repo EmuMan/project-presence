@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bounce
   m_EditorClassIdentifier: Assembly-CSharp::ModuleData
   moduleName: Bounce
+  moduleKey: bounce
   moduleIcon: {fileID: 0}
   instancePrefab: {fileID: 8263396641466557956, guid: 85686d2c7fa7a041d871632881e01cf0, type: 3}
   compatibleSlots: 04000000

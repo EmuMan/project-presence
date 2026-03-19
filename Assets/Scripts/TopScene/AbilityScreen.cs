@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using TMPro;
 
 public class AbilityScreen : MonoBehaviour
 {
     [Header("Character Setup")]
-    [Tooltip("The main player object that modules will be initialized with.")]
-    public GameObject playerObject;
 
     [Header("Explicit Attachment Points")]
     [Tooltip("Drag the Left Arm bone/transform here.")]
@@ -32,7 +31,10 @@ public class AbilityScreen : MonoBehaviour
     private Module instantiatedHeadModule;
     private Module instantiatedMovementModule;
 
-    [Header("UI Setup (World Space)")]
+    [Header("UI")]
+    [Tooltip("The scene to transition to when the player clicks the Deploy button.")]
+    public string gameplaySceneName = "GameplayScene";
+
     [Tooltip("The World Space UI Canvas or Panel that shows available modules to choose from.")]
     public GameObject moduleSelectionPanel;
 
@@ -42,12 +44,44 @@ public class AbilityScreen : MonoBehaviour
     [Tooltip("The UI Button prefab used for each module option.")]
     public GameObject moduleButtonPrefab;
 
-    [Header("Available Modules")]
-    [Tooltip("A master list of all modules the player currently owns or can equip.")]
-    public List<ModuleData> allAvailableModules = new List<ModuleData>();
+    [Tooltip("The CanvasGroup for the ability UI elements.")]
+    public CanvasGroup abilityUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the title UI elements.")]
+    public CanvasGroup titleUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the ability UI elements.")]
+    public CanvasGroup levelUICanvasGroup;
+
+    [Header("Cameras")]
+    [Tooltip("The normal main camera.")]
+    public Camera mainCamera;
+
+    [Header("Transition Settings")]
+    [Tooltip("The coords for ability UI.")]
+    public Transform abilityCameraPosition;
+
+    [Tooltip("The coords for game over UI.")]
+    public Transform gameOverCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform titleCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform levelCameraPosition;
+
+    [Tooltip("The coords to get into game.")]
+    public Transform deployCameraPosition;
 
     // Keeps track of which slot is currently being modified by the UI
     private ModuleData.ModuleSlot currentlySelectedSlot;
+
+    [Header("MSP Navigation")]
+    [Tooltip("Drag the Close/Exit button of the MSP here.")]
+    public Button mspCloseButton;
+
+    // Remembers the body part button you clicked to open the menu
+    private GameObject lastSelectedBeforeMSP; 
 
     void Start()
     {
@@ -72,6 +106,12 @@ public class AbilityScreen : MonoBehaviour
     public void CloseMSP()
     {
         moduleSelectionPanel.SetActive(false);
+
+        // 2. Return focus to the body part we originally clicked
+        if (lastSelectedBeforeMSP != null && UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(lastSelectedBeforeMSP);
+        }
     }
 
     /// <summary>
@@ -81,10 +121,15 @@ public class AbilityScreen : MonoBehaviour
     /// <param name="slotIndex">Cast to int from ModuleData.ModuleSlot enum in the Unity Inspector</param>
     public void OnBodyPartSelected(int slotIndex)
     {
+        // 1. Remember what button we clicked so we can return to it when we close the panel
+        if (UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            lastSelectedBeforeMSP = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        }
+
         currentlySelectedSlot = (ModuleData.ModuleSlot)slotIndex;
         Debug.Log($"Selected body part: {currentlySelectedSlot} for modification.");
 
-        // Show the UI panel to select a module
         if (moduleSelectionPanel != null)
         {
             moduleSelectionPanel.SetActive(true);
@@ -97,56 +142,40 @@ public class AbilityScreen : MonoBehaviour
     /// </summary>
     private void UpdateUIForSlot(ModuleData.ModuleSlot slot)
     {
-        // 1. Clear existing buttons in the container
         foreach (Transform child in moduleButtonContainer)
         {
             Destroy(child.gameObject);
         }
 
-        Debug.Log($"UpdateUIForSlot called for: {slot}");
-        Debug.Log($"Total modules in allAvailableModules: {allAvailableModules.Count}");
+        var unlockedModules = ModuleManager.Instance.GetUnlockedModules();
+        
+        // Add a list to track the buttons we spawn!
+        List<Button> spawnedButtons = new List<Button>();
 
-        int matchingModules = 0;
-
-        // 2. Find and instantiate buttons for matching modules
-        foreach (ModuleData module in allAvailableModules)
+        foreach (ModuleData module in unlockedModules)
         {
-            if (module == null)
-            {
-                Debug.LogWarning("Found null module in allAvailableModules!");
-                continue;
-            }
-
-            string slotsDebug = module.compatibleSlots != null ? string.Join(", ", module.compatibleSlots) : "none";
-            Debug.Log($"Checking module: {module.moduleName} with compatible slots: {slotsDebug}");
+            if (module == null) continue;
 
             if (module.compatibleSlots != null && System.Array.IndexOf(module.compatibleSlots, slot) >= 0)
             {
-                matchingModules++;
                 GameObject buttonObj = Instantiate(moduleButtonPrefab, moduleButtonContainer);
-
-                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
-                Debug.Log($"Attempting to set button text for module: '{module.moduleName}'");
-
+                
                 bool textSet = false;
-
-                // Try legacy Text component first
+                
+                // 3. Setup button visuals - Try both Text and TextMeshProUGUI
                 Text buttonText = buttonObj.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
                     buttonText.text = module.moduleName;
-                    Debug.Log($"Set Text component to: '{module.moduleName}'");
                     textSet = true;
                 }
 
-                // Try TextMeshPro if Text wasn't found
                 if (!textSet)
                 {
                     TextMeshProUGUI tmpText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmpText != null)
                     {
                         tmpText.text = module.moduleName;
-                        Debug.Log($"Set TextMeshPro component to: '{module.moduleName}'");
                         textSet = true;
                     }
                 }
@@ -154,26 +183,62 @@ public class AbilityScreen : MonoBehaviour
                 if (!textSet)
                 {
                     Debug.LogWarning($"Button prefab is missing both Text and TextMeshProUGUI components! Module: {module.moduleName}");
-                    Debug.LogWarning($"Button hierarchy: {GetHierarchyPath(buttonObj.transform)}");
                 }
 
-                // 4. Setup button click event dynamically
                 Button btn = buttonObj.GetComponent<Button>();
                 if (btn != null)
                 {
                     ModuleData capturedModule = module;
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
-                }
-                else
-                {
-                    Debug.LogWarning("Button prefab is missing Button component!");
+                    
+                    // Add to our tracker list
+                    spawnedButtons.Add(btn); 
                 }
             }
         }
 
-        Debug.Log($"Created {matchingModules} buttons for slot: {slot}");
+        // ==========================================
+        // EXPLICIT NAVIGATION SETUP FOR THE CONTROLLER
+        // ==========================================
+        for (int i = 0; i < spawnedButtons.Count; i++)
+        {
+            Navigation customNav = new Navigation();
+            customNav.mode = Navigation.Mode.Explicit;
 
-        // Force rebuild the layout after spawning buttons
+            // Up action: If it's the first UI item, go to Close Button. Otherwise, go to the previous item.
+            customNav.selectOnUp = (i == 0) ? mspCloseButton : spawnedButtons[i - 1];
+
+            // Down action: If it's the last item, stay. Otherwise, go to the next item.
+            customNav.selectOnDown = (i == spawnedButtons.Count - 1) ? null : spawnedButtons[i + 1];
+
+            // Assign the navigation rules
+            spawnedButtons[i].navigation = customNav;
+        }
+
+        // Connect the Close Button downward into the list
+        if (mspCloseButton != null)
+        {
+            Navigation closeNav = mspCloseButton.navigation;
+            closeNav.mode = Navigation.Mode.Explicit;
+
+            if (spawnedButtons.Count > 0)
+            {
+                closeNav.selectOnDown = spawnedButtons[0]; // Press down from close -> goes to first module
+                mspCloseButton.navigation = closeNav;
+
+                // Step 3: Automatically focus the first module button or the close button
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(spawnedButtons[0].gameObject);
+            }
+            else
+            {
+                closeNav.selectOnDown = null;
+                mspCloseButton.navigation = closeNav;
+                
+                // If there are no modules to select, focus the close button so the player isn't stuck
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(mspCloseButton.gameObject);
+            }
+        }
+
         Canvas.ForceUpdateCanvases();
         if (moduleButtonContainer != null)
         {
@@ -211,10 +276,8 @@ public class AbilityScreen : MonoBehaviour
         // 2. Equip it visually on the dummy character in this scene
         EquipModule(currentlySelectedSlot, newModuleData);
 
-        if (moduleSelectionPanel != null)
-        {
-            moduleSelectionPanel.SetActive(false);
-        }
+        // When a module is selected, the panel closes. Call CloseMSP to handle the panel state and refocus the UI properly.
+        CloseMSP(); 
     }
 
     /// <summary>
@@ -278,7 +341,7 @@ public class AbilityScreen : MonoBehaviour
             if (moduleComponent != null)
             {
                 moduleComponent.moduleData = newModuleData;
-                moduleComponent.Initialize(playerObject, null);
+                //moduleComponent.Initialize(playerObject, null);
 
                 // 5. Save the reference so we can destroy it later if we swap again
                 switch (slotType)
@@ -307,5 +370,63 @@ public class AbilityScreen : MonoBehaviour
         }
 
         Debug.Log($"Equipped {newModuleData.moduleName} to {slotType}");
+    }
+    public void CamTransitionToStart()
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                titleCameraPosition,
+                abilityUICanvasGroup,
+                titleUICanvasGroup,
+                50f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToLevel()
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                levelCameraPosition,
+                abilityUICanvasGroup,
+                levelUICanvasGroup,
+                60f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToGame(string useLoadScene)
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                deployCameraPosition,
+                abilityUICanvasGroup,
+                titleUICanvasGroup,
+                60f,
+                true,
+                useLoadScene
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
     }
 }

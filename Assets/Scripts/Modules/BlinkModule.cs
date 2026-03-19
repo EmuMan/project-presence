@@ -5,13 +5,10 @@ public class BlinkModule : Module
     [Header("Blink Settings")]
     [SerializeField] private float maxBlinkDistance = 7.0f; // Maximum distance the player can blink
 
-    public ModuleData data;
-
-    public Material onColor;
-    public Material offColor;
-
-    private float coolTime;
-    private bool acted = false;
+    [Header("Visuals")]
+    [SerializeField] private GameObject blinkTrailPrefab;
+    [SerializeField] private GameObject disappearEffectPrefab;
+    [SerializeField] private ParticleSystem trickleEffect;
 
     protected override void PerformAction(Vector3 direction)
     {
@@ -28,28 +25,55 @@ public class BlinkModule : Module
             blinkDisplacement = direction.normalized * hitInfo.distance;
         }
 
+        // Spawn a trail effect from the player's current position to the target position
+        SpawnBlinkTrail(playerTransform.position, playerTransform.position + blinkDisplacement);
+
+        // Spawn a disappear effect at the player's current position
+        SpawnDisappearEffect(playerTransform.position);
+
+        // Disable the trickle effect until the cooldown comes back online
+        DisableTrickleEffect();
+
         playerTransform.GetComponent<CharacterController>().Move(blinkDisplacement);
-        acted = true;
     }
 
-    void FixedUpdate()
+    protected override void OnCooldownComplete()
     {
-        if (coolTime > 0.0f)
+        EnableTrickleEffect();
+    }
+
+    private void SpawnBlinkTrail(Vector3 start, Vector3 end)
+    {
+        if (blinkTrailPrefab != null)
         {
-            coolTime -= Time.deltaTime;
+            GameObject trail = Instantiate(blinkTrailPrefab, start, Quaternion.identity);
+            trail.GetComponent<DecayingTrail>()?.SetTrail(start, end);
         }
-        else
+    }
+
+    private void SpawnDisappearEffect(Vector3 position)
+    {
+        if (disappearEffectPrefab != null)
         {
-            if (acted == true)
-            {
-                GetComponent<Renderer>().material = offColor;
-                coolTime = data.cooldownDuration;
-                acted = false;
-            }
-            else
-            {
-                GetComponent<Renderer>().material = onColor;
-            }
+            Instantiate(disappearEffectPrefab, position, Quaternion.identity);
+        }
+    }
+
+    private void EnableTrickleEffect()
+    {
+        if (trickleEffect != null)
+        {
+            var emission = trickleEffect.emission;
+            emission.enabled = true;
+        }
+    }
+
+    private void DisableTrickleEffect()
+    {
+        if (trickleEffect != null)
+        {
+            var emission = trickleEffect.emission;
+            emission.enabled = false;
         }
     }
 }
