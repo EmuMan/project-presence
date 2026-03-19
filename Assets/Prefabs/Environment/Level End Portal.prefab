@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5438044531152350394}
   - component: {fileID: 5530648698447006262}
   - component: {fileID: 4462682246738831456}
+  - component: {fileID: 8649164699127978164}
   m_Layer: 0
   m_Name: Level End Portal
   m_TagString: Untagged
@@ -112,3 +113,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8649164699127978164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143632525387855362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ab58e894a9d758c9d1232760146b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelEndPortal
+  nextSceneName: TopScene

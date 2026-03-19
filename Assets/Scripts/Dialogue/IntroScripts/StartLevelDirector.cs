@@ -13,7 +13,6 @@ public class StartLevelDirector : MonoBehaviour
 
     private IEnumerator Start()
     {
-
         if (PlayerPrefs.GetInt("SimulationTutorial", 0) == 1 && PlayerPrefs.GetInt("FinalTutorial", 0) == 0)
         {
             Debug.Log("Last tutorial sequence Started!");

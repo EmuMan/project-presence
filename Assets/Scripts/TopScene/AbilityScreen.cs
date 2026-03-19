@@ -81,7 +81,7 @@ public class AbilityScreen : MonoBehaviour
     public Button mspCloseButton;
 
     // Remembers the body part button you clicked to open the menu
-    private GameObject lastSelectedBeforeMSP; 
+    private GameObject lastSelectedBeforeMSP;
 
     void Start()
     {
@@ -148,7 +148,7 @@ public class AbilityScreen : MonoBehaviour
         }
 
         var unlockedModules = ModuleManager.Instance.GetUnlockedModules();
-        
+
         // Add a list to track the buttons we spawn!
         List<Button> spawnedButtons = new List<Button>();
 
@@ -159,9 +159,9 @@ public class AbilityScreen : MonoBehaviour
             if (module.compatibleSlots != null && System.Array.IndexOf(module.compatibleSlots, slot) >= 0)
             {
                 GameObject buttonObj = Instantiate(moduleButtonPrefab, moduleButtonContainer);
-                
+
                 bool textSet = false;
-                
+
                 // 3. Setup button visuals - Try both Text and TextMeshProUGUI
                 Text buttonText = buttonObj.GetComponentInChildren<Text>();
                 if (buttonText != null)
@@ -190,9 +190,9 @@ public class AbilityScreen : MonoBehaviour
                 {
                     ModuleData capturedModule = module;
                     btn.onClick.AddListener(() => OnModuleSelectedFromUI(capturedModule));
-                    
+
                     // Add to our tracker list
-                    spawnedButtons.Add(btn); 
+                    spawnedButtons.Add(btn);
                 }
             }
         }
@@ -233,7 +233,7 @@ public class AbilityScreen : MonoBehaviour
             {
                 closeNav.selectOnDown = null;
                 mspCloseButton.navigation = closeNav;
-                
+
                 // If there are no modules to select, focus the close button so the player isn't stuck
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(mspCloseButton.gameObject);
             }
@@ -277,7 +277,7 @@ public class AbilityScreen : MonoBehaviour
         EquipModule(currentlySelectedSlot, newModuleData);
 
         // When a module is selected, the panel closes. Call CloseMSP to handle the panel state and refocus the UI properly.
-        CloseMSP(); 
+        CloseMSP();
     }
 
     /// <summary>
@@ -395,14 +395,20 @@ public class AbilityScreen : MonoBehaviour
         TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
         if (transitionScreen != null)
         {
-            if ((PlayerPrefs.GetInt("AbilityTutorial", 0) == 1) && (PlayerPrefs.GetInt("Tutorial", 0) == 0)){
+            Debug.Log($"AbilityTutorial: {PlayerPrefs.GetInt("AbilityTutorial", 0)}, SimulationTutorial: {PlayerPrefs.GetInt("SimulationTutorial", 0)}, FinalTutorial: {PlayerPrefs.GetInt("FinalTutorial", 0)}");
+            if ((PlayerPrefs.GetInt("AbilityTutorial", 0) == 1) && (PlayerPrefs.GetInt("SimulationTutorial", 0) == 0))
+            {
+                Debug.Log("Transitioning to simulation");
                 CamTransitionToGame("Simulation");
-                // some checks to change the ability screen deploy 
+                // some checks to change the ability screen deploy
             }
-            else if (PlayerPrefs.GetInt("FinalTutorial", 0) == 1){
-                CamTransitionToGame("MainLevel");
+            else if ((PlayerPrefs.GetInt("FinalTutorial", 0) == 1) && (PlayerPrefs.GetInt("Next", 0) == 0))
+            {
+                CamTransitionToGame("Main Level");
+                PlayerPrefs.SetInt("Next", 1);
             }
-            else{
+            else
+            {
                 transitionScreen.StartCameraTransition(
                     mainCamera,
                     levelCameraPosition,
