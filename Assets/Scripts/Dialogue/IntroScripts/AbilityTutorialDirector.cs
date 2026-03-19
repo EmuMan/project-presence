@@ -12,6 +12,8 @@ public class AbilityTutorialDirector : MonoBehaviour
 
     public CanvasGroup titleUICanvasGroup;
 
+    public bool moveIn = false;
+
     private IEnumerator Start()
     {
          PlayerPrefs.SetInt("AbilityTutorial", 0);
@@ -21,9 +23,12 @@ public class AbilityTutorialDirector : MonoBehaviour
         {
             Debug.Log("Ability tutorial sequence Started!");
 
-            mainCamera.transform.position = new Vector3(0, 0, 0);
+            mainCamera.transform.position = new Vector3(1000, 1000, 1000);
 
-            CamTransitionToAbility();
+            yield return StartCoroutine(Move());
+            Debug.Log("Camera transition to ability tutorial complete!");
+
+            yield return new WaitUntil(() => DialogueManager.Instance != null);
 
             GameObject.Find("AbilityTutorialScript1").GetComponent<DialogueTrigger>().Begin();
             yield return new WaitUntil(() => !DialogueManager.Instance.isDialogueActive);
@@ -38,7 +43,14 @@ public class AbilityTutorialDirector : MonoBehaviour
         }
     }
 
-    public void CamTransitionToAbility()
+    public IEnumerator Move(){
+        moveIn = true;
+        yield return StartCoroutine(CamTransitionToAbility());
+        moveIn = false;
+    }
+
+
+    public IEnumerator CamTransitionToAbility()
     {
         TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
         if (transitionScreen != null)
@@ -55,6 +67,8 @@ public class AbilityTutorialDirector : MonoBehaviour
         {
             Debug.LogError("TransitionScreen component not found in the scene.");
         }
+
+        yield return null;
     }
 
 

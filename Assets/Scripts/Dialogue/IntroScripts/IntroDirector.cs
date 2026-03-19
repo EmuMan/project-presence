@@ -6,6 +6,8 @@ public class IntroDirector : MonoBehaviour
 
     public GameObject planet;
 
+    public bool moveIn = true;
+
     private IEnumerator Start()
     {
         PlayerPrefs.SetInt("IntroTutorial", 0);
@@ -21,6 +23,7 @@ public class IntroDirector : MonoBehaviour
             // this dialogue is the player waking up and getting updated on where they are
 
             MoveTo(new Vector3(1201, 513, 480), 1);
+            yield return new WaitUntil(() => !moveIn);
             // all to move the planet into view
 
             GameObject.Find("Script2").GetComponent<DialogueTrigger>().Begin();
@@ -28,6 +31,7 @@ public class IntroDirector : MonoBehaviour
             // this script is Trick being shown the world they are set to free
 
             MoveTo(new Vector3(2870, 1328, 1748), 1);
+            yield return new WaitUntil(() => !moveIn);
 
             Debug.Log("Intro sequence finished!");
 
@@ -43,7 +47,9 @@ public class IntroDirector : MonoBehaviour
 
     public void MoveTo(Vector3 targetPosition, float duration)
     {
+        moveIn = true;
         StartCoroutine(MoveRoutine(targetPosition, duration));
+        moveIn = false;
     }
     // to move the planet into the camera view
 

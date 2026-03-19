@@ -9598,6 +9598,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5803306295799944240, guid: b5eefe37216130042a6bef2647179636, type: 3}
+      propertyPath: isDialogueActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6348884089634201324, guid: b5eefe37216130042a6bef2647179636, type: 3}
       propertyPath: m_Name
       value: AbilityTutorialScript1
