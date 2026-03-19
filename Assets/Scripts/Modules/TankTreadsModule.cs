@@ -59,6 +59,7 @@ public class TankTreadsModule : Module
 
     private void TurnTowardsPlayerVelocity()
     {
+        if (playerMovement == null) return;
         Vector3 velocity = playerMovement.velocity;
         if (velocity.magnitude > 0.1f)
         {
