@@ -22,6 +22,12 @@ public class TransitionScreen : MonoBehaviour
     [Tooltip("The Game Over UI CanvasGroup goes here.")]
     public CanvasGroup gameOverUICanvasGroup;
 
+    [Tooltip("The Options UI CanvasGroup goes here.")]
+    public CanvasGroup optionsUICanvasGroup;
+
+    [Tooltip("The Level UI CanvasGroup goes here.")]
+    public CanvasGroup levelUICanvasGroup;
+
     [Tooltip("How fast the UI fades in/out before the camera starts moving (or during).")]
     public float currentUIFadeDuration = 0.5f;
 
@@ -62,6 +68,20 @@ public class TransitionScreen : MonoBehaviour
             gameOverUICanvasGroup.alpha = 0f;
             gameOverUICanvasGroup.interactable = false;
             gameOverUICanvasGroup.blocksRaycasts = false;
+        }
+
+        if (optionsUICanvasGroup != null)
+        {
+            optionsUICanvasGroup.alpha = 0f;
+            optionsUICanvasGroup.interactable = false;
+            optionsUICanvasGroup.blocksRaycasts = false;
+        }
+
+        if (levelUICanvasGroup != null)
+        {
+            levelUICanvasGroup.alpha = 0f;
+            levelUICanvasGroup.interactable = false;
+            levelUICanvasGroup.blocksRaycasts = false;
         }
 
         // Initialize curve with proper smooth ease-out

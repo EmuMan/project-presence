@@ -16,6 +16,9 @@ public class GameOverScreen : MonoBehaviour
     [Tooltip("The coords for title UI.")]
     public Transform titleCameraPosition;
 
+    [Tooltip("The coords for level UI.")]
+    public Transform levelCameraPosition;
+
     [Tooltip("The coords to transition into the game.")]
     public Transform redeployCameraPosition;
 
@@ -31,6 +34,9 @@ public class GameOverScreen : MonoBehaviour
 
     [Tooltip("The CanvasGroup for the title UI elements.")]
     public CanvasGroup titleUICanvasGroup;
+
+    [Tooltip("The CanvasGroup for the title UI elements.")]
+    public CanvasGroup levelUICanvasGroup;
 
     [Header("Data Settings")]
     [Tooltip("The PlayerPrefs key used to check the game over state.")]
@@ -93,6 +99,25 @@ public class GameOverScreen : MonoBehaviour
                 abilityCameraPosition,
                 gameOverUICanvasGroup,
                 abilityUICanvasGroup,
+                60f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToLevel()
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                levelCameraPosition,
+                gameOverUICanvasGroup,
+                levelUICanvasGroup,
                 60f
             );
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestSceneTemplate : MonoBehaviour
+public class LevelScreen : MonoBehaviour
 {
     // This script is a template for setting up a scene with camera transitions and UI elements!
     // You can use this as a starting point for creating new scenes with similar functionality, and
@@ -10,26 +10,21 @@ public class TestSceneTemplate : MonoBehaviour
     public Camera mainCamera;
 
     [Header("Transition Settings")]
-    [Tooltip("Place the CanvasGroup for the game over UI elements here.")]
-    public CanvasGroup gameOverUICanvasGroup;
 
     [Tooltip("Place the CanvasGroup for the ability UI elements here.")]
     public CanvasGroup abilityUICanvasGroup;
 
-    [Tooltip("Place the CanvasGroup for the title UI elements here.")]
-    public CanvasGroup titleUICanvasGroup;
+    [Tooltip("Place the CanvasGroup for the level UI elements here.")]
+    public CanvasGroup levelUICanvasGroup;
 
     [Tooltip("Place the coords for ability UI here.")]
     public Transform abilityCameraPosition;
 
-    [Tooltip("Place the coords for game over UI here.")]
-    public Transform gameOverCameraPosition;
+    [Tooltip("Place the coords for level UI here.")]
+    public Transform levelCameraPosition;
 
-    [Tooltip("Place the coords for title UI here.")]
-    public Transform titleCameraPosition;
-
-    [Tooltip("Place the coords for wherever you wish the camera to scene change here.")]
-    public Transform sceneChangeCameraPosition;
+    [Tooltip("The coords to get into game.")]
+    public Transform deployCameraPosition;
 
     // Example method to trigger the camera transition to the ability UI
     public void CamTransitionToAbility()
@@ -40,7 +35,7 @@ public class TestSceneTemplate : MonoBehaviour
             transitionScreen.StartCameraTransition(
                 mainCamera, // The camera to move
                 abilityCameraPosition, // The target position for the camera to move to
-                titleUICanvasGroup, // The current UI to fade out 
+                levelUICanvasGroup, // The current UI to fade out 
                 abilityUICanvasGroup, // The next UI to fade in
                 60f // The FOV to set during the transition (optional, don't set to keep current FOV)
             );
@@ -60,9 +55,9 @@ public class TestSceneTemplate : MonoBehaviour
         {
             transitionScreen.StartCameraTransition(
                 mainCamera,
-                sceneChangeCameraPosition,
+                deployCameraPosition,
+                levelUICanvasGroup,
                 abilityUICanvasGroup,
-                titleUICanvasGroup,
                 60f,
                 true, // Use blackout during the transition (default is false)
                 useLoadScene // The name of the scene to load after the transition is complete (optional, don't set to not load a new scene)

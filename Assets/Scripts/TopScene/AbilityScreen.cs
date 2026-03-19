@@ -49,6 +49,9 @@ public class AbilityScreen : MonoBehaviour
     [Tooltip("The CanvasGroup for the title UI elements.")]
     public CanvasGroup titleUICanvasGroup;
 
+    [Tooltip("The CanvasGroup for the ability UI elements.")]
+    public CanvasGroup levelUICanvasGroup;
+
     [Header("Cameras")]
     [Tooltip("The normal main camera.")]
     public Camera mainCamera;
@@ -62,6 +65,9 @@ public class AbilityScreen : MonoBehaviour
 
     [Tooltip("The coords for title UI.")]
     public Transform titleCameraPosition;
+
+    [Tooltip("The coords for title UI.")]
+    public Transform levelCameraPosition;
 
     [Tooltip("The coords to get into game.")]
     public Transform deployCameraPosition;
@@ -341,6 +347,25 @@ public class AbilityScreen : MonoBehaviour
                 abilityUICanvasGroup,
                 titleUICanvasGroup,
                 50f
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+    public void CamTransitionToLevel()
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                levelCameraPosition,
+                abilityUICanvasGroup,
+                levelUICanvasGroup,
+                60f
             );
         }
         else
