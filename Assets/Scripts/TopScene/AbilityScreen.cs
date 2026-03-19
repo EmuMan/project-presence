@@ -396,17 +396,17 @@ public class AbilityScreen : MonoBehaviour
         if (transitionScreen != null)
         {
             if ((PlayerPrefs.GetInt("AbilityTutorial", 0) == 1) && (PlayerPrefs.GetInt("Tutorial", 0) == 0)){
-                CamTransitionToGame("EndPoint");
+                CamTransitionToGame("Simulation");
                 // some checks to change the ability screen deploy 
             }
             else{
                 transitionScreen.StartCameraTransition(
-                mainCamera,
-                levelCameraPosition,
-                abilityUICanvasGroup,
-                levelUICanvasGroup,
-                60f
-            );
+                    mainCamera,
+                    levelCameraPosition,
+                    abilityUICanvasGroup,
+                    levelUICanvasGroup,
+                    60f
+                );
             }
         }
         else

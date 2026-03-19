@@ -32,6 +32,10 @@ public class TitleScreen : MonoBehaviour
     [Tooltip("The coords for options UI.")]
     public Transform optionsCameraPosition;
 
+    [Tooltip("The coords to get into game.")]
+    public Transform deployCameraPosition;
+
+
     [Tooltip("The coords for title UI.")]
     public Transform titleCameraPosition;
     public void CamTransitionToAbility()
@@ -40,16 +44,22 @@ public class TitleScreen : MonoBehaviour
         if (transitionScreen != null)
         {
             // Pass the target to the transition (add false and null to skip the blackout/scene load arguments)
-            transitionScreen.StartCameraTransition(
-                mainCamera, 
-                abilityCameraPosition, 
-                titleUICanvasGroup, 
-                abilityUICanvasGroup, 
-                60f,
-                false,
-                null,
-                firstAbilityButton // <- WE PASS IT HERE!
-            );
+            if (PlayerPrefs.GetInt("IntroTutorial", 0) == 0){
+                deployCameraPosition.position = new Vector3(1000, 1000, 1000);
+                CamTransitionToGame("Intro!!!");
+            }
+            else{
+                 transitionScreen.StartCameraTransition(
+                    mainCamera, 
+                    abilityCameraPosition, 
+                    titleUICanvasGroup, 
+                    abilityUICanvasGroup, 
+                    60f,
+                    false,
+                    null,
+                    firstAbilityButton // <- WE PASS IT HERE!
+                );
+            }
         }
         else
         {
@@ -70,6 +80,28 @@ public class TitleScreen : MonoBehaviour
                 50f,
                 false,
                 null
+            );
+        }
+        else
+        {
+            Debug.LogError("TransitionScreen component not found in the scene.");
+        }
+    }
+
+
+    public void CamTransitionToGame(string useLoadScene)
+    {
+        TransitionScreen transitionScreen = Object.FindFirstObjectByType<TransitionScreen>();
+        if (transitionScreen != null)
+        {
+            transitionScreen.StartCameraTransition(
+                mainCamera,
+                deployCameraPosition,
+                abilityUICanvasGroup,
+                titleUICanvasGroup,
+                60f,
+                true,
+                useLoadScene
             );
         }
         else

@@ -3793,6 +3793,7 @@ MonoBehaviour:
   titleUICanvasGroup: {fileID: 1971553454}
   abilityCameraPosition: {fileID: 693789424}
   optionsCameraPosition: {fileID: 1298515105}
+  deployCameraPosition: {fileID: 798528741}
   titleCameraPosition: {fileID: 667431589}
 --- !u!1 &493764808
 GameObject:
