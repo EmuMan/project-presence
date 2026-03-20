@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class Shoot : MonoBehaviour
 {
     [Header("References")]
-    public Transform target;
     public NavMeshAgent agent;
     public Transform body;
 
@@ -37,8 +36,12 @@ public class Shoot : MonoBehaviour
     private float fireTimer = 0f;
     private bool fireLeftNext = true;
 
+    private Enemy enemy;
+
     void Start()
     {
+        enemy = GetComponent<Enemy>();
+
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
 
@@ -54,6 +57,7 @@ public class Shoot : MonoBehaviour
 
     void Update()
     {
+        var target = enemy.GetTarget();
         if (target == null)
             return;
 
@@ -74,32 +78,36 @@ public class Shoot : MonoBehaviour
         }
     }
 
-/*
-    void HandleMovement(float distanceToTarget)
-    {
-        if (agent == null)
-            return;
+    /*
+        void HandleMovement(float distanceToTarget)
+        {
+            if (agent == null)
+                return;
 
-        if (distanceToTarget > chaseRange)
-        {
-            agent.isStopped = true;
-            return;
-        }
+            if (distanceToTarget > chaseRange)
+            {
+                agent.isStopped = true;
+                return;
+            }
 
-        if (distanceToTarget > attackRange)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(target.position);
+            if (distanceToTarget > attackRange)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(target.position);
+            }
+            else
+            {
+                agent.isStopped = true;
+            }
         }
-        else
-        {
-            agent.isStopped = true;
-        }
-    }
-	*/
+        */
 
     void AimAtTarget()
     {
+        var target = enemy.GetTarget();
+        if (target == null)
+            return;
+
         Transform aimTransform = aimBodyOnly && body != null ? body : transform;
 
         Vector3 direction = target.position - aimTransform.position;
@@ -145,7 +153,7 @@ public class Shoot : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(start, direction, out hit, maxLaserDistance, hitMask, QueryTriggerInteraction.Ignore))
         {
-			
+
             end = hit.point;
 
             Health playerHealth = hit.collider.GetComponent<Health>();
@@ -156,7 +164,7 @@ public class Shoot : MonoBehaviour
             {
                 playerHealth.TakeDamage(damage);
             }
-			
+
         }
 
         Debug.DrawRay(start, direction * maxLaserDistance, Color.red, 0.15f);
@@ -278,14 +286,14 @@ public class Shoot : MonoBehaviour
         {
             end = hit.point;
 
-			
+
 			//edit this
             PlayerHealth playerHealth = hit.collider.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
             }
-			
+
         }
 
         StartCoroutine(ShowLaser(lr, start, end));
@@ -316,12 +324,12 @@ public class Shoot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }
 */

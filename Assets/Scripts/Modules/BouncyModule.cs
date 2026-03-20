@@ -19,12 +19,15 @@ public class BouncyModule : Module
 
     void Start()
     {
+        if (playerObject == null) return;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (playerMovement == null) return;
 
         if (playerMovement.IsGrounded())
         {
